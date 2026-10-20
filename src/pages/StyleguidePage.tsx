@@ -482,7 +482,7 @@ function StyleguidePage() {
                         </Badge>
                       ))}
                       {pickBadges(p).length === 0 && (
-                        <span className="type-caption text-mauve-grey">
+                        <span className="type-caption text-soft-ink">
                           no badge
                         </span>
                       )}
