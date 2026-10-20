@@ -139,7 +139,7 @@ jobs:
         continue-on-error: true
         run: |
           set -o pipefail
-          npm install --no-save playwright@1.56.0 2>&1 | tail -2
+          npm install --no-save playwright@1.56.0 axe-core@4.10.3 2>&1 | tail -2
           npx playwright install --with-deps chromium > /dev/null 2>&1
           (npx vite preview --port 4173 --strictPort > ci-out/preview.txt 2>&1 &)
           for i in $(seq 1 30); do curl -sf http://localhost:4173 > /dev/null && break; sleep 1; done

@@ -2,7 +2,7 @@ import { defineConfig, loadEnv, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 
-const DEFAULT_SITE_URL = "https://dear-corner.vercel.app";
+const DEFAULT_SITE_URL = "https://dear-corner-beta.vercel.app";
 
 /**
  * Replaces __SITE_URL__ in index.html (canonical, Open Graph) with the public
@@ -58,6 +58,12 @@ export default defineConfig(({ mode }) => {
       siteUrl(env.VITE_SITE_URL || DEFAULT_SITE_URL),
       preloadBodyFont(),
     ],
+    define: {
+      // The /styleguide page ships everywhere except Vercel production builds.
+      __SHOW_STYLEGUIDE__: JSON.stringify(
+        process.env.VERCEL_ENV !== "production",
+      ),
+    },
     build: {
       target: "es2022",
       assetsInlineLimit: 0,

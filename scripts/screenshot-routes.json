@@ -6,6 +6,46 @@
   ],
   "routes": [
     { "name": "home", "path": "/" },
-    { "name": "not-found", "path": "/this-page-does-not-exist" }
+    { "name": "styleguide", "path": "/styleguide" },
+    { "name": "not-found", "path": "/this-page-does-not-exist" },
+    {
+      "name": "menu-open",
+      "path": "/",
+      "viewports": ["360", "768"],
+      "fullPage": false,
+      "actions": [{ "click": "button[aria-label='Open menu']", "wait": 500 }]
+    },
+    {
+      "name": "search-open",
+      "path": "/",
+      "fullPage": false,
+      "actions": [{ "click": "button[aria-label='Search']", "wait": 500 }]
+    },
+    {
+      "name": "shop-panel",
+      "path": "/",
+      "viewports": ["1280"],
+      "fullPage": false,
+      "actions": [
+        { "hover": "nav[aria-label='Main'] button[aria-expanded]", "wait": 500 }
+      ]
+    },
+    {
+      "name": "header-scrolled",
+      "path": "/styleguide",
+      "viewports": ["360", "1280"],
+      "fullPage": false,
+      "actions": [{ "click": "a[href='#cards']:visible", "wait": 600 }]
+    },
+    {
+      "name": "cart-drawer",
+      "path": "/styleguide",
+      "viewports": ["360", "1280"],
+      "fullPage": false,
+      "actions": [
+        { "click": "a[href='#overlays']:visible", "wait": 400 },
+        { "click": "button:has-text('Cart drawer')", "wait": 500 }
+      ]
+    }
   ]
 }

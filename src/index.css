@@ -321,11 +321,13 @@
 }
 
 @utility type-body {
+  font-family: var(--font-sans);
   font-size: 16px;
   line-height: 26px;
 }
 
 @utility type-body-lg {
+  font-family: var(--font-sans);
   font-size: 17px;
   line-height: 26px;
   @media (width >= 48rem) {
@@ -335,6 +337,7 @@
 }
 
 @utility type-caption {
+  font-family: var(--font-sans);
   font-size: 13px;
   line-height: 18px;
   letter-spacing: 0.005em;
@@ -355,24 +358,28 @@
 }
 
 @utility type-label {
+  font-family: var(--font-sans);
   font-weight: 500;
   font-size: 14px;
   line-height: 20px;
 }
 
 @utility type-helper {
+  font-family: var(--font-sans);
   font-size: 13px;
   line-height: 18px;
   color: var(--color-soft-ink);
 }
 
 @utility type-nav {
+  font-family: var(--font-sans);
   font-weight: 500;
   font-size: 15px;
   line-height: 20px;
 }
 
 @utility type-button {
+  font-family: var(--font-sans);
   font-weight: 600;
   font-size: 16px;
   line-height: 20px;
@@ -383,12 +390,14 @@
 }
 
 @utility type-badge {
+  font-family: var(--font-sans);
   font-weight: 700;
   font-size: 12px;
   line-height: 16px;
 }
 
 @utility type-card-title {
+  font-family: var(--font-sans);
   font-weight: 500;
   font-size: 14px;
   line-height: 20px;
@@ -494,5 +503,206 @@
   &:hover {
     color: var(--color-terracotta-deep);
     text-decoration-thickness: 2px;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Overlays (components/ui/Dialog.tsx)                                 */
+/* Native <dialog> panels. Enter and exit are animated where supported */
+/* (@starting-style, allow-discrete); elsewhere they simply appear.    */
+/* ------------------------------------------------------------------ */
+
+@layer base {
+  /* Reserve the scrollbar's space so locking scroll never shifts the page. */
+  html {
+    scrollbar-gutter: stable;
+  }
+  html.dc-scroll-locked {
+    overflow: hidden;
+    /* The reserved scrollbar strip shows the canvas: tint it like the
+       backdrop (linen under 48% night plum) so it doesn't glow. */
+    background-color: #918a8d;
+  }
+}
+
+@layer components {
+  .dc-dialog {
+    position: fixed;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    max-width: none;
+    max-height: none;
+    overflow: hidden;
+    background: var(--color-linen);
+    color: var(--color-ink);
+    box-shadow: var(--shadow-drawer);
+    overscroll-behavior: contain;
+    transition:
+      transform 260ms var(--ease-out-soft),
+      opacity 200ms ease-out,
+      overlay 260ms allow-discrete,
+      display 260ms allow-discrete;
+  }
+  .dc-dialog::backdrop {
+    background: rgb(31 18 32 / 0.48);
+    opacity: 0;
+    transition:
+      opacity 220ms ease-out,
+      overlay 260ms allow-discrete,
+      display 260ms allow-discrete;
+  }
+  .dc-dialog[open]::backdrop {
+    opacity: 1;
+  }
+  @starting-style {
+    .dc-dialog[open]::backdrop {
+      opacity: 0;
+    }
+  }
+
+  /* Menu drawer: 85% wide (max 400px), from the left. */
+  .dc-dialog--left {
+    inset: 0 auto 0 0;
+    width: min(85vw, 400px);
+    height: 100dvh;
+    border-radius: 0 var(--radius-sheet) var(--radius-sheet) 0;
+    transform: translateX(-100%);
+  }
+  .dc-dialog--left[open] {
+    transform: none;
+  }
+  @starting-style {
+    .dc-dialog--left[open] {
+      transform: translateX(-100%);
+    }
+  }
+
+  /* Right panel: 420px. */
+  .dc-dialog--right {
+    inset: 0 0 0 auto;
+    width: min(100vw, 420px);
+    height: 100dvh;
+    border-radius: var(--radius-sheet) 0 0 var(--radius-sheet);
+    transform: translateX(100%);
+  }
+  .dc-dialog--right[open] {
+    transform: none;
+  }
+  @starting-style {
+    .dc-dialog--right[open] {
+      transform: translateX(100%);
+    }
+  }
+
+  /* Bottom sheet: top corners rounded; cart sheet is 90% of the screen high. */
+  .dc-dialog--sheet,
+  .dc-dialog--cart {
+    inset: auto 0 0 0;
+    width: 100vw;
+    max-height: 90dvh;
+    border-radius: var(--radius-sheet) var(--radius-sheet) 0 0;
+    transform: translateY(100%);
+  }
+  .dc-dialog--cart {
+    height: 90dvh;
+  }
+  .dc-dialog--sheet[open],
+  .dc-dialog--cart[open] {
+    transform: none;
+  }
+  @starting-style {
+    .dc-dialog--sheet[open],
+    .dc-dialog--cart[open] {
+      transform: translateY(100%);
+    }
+  }
+  @media (width >= 48rem) {
+    .dc-dialog--cart {
+      inset: 0 0 0 auto;
+      width: min(100vw, 420px);
+      height: 100dvh;
+      max-height: none;
+      border-radius: var(--radius-sheet) 0 0 var(--radius-sheet);
+      transform: translateX(100%);
+    }
+    @starting-style {
+      .dc-dialog--cart[open] {
+        transform: translateX(100%);
+      }
+    }
+  }
+
+  /* Centered modal. */
+  .dc-dialog--modal {
+    inset: 0;
+    margin: auto;
+    width: min(calc(100vw - 32px), 480px);
+    height: fit-content;
+    max-height: min(85dvh, 720px);
+    border-radius: var(--radius-sheet);
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  .dc-dialog--modal[open] {
+    opacity: 1;
+    transform: none;
+  }
+  @starting-style {
+    .dc-dialog--modal[open] {
+      opacity: 0;
+      transform: translateY(8px) scale(0.98);
+    }
+  }
+
+  /* Search: full screen on phones, a panel under the top edge on desktop. */
+  .dc-dialog--search {
+    inset: 0;
+    width: 100vw;
+    height: 100dvh;
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  .dc-dialog--search[open] {
+    opacity: 1;
+    transform: none;
+  }
+  @starting-style {
+    .dc-dialog--search[open] {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+  }
+  @media (width >= 64rem) {
+    .dc-dialog--search {
+      inset: 0 0 auto 0;
+      height: auto;
+      max-height: 85dvh;
+      border-radius: 0 0 var(--radius-sheet) var(--radius-sheet);
+      transform: translateY(-16px);
+    }
+    @starting-style {
+      .dc-dialog--search[open] {
+        transform: translateY(-16px);
+      }
+    }
+  }
+
+  /* Accordions (<details>): animate open where the browser supports it. */
+  .dc-details::details-content {
+    block-size: 0;
+    overflow-y: clip;
+    transition:
+      block-size 220ms var(--ease-out-soft),
+      content-visibility 220ms allow-discrete;
+  }
+  .dc-details[open]::details-content {
+    block-size: auto;
+  }
+}
+
+@supports (interpolate-size: allow-keywords) {
+  :root {
+    interpolate-size: allow-keywords;
   }
 }
