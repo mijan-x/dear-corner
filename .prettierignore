@@ -6,3 +6,5 @@ public
 supabase/.temp
 src/assets
 *.svg
+src/data
+src/types/database.ts

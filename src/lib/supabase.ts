@@ -1,5 +1,8 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import type { Database } from "../types/database";
 import { env, isSupabaseConfigured } from "./env";
+
+export type DearCornerClient = SupabaseClient<Database>;
 
 /**
  * The single Supabase client. When the env vars are missing (for example a
@@ -14,12 +17,12 @@ export class SupabaseNotConfiguredError extends Error {
   }
 }
 
-let client: SupabaseClient | null = null;
+let client: DearCornerClient | null = null;
 
-export function getSupabase(): SupabaseClient {
+export function getSupabase(): DearCornerClient {
   if (!isSupabaseConfigured) throw new SupabaseNotConfiguredError();
   if (!client) {
-    client = createClient(env.supabaseUrl, env.supabaseAnonKey, {
+    client = createClient<Database>(env.supabaseUrl, env.supabaseAnonKey, {
       auth: {
         persistSession: true,
         autoRefreshToken: true,
