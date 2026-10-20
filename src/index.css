@@ -1,0 +1,498 @@
+@import "tailwindcss";
+
+/*
+ * Dear Corner design tokens.
+ * Source: brand doc sections 2, 3, 6 and 9, with Rosewood #784B4E replacing
+ * Plum Ink everywhere (Plum Ink #4A2545 is not used anywhere).
+ *
+ * Checked contrast (WCAG 2.x):
+ *   white on rosewood 7.20  ·  rosewood on linen 6.75  ·  rosewood on white 7.20
+ *   rosewood on clay-blush 5.55  ·  white on rosewood-hover 10.06
+ *   white on rosewood-pressed 12.52  ·  ink on linen 15.7  ·  soft-ink on linen 5.90
+ *   soft-ink on soft-sand 5.14  ·  soft-ink on clay-blush 4.85
+ *   terracotta-deep on linen 6.34  ·  white on terracotta-deep 6.76
+ *   ink on lamp-glow 9.87  ·  linen on night-plum 16.88  ·  lamp-glow on night-plum 10.63
+ *   mauve-grey (input border) on white 4.19  ·  warning on warning-bg 7.42
+ *   success on success-bg 5.29  ·  error on error-bg 5.34  ·  white on success 6.29
+ * Rules:
+ *   - lamp-glow on rosewood is 4.25: only text 24px+ or graphics.
+ *   - lamp-glow on linen/white is 1.6: never text; as a UI ring it needs an
+ *     ink outline next to it.
+ *   - terracotta (any) next to rosewood is 1.07-1.33: never adjacent.
+ *   - rosewood logo never on night-plum (2.5): use the cream logo there.
+ */
+
+@theme {
+  /* Reset Tailwind's default palette so only brand colors exist. */
+  --color-*: initial;
+
+  /* Brand */
+  --color-rosewood: #784b4e;
+  --color-rosewood-hover: #5e373c;
+  --color-rosewood-pressed: #4a2b2f;
+  --color-terracotta: #b04a3a;
+  --color-terracotta-deep: #9a3e30;
+  --color-lamp-glow: #f6be4b;
+  --color-clay-blush: #f5ddd5;
+
+  /* Neutrals */
+  --color-linen: #fbf7f1;
+  --color-paper: #ffffff;
+  --color-white: #ffffff;
+  --color-cream: #fbf3ec;
+  --color-night-plum: #1f1220;
+  --color-ink: #241b22;
+  --color-soft-ink: #6a5c66;
+  --color-sand-line: #e6ddd3;
+  --color-soft-sand: #efe7dd;
+  --color-mauve-grey: #857884;
+  --color-image-placeholder: #f3ece3;
+
+  /* Status */
+  --color-success: #2f6b4f;
+  --color-success-bg: #e3eee6;
+  --color-warning: #6b4700;
+  --color-warning-bg: #fff1cf;
+  --color-error: #b3261e;
+  --color-error-bg: #fbe3e0;
+  --color-info: #2d5e8a;
+  --color-info-bg: #e2edf6;
+
+  /* Type */
+  --font-sans:
+    "DM Sans", "DC Taka", "Hind Siliguri", system-ui, -apple-system, "Segoe UI",
+    sans-serif;
+  --font-display:
+    "Fraunces", "DC Taka", "Hind Siliguri", Georgia, "Times New Roman", serif;
+  --font-figures:
+    "DC Figures", "DM Sans", "DC Taka", "Hind Siliguri", system-ui, sans-serif;
+  --font-bangla: "Hind Siliguri", "DM Sans", system-ui, sans-serif;
+
+  /* Breakpoints: 360 (smallest supported), 480, 768, 1024, 1280 */
+  --breakpoint-xs: 30rem;
+
+  /* Shape */
+  --radius-badge: 6px;
+  --radius-control: 10px;
+  --radius-card: 16px;
+  --radius-sheet: 24px;
+
+  /* Elevation (cards have no shadow, only a sand-line border) */
+  --shadow-hover: 0 4px 16px rgba(36, 27, 34, 0.08);
+  --shadow-drawer: 0 12px 32px rgba(36, 27, 34, 0.14);
+
+  /* Motion: 150-200ms ease-out for hover, drawers and fades */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --default-transition-duration: 180ms;
+  --default-transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-glow-pulse: glow-pulse 1.4s ease-in-out infinite;
+  --animate-shimmer: shimmer 1.2s linear infinite;
+  --animate-fade-up: fade-up 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-fade-in: fade-in 200ms ease-out both;
+
+  @keyframes glow-pulse {
+    0%,
+    100% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(246, 190, 75, 0.45);
+    }
+    50% {
+      transform: scale(0.88);
+      box-shadow: 0 0 0 10px rgba(246, 190, 75, 0);
+    }
+  }
+  @keyframes shimmer {
+    from {
+      background-position: -200% 0;
+    }
+    to {
+      background-position: 200% 0;
+    }
+  }
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+
+@layer base {
+  :root {
+    --gutter: 16px;
+    color-scheme: light;
+  }
+  @media (width >= 48rem) {
+    :root {
+      --gutter: 24px;
+    }
+  }
+  @media (width >= 64rem) {
+    :root {
+      --gutter: 32px;
+    }
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background-color: var(--color-linen);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.625;
+    font-weight: 400;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: var(--color-clay-blush);
+    color: var(--color-ink);
+  }
+
+  /* Bangla: Hind Siliguri, more line height, no tracking. */
+  :lang(bn) {
+    font-family: var(--font-bangla);
+    line-height: 1.75;
+    letter-spacing: 0;
+  }
+
+  /* Focus ring (light surfaces): 2px rosewood with a 2px linen gap. */
+  :focus-visible {
+    outline: 2px solid var(--color-rosewood);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px var(--color-linen);
+  }
+  /* Focus ring on dark surfaces (footer, night-plum banners). */
+  .surface-dark :focus-visible {
+    outline-color: var(--color-lamp-glow);
+    box-shadow: 0 0 0 2px var(--color-night-plum);
+  }
+
+  /* 16px input text everywhere: stops iOS zooming into fields. */
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+
+  img,
+  svg,
+  video {
+    max-width: 100%;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+}
+
+/* Respect reduced motion: no movement, near-instant fades. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Layout utilities                                                    */
+/* ------------------------------------------------------------------ */
+
+/* Page container: content max 1200px, side margins 16 / 24 / 32px. */
+@utility container-page {
+  width: 100%;
+  margin-inline: auto;
+  max-width: calc(1200px + 2 * var(--gutter));
+  padding-inline: var(--gutter);
+}
+
+/* Section padding: 48px mobile, 88px desktop. */
+@utility section-y {
+  padding-block: 48px;
+  @media (width >= 64rem) {
+    padding-block: 88px;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Type scale (brand doc section 3). Mobile first, desktop from 768px  */
+/* (hero and promo from 1024px).                                       */
+/* ------------------------------------------------------------------ */
+
+@utility type-hero {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 40px;
+  letter-spacing: -0.02em;
+  @media (width >= 64rem) {
+    font-size: 56px;
+    line-height: 60px;
+  }
+}
+
+@utility type-h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 36px;
+  letter-spacing: -0.015em;
+  @media (width >= 48rem) {
+    font-size: 40px;
+    line-height: 46px;
+  }
+}
+
+@utility type-h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 30px;
+  letter-spacing: -0.01em;
+  @media (width >= 48rem) {
+    font-size: 32px;
+    line-height: 40px;
+  }
+}
+
+@utility type-h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 26px;
+  letter-spacing: 0;
+  @media (width >= 48rem) {
+    font-size: 22px;
+    line-height: 28px;
+  }
+}
+
+@utility type-promo {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 34px;
+  letter-spacing: -0.02em;
+  @media (width >= 64rem) {
+    font-size: 44px;
+    line-height: 48px;
+  }
+}
+
+@utility type-body {
+  font-size: 16px;
+  line-height: 26px;
+}
+
+@utility type-body-lg {
+  font-size: 17px;
+  line-height: 26px;
+  @media (width >= 48rem) {
+    font-size: 18px;
+    line-height: 28px;
+  }
+}
+
+@utility type-caption {
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: 0.005em;
+  @media (width >= 48rem) {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
+
+/* The only uppercase style. */
+@utility type-eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+@utility type-label {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+@utility type-helper {
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--color-soft-ink);
+}
+
+@utility type-nav {
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 20px;
+}
+
+@utility type-button {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.01em;
+  @media (width >= 48rem) {
+    font-size: 15px;
+  }
+}
+
+@utility type-badge {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+@utility type-card-title {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  @media (width >= 48rem) {
+    font-size: 15px;
+    line-height: 21px;
+  }
+}
+
+@utility type-product-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 30px;
+  @media (width >= 48rem) {
+    font-size: 32px;
+    line-height: 38px;
+  }
+}
+
+/* Prices: tabular figures (DC Figures), format ৳1,290. */
+@utility figures {
+  font-family: var(--font-figures);
+  font-variant-numeric: tabular-nums;
+}
+
+@utility type-price-card {
+  font-family: var(--font-figures);
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 20px;
+  @media (width >= 48rem) {
+    font-size: 16px;
+    line-height: 22px;
+  }
+}
+
+@utility type-price {
+  font-family: var(--font-figures);
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+  @media (width >= 48rem) {
+    font-size: 28px;
+    line-height: 32px;
+  }
+}
+
+@utility type-price-old {
+  font-family: var(--font-figures);
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--color-soft-ink);
+  text-decoration-line: line-through;
+  @media (width >= 48rem) {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Graphic devices (brand doc section 5)                               */
+/* ------------------------------------------------------------------ */
+
+/* Corner mask: rounded except a sharp bottom-left corner. */
+@utility corner-mask {
+  border-radius: var(--radius-card) var(--radius-card) var(--radius-card) 0;
+}
+@utility corner-mask-lg {
+  border-radius: 28px 28px 28px 0;
+}
+
+/* Soft lamp-glow circle (25% opacity) behind a lit product. */
+@utility glow {
+  background: radial-gradient(
+    closest-side,
+    rgba(246, 190, 75, 0.25),
+    rgba(246, 190, 75, 0)
+  );
+}
+
+/* Skeleton shimmer on soft-sand blocks. */
+@utility skeleton {
+  background-color: var(--color-soft-sand);
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.55) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: var(--animate-shimmer);
+}
+
+/* Text link: rosewood, always underlined; hover terracotta-deep, thicker. */
+@utility link {
+  color: var(--color-rosewood);
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition-property: color, text-decoration-thickness;
+  &:hover {
+    color: var(--color-terracotta-deep);
+    text-decoration-thickness: 2px;
+  }
+}

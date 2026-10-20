@@ -1,0 +1,11 @@
+{
+  "viewports": [
+    { "name": "360", "width": 360, "height": 780 },
+    { "name": "768", "width": 768, "height": 1024 },
+    { "name": "1280", "width": 1280, "height": 800 }
+  ],
+  "routes": [
+    { "name": "home", "path": "/" },
+    { "name": "not-found", "path": "/this-page-does-not-exist" }
+  ]
+}

@@ -1,0 +1,181 @@
+/*
+ * Brand fonts, self-hosted from Fontsource (SIL Open Font License 1.1).
+ * - Fraunces 600, regular + italic: headings. Latin only.
+ * - DM Sans 400/500/600/700: everything else. Latin only.
+ * - Hind Siliguri 400/600: Bangla text. Downloaded only when Bangla
+ *   characters are on the page (unicode-range).
+ * - "DC Taka": a 1 KB subset of Hind Siliguri holding only the taka sign
+ *   (U+09F3), inlined here, so pages with prices never download the full
+ *   Bengali font. Its line metrics are matched to DM Sans so prices don't
+ *   shift the line box.
+ * DM Sans 400 is preloaded from index.html (see vite.config.ts).
+ */
+
+@font-face {
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+  src: url("../../node_modules/@fontsource/dm-sans/files/dm-sans-latin-400-normal.woff2")
+    format("woff2");
+}
+
+@font-face {
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+  src: url("../../node_modules/@fontsource/dm-sans/files/dm-sans-latin-500-normal.woff2")
+    format("woff2");
+}
+
+@font-face {
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+  src: url("../../node_modules/@fontsource/dm-sans/files/dm-sans-latin-600-normal.woff2")
+    format("woff2");
+}
+
+@font-face {
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+  src: url("../../node_modules/@fontsource/dm-sans/files/dm-sans-latin-700-normal.woff2")
+    format("woff2");
+}
+
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+  src: url("../../node_modules/@fontsource/fraunces/files/fraunces-latin-600-normal.woff2")
+    format("woff2");
+}
+
+@font-face {
+  font-family: "Fraunces";
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+  src: url("../../node_modules/@fontsource/fraunces/files/fraunces-latin-600-italic.woff2")
+    format("woff2");
+}
+
+@font-face {
+  font-family: "Hind Siliguri";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  unicode-range:
+    U+0951-0952, U+0964-0965, U+0980-09FE, U+1CD0, U+1CD2, U+1CD5-1CD6, U+1CD8,
+    U+1CE1, U+1CEA, U+1CED, U+1CF2, U+1CF5-1CF7, U+200C-200D, U+20B9, U+25CC,
+    U+A8F1;
+  src: url("../../node_modules/@fontsource/hind-siliguri/files/hind-siliguri-bengali-400-normal.woff2")
+    format("woff2");
+}
+
+@font-face {
+  font-family: "Hind Siliguri";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  unicode-range:
+    U+0951-0952, U+0964-0965, U+0980-09FE, U+1CD0, U+1CD2, U+1CD5-1CD6, U+1CD8,
+    U+1CE1, U+1CEA, U+1CED, U+1CF2, U+1CF5-1CF7, U+200C-200D, U+20B9, U+25CC,
+    U+A8F1;
+  src: url("../../node_modules/@fontsource/hind-siliguri/files/hind-siliguri-bengali-600-normal.woff2")
+    format("woff2");
+}
+
+@font-face {
+  font-family: "DC Taka";
+  font-style: normal;
+  font-weight: 100 500;
+  font-display: swap;
+  ascent-override: 99.2%;
+  descent-override: 31%;
+  unicode-range: U+09F3;
+  src: url(data:font/woff;base64,d09GRgABAAAAAASEAA4AAAAABcAAAQBCAAAAAAAAAAAAAAAAAAAAAAAAAABHREVGAAAEIAAAABMAAAAUAA8AAkdQT1MAAAQ0AAAAIAAAACBEdkx1R1NVQgAABFQAAAAvAAAAMBWGFjxPUy8yAAACOAAAAEkAAABgZHhfyGNtYXAAAAKEAAAAKgAAADQADApGZ2FzcAAABBgAAAAIAAAACAAAABBnbHlmAAABRAAAAHIAAAByzCYVZmhlYWQAAAHYAAAANgAAADYKW8HzaGhlYQAAAhgAAAAgAAAAJAgeAldobXR4AAACEAAAAAgAAAAIBTEAwmxvY2EAAAHQAAAABgAAAAYAOQAAbWF4cAAAAbgAAAAYAAAAIAARAKJuYW1lAAACsAAAAVMAAAKyNwhNVHBvc3QAAAQEAAAAEwAAACD/hgAyAAEAEgAGAiMCjAAqAAATMhYVFTMVIxcUFjMyNjU0IyIHNTYzMhYVFAYjIiY1NSM1MzU0JiMiBzU2Q0ZEMjIBMyZIZnQUFRcbWGGObkdgWFgiKhIQGgKMVEU5RNQqLnVNbANFBGFRaZ1USNRENCwrA0QGAAB4nGNgZGBgYGJYyMDHAAKMDGgAABGBALQAAAAAADkAAAABAAAAAQBCtdk1hl8PPPUADwPoAAAAANJHbqMAAAAA1TIQE/2b/g0GJAQJAAAACAACAAAAAAAAAu8AsAJCABJ4nGNgZGBgifnHzcDAFvh39t8fbCoMQBEUwAQAhmUFfHicY2Bh4mGcwMDKwMDUxRTBwMDgDaEZ4xiMGPWBogxwwMiAAjxD3PwZDnB+5vzMEvOPm4GBJYbxK0wV40+m5UBKgYETAOVGC/oAAAB4nGNgYGBiYGBgBmIRIMkIplkYFIA0CxAC+Zyf//+HkN/4wPIMAGH3B1gAAHicjZFNSgNBEIXfJFFx49JFVoOrKMwQTaJCQISI0ZWiQcVdjPnDxAnjJOoFPIcn8GQewq9rJqIBQYapflX9XtXrbkkrulVeXmFV0ht/ij0VyVKc05reM5zXgT4yXNCWPjO85BW99Qwvq5Qrq6FIE70q1lB9DZTIV0kdbbLuqKxt1UCnetQ9jDarrxb8ibqgY9RT24upOeWQrEf10NBck2SK3i9+yJxIY2adZGxfl6CReZmapwtUDo/oE+MmxJNzVcdTi/lnoLl6URssqP+e4i8wr8hiPbET2Yl/zj1HPa/UubGI03WMN/uuh9rXLrtjuj3Qy3F6VN3MO+415FZDGBVVYTumD8Nx2nhI4A/Ma/oaM+vqFBW+gGyPv2pvFNDTZ5pDMbFGP4eb2ful2Ys5qxg+IrpTJnaygJk+nrpkfcufiU1D1xY7Fm+IG3z/vOsv2U5kfQB4nGNgZgCD/80MRgxYAAAoRAG4AAABAAH//wAPeJxjYGRgYOBhgABGCAQAAOsAEgAAAQAAAAoAHAAeAAFERkxUAAgABAAAAAD//wAAAAAAAHicY2BkYGDgYtBh0GNgdnHzCWEQSUrNS2eQS8pLN2KQY2AByjL8/88ABwClMQbqAA==)
+    format("woff");
+}
+
+@font-face {
+  font-family: "DC Taka";
+  font-style: normal;
+  font-weight: 600 900;
+  font-display: swap;
+  ascent-override: 99.2%;
+  descent-override: 31%;
+  unicode-range: U+09F3;
+  src: url(data:font/woff;base64,d09GRgABAAAAAAR8AA4AAAAABaQAAQBCAAAAAAAAAAAAAAAAAAAAAAAAAABHREVGAAAEGAAAABMAAAAUAA8AAkdQT1MAAAQsAAAAIAAAACBEdkx1R1NVQgAABEwAAAAvAAAAMBWGFjxPUy8yAAACNAAAAEkAAABgZaRf0GNtYXAAAAKAAAAAKgAAADQADApGZ2FzcAAABBAAAAAIAAAACAAAABBnbHlmAAABRAAAAHAAAABwEpIn72hlYWQAAAHUAAAANgAAADYKccJQaGhlYQAAAhQAAAAgAAAAJAgzAgxobXR4AAACDAAAAAgAAAAIBVkAqmxvY2EAAAHMAAAABgAAAAYAOAAAbWF4cAAAAbQAAAAYAAAAIAARAKduYW1lAAACrAAAAU4AAAKaMwBLynBvc3QAAAP8AAAAEwAAACD/hgAyAAEACv/2Ak4CqQApAAATMhYVFTMVIxcUFjMyNjU0IyIHNTYzMhYVFAYjIiY1NSM1MzU0IyIHNTZUS10jIwEpIDxASxYUHyBgYo56WXxPT0IcCSkCqV9XJXipHyBVP1UEegdzX3CcYVapeAtOAXwHAHicY2BkYGBgYljGwMcAAowMaAAAEf4AuQAAAAAAOAAAAAEAAAABAEIuFRRAXw889QAPA+gAAAAA0kdupwAAAADVMhAT/WD+EwZ0BFwAAQAIAAIAAAAAAAAC9ACgAmUACnicY2BkYGCJ+cfNwMCW8Dfh7zy2EgagCApgAgCBHQVGeJxjYGEyYtrDwMrAwNTFFMHAwOANoRnjGIwYDYCiDHDAyIACPEPc/BkWcH7m/MwS84+bgYElhvErTBXjb6ZlQEqBgRMA/0IMLwAAAHicY2BgYGJgYGAGYhEgyQimWRgUgDQLEAL5nJ///4eQ3/jA8gwAYfcHWAAAeJyFkc1OwlAQhU8B/16BhWmIC120AQE1YWPEiK40kahxh8hfBEtqQX0Bn8Olj+Wj+N1pIWpiTNPpmbnnzJw7lbSmW+XlFTYkvfGm2FORLMU5res9w3kd6CPDBW3pM8MrXtErZHhVpdymmoo01atijTTQUIl8baurHb67KquiOuhMj7qH0eHrqw1/qh7oBPXMzmJqTjki61M9NLTQJJmi/4MfMifShFmnGdvXJWhsXmbm6QjGmJMK7LL5aeCmzeRz0EL3WxUsdX939pecK5zFeqIW2f2+z7pAt6g02E/EXbrGmy/rIdve43TCXR/o5Th9qm7aHVsM2WEIo6oabMf0YThOBy8J/KG5THc/t65OUeUJyPZ5a/ZHAnr6THMoJtbp53Ar+1tp9mLOqoaPiWPmJHazgJk+nnpkA8ufiS1D1xa7Fm+IJZ5/9/sFDIde6wAAeJxjYGYAg//NDEYMWAAAKEQBuAAAAQAB//8AD3icY2BkYGDgYYAARggEAADrABIAAAEAAAAKABwAHgABREZMVAAIAAQAAAAA//8AAAAAAAB4nGNgZGBg4GLQYdBjYHZx8wlhEElKzUtnkEvKSzdikGNgAcoy/P/PAAcApTEG6gA=)
+    format("woff");
+}
+/*
+ * "DC Figures": DM Sans digits 0-9 re-spaced to one equal width (tabular).
+ * DM Sans has no tabular-figure feature, so prices and quantities use this
+ * family first (digits only; every other character falls through to DM Sans).
+ * Built by scripts/make-figures-font.py from DM Sans (OFL 1.1, renamed).
+ */
+@font-face {
+  font-family: "DC Figures";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+0030-0039;
+  src: url("../assets/fonts/dc-figures-400.woff") format("woff");
+}
+
+@font-face {
+  font-family: "DC Figures";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  unicode-range: U+0030-0039;
+  src: url("../assets/fonts/dc-figures-500.woff") format("woff");
+}
+
+@font-face {
+  font-family: "DC Figures";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  unicode-range: U+0030-0039;
+  src: url("../assets/fonts/dc-figures-600.woff") format("woff");
+}
+
+@font-face {
+  font-family: "DC Figures";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  unicode-range: U+0030-0039;
+  src: url("../assets/fonts/dc-figures-700.woff") format("woff");
+}

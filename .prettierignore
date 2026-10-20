@@ -1,0 +1,8 @@
+dist
+ci-out
+node_modules
+package-lock.json
+public
+supabase/.temp
+src/assets
+*.svg
