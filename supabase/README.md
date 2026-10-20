@@ -22,16 +22,9 @@ Everything is in SQL migrations in `supabase/migrations/`, applied in file-name 
 
 ## Live status (Dear-Corner-SG)
 
-Applied and verified identical to the tested copy: everything except `…120700_admin_functions`,
-`…120900_grants` and `…121100_policy_tuning`, plus the 12 sample products.
-
-To finish, open the Supabase dashboard → **SQL Editor** → **New query**, paste all of
-[`manual/finish-phase-b.sql`](manual/finish-phase-b.sql) and press **Run**. It is those three
-files in one transaction (all or nothing), checks it is in the right project first, records them in
-the migration history and is safe to run twice. It deletes no data. If the editor warns about a
-"destructive operation", that is the `drop policy` lines that swap the old admin policies for the
-new ones; choose **Run this query**. Rebuild the file with `scripts/build-sql-bundle.sh` if any of
-the three migrations change (CI checks it is up to date).
+All 12 migrations and the sample products are applied (21 Oct 2026) and match the tested copy.
+`manual/finish-phase-b.sql` was the one-paste bundle for the last three; it is kept for reference
+and is safe to run again. It only works in Dear-Corner-SG (it checks first).
 
 ## Rules the database enforces
 

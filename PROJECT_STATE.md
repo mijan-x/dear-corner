@@ -7,7 +7,7 @@ Stack: Vite 8 + React 19 + TypeScript 6 + Tailwind CSS 4 + React Router 7 +
 Supabase, deployed on Vercel from GitHub (`mijan-x/dear-corner`, branch `main`).
 Reference project (read-only, never changed): `mijan-x/blyver`.
 
-Last updated: 2026-10-20 (Phase B — database).
+Last updated: 2026-10-21 (end of Phase B).
 
 ## Environments
 
@@ -84,7 +84,7 @@ scripts/build-geo-data.py Builds src/data/bd-geo.json and the geo seed from nuhi
   - [x] Route shell with lazy routes and the lamp-glow loader, 404 page
   - [x] Vercel project created and linked to the repo
   - [x] Build, lint and format pass; screenshots at 360/768/1280
-- [ ] **Phase B — Database** (branch `phase-b-database`) — built and tested; 3 of 12 migrations wait for the owner
+- [x] **Phase B — Database** (branch `phase-b-database`, PR #2)
   - [x] Schema: catalog (categories, collections, products, options, one variant per SKU, images), customers
         (addresses, cart, wishlist, newsletter, contact), orders (snapshots, history, notes), coupons, reviews
   - [x] Row Level Security on every table; no public read on orders; admin = admin role **and** two-step login (aal2)
@@ -94,12 +94,12 @@ scripts/build-geo-data.py Builds src/data/bd-geo.json and the geo seed from nuhi
   - [x] Storage buckets `product-images`, `site-media` (public read, admin-only write)
   - [x] Foreign-key indexes; one policy per table/role/action (advisor clean-up)
   - [x] 149 database checks (access, policies, pricing, orders, stock races) pass locally and in CI
-  - [x] Applied to Dear-Corner-SG: foundation, geo_and_shipping, catalog, customers, orders, reviews,
-        storefront_functions, fk_indexes, storage + the 12 sample products. Verified identical to the tested copy
-        (function, policy, table, trigger and index fingerprints)
-  - [ ] **Owner**: run `supabase/manual/finish-phase-b.sql` (admin_functions, grants, policy_tuning) — the
-        connector asks for confirmation on these and the confirmation was cancelled twice
-  - [ ] After that: regenerate `src/types/database.ts`, re-run the Supabase advisors
+  - [x] All 12 migrations and the 12 sample products applied to Dear-Corner-SG (the last three pasted by the owner
+        from `supabase/manual/finish-phase-b.sql`). Verified identical to the tested copy: function, permission,
+        policy, table and trigger fingerprints match
+  - [x] Supabase advisors: security lists only the intended public RPCs and the admin RPCs (each checks
+        `is_admin()` inside); performance lists only "unused index" notices (no traffic yet)
+  - [x] `src/types/database.ts` regenerated from the live database
 - [ ] **Phase C — Design system and layout**: chrome, components, `/styleguide`
 - [ ] **Phase D — Shop**: demo images, Home, Shop all, category/collection, product, search
 - [ ] **Phase E — Cart, checkout, account**: cart, checkout, confirmation, track order, auth, account

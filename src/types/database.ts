@@ -1486,6 +1486,72 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_customers: {
+        Args: { p_limit?: number; p_offset?: number; p_search?: string }
+        Returns: Json
+      }
+      admin_dashboard: { Args: never; Returns: Json }
+      admin_delete_sample_data: { Args: never; Returns: Json }
+      admin_export_orders: {
+        Args: {
+          p_from?: string
+          p_statuses?: Database["public"]["Enums"]["order_status"][]
+          p_to?: string
+        }
+        Returns: {
+          address_line: string
+          area: string
+          coupon_code: string
+          courier_name: string
+          customer_name: string
+          delivery_fee: number
+          delivery_note: string
+          discount: number
+          district: string
+          division: string
+          email: string
+          item_count: number
+          items: string
+          order_number: string
+          payment_method: string
+          payment_status: string
+          phone: string
+          placed_at: string
+          status: string
+          subtotal: number
+          total: number
+          tracking_code: string
+        }[]
+      }
+      admin_save_product: { Args: { p: Json }; Returns: Json }
+      admin_set_stock: {
+        Args: { p_note?: string; p_stock: number; p_variant_id: string }
+        Returns: number
+      }
+      admin_update_order_courier: {
+        Args: {
+          p_courier_name: string
+          p_order_id: string
+          p_tracking_code?: string
+          p_tracking_url: string
+        }
+        Returns: undefined
+      }
+      admin_update_order_details: {
+        Args: { p_details: Json; p_order_id: string }
+        Returns: Json
+      }
+      admin_update_order_status: {
+        Args: {
+          p_courier_name?: string
+          p_note?: string
+          p_order_id: string
+          p_status: Database["public"]["Enums"]["order_status"]
+          p_tracking_code?: string
+          p_tracking_url?: string
+        }
+        Returns: Json
+      }
       cart_add: {
         Args: { p_quantity?: number; p_variant_id: string }
         Returns: number
