@@ -1,0 +1,148 @@
+name: CI
+
+# Installs, lints, builds and screenshots every pushed branch.
+# Results (logs + screenshots) are published to the `ci-results` branch under
+# <branch-name>/ so they can be reviewed without downloading artifacts.
+
+on:
+  push:
+    branches-ignore:
+      - ci-results
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
+    env:
+      VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
+      VITE_SUPABASE_ANON_KEY: ${{ vars.VITE_SUPABASE_ANON_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Prepare output folder
+        run: mkdir -p ci-out/screenshots
+
+      - name: Install
+        id: install
+        run: |
+          if [ ! -f package.json ]; then
+            echo "skip=1" >> "$GITHUB_OUTPUT"
+            echo "no package.json" > ci-out/install.txt
+            exit 0
+          fi
+          set -o pipefail
+          if [ -f package-lock.json ]; then
+            (npm ci 2>&1 || npm install 2>&1) | tee ci-out/install.txt
+          else
+            npm install 2>&1 | tee ci-out/install.txt
+          fi
+
+      - name: Commit updated lockfile
+        if: steps.install.outputs.skip != '1'
+        run: |
+          if [ -n "$(git status --porcelain package-lock.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add package-lock.json
+            git commit -m "chore: update package-lock.json [skip ci]"
+            git push
+            echo "lockfile=updated" >> ci-out/status.txt
+          fi
+
+      - name: Format check
+        id: format
+        if: steps.install.outputs.skip != '1'
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          npx prettier --check . 2>&1 | tee ci-out/format.txt
+
+      - name: Lint
+        id: lint
+        if: steps.install.outputs.skip != '1'
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          npm run lint 2>&1 | tee ci-out/lint.txt
+
+      - name: Build
+        id: build
+        if: steps.install.outputs.skip != '1'
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          npm run build 2>&1 | tee ci-out/build.txt
+          if [ -d dist ]; then
+            (cd dist && find . -type f -printf '%s\t%p\n' | sort -k2) > ../ci-out/dist-files.txt
+          fi
+
+      - name: Screenshots
+        id: shots
+        if: steps.install.outputs.skip != '1' && steps.build.outcome == 'success' && hashFiles('scripts/screenshots.mjs') != ''
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          npm install --no-save playwright@1.56.0 2>&1 | tail -2
+          npx playwright install --with-deps chromium > /dev/null 2>&1
+          (npx vite preview --port 4173 --strictPort > ci-out/preview.txt 2>&1 &)
+          for i in $(seq 1 30); do curl -sf http://localhost:4173 > /dev/null && break; sleep 1; done
+          node scripts/screenshots.mjs http://localhost:4173 ci-out/screenshots 2>&1 | tee ci-out/screenshots.txt
+
+      - name: Write status
+        if: always()
+        run: |
+          {
+            echo "branch=${GITHUB_REF_NAME}"
+            echo "sha=${GITHUB_SHA}"
+            echo "install=${{ steps.install.outcome }}"
+            echo "format=${{ steps.format.outcome }}"
+            echo "lint=${{ steps.lint.outcome }}"
+            echo "build=${{ steps.build.outcome }}"
+            echo "screenshots=${{ steps.shots.outcome }}"
+            echo "finished=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          } >> ci-out/status.txt
+          cat ci-out/status.txt
+
+      - name: Publish results to ci-results branch
+        if: always()
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          BRANCH_DIR="${GITHUB_REF_NAME//\//_}"
+          REMOTE="https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          for attempt in 1 2 3; do
+            rm -rf /tmp/res && mkdir -p /tmp/res && cd /tmp/res
+            git init -q
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            if git fetch -q --depth 1 "$REMOTE" ci-results 2>/dev/null; then
+              git checkout -q FETCH_HEAD -- . 2>/dev/null || true
+            fi
+            rm -rf "$BRANCH_DIR" && mkdir -p "$BRANCH_DIR"
+            cp -r "$GITHUB_WORKSPACE/ci-out/." "$BRANCH_DIR/"
+            git checkout -q --orphan ci-results
+            git add -A
+            git commit -q -m "CI results for ${GITHUB_REF_NAME} @ ${GITHUB_SHA::7}"
+            if git push -q -f "$REMOTE" ci-results; then exit 0; fi
+            sleep $((attempt * 5))
+          done
+          exit 1
+
+      - name: Fail if lint or build failed
+        if: steps.install.outputs.skip != '1' && (steps.lint.outcome == 'failure' || steps.build.outcome == 'failure' || steps.format.outcome == 'failure')
+        run: exit 1
