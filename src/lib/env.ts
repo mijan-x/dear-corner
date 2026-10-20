@@ -3,7 +3,8 @@ export const env = {
   supabaseUrl: import.meta.env.VITE_SUPABASE_URL?.trim() ?? "",
   supabaseAnonKey: import.meta.env.VITE_SUPABASE_ANON_KEY?.trim() ?? "",
   siteUrl: (
-    import.meta.env.VITE_SITE_URL?.trim() || "https://dear-corner.vercel.app"
+    import.meta.env.VITE_SITE_URL?.trim() ||
+    "https://dear-corner-beta.vercel.app"
   ).replace(/\/$/, ""),
 };
 

@@ -1,9 +1,15 @@
-// Takes full-page screenshots of every route in screenshot-routes.json at each
-// viewport, and records console errors and failed requests.
+// Takes screenshots of every route in screenshot-routes.json at each
+// viewport, records console errors, failed requests and horizontal overflow,
+// and (when axe-core is installed) runs an accessibility scan.
 // Usage: node scripts/screenshots.mjs <base-url> <out-dir>
 // Set PLAYWRIGHT_MODULE to load Playwright from a custom path.
+//
+// A route can list `actions` to reach a state before the capture (open the
+// menu, hover the Shop panel): [{ "click" | "hover": "<selector>" } |
+// { "fill": "<selector>", "value": "lamp" } | { "wait": 300 }].
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { createRequire } from "node:module";
 
 const [, , baseUrl = "http://localhost:4173", outDir = "ci-out/screenshots"] =
   process.argv;
@@ -14,6 +20,14 @@ const config = JSON.parse(
   await readFile(new URL("./screenshot-routes.json", import.meta.url), "utf8"),
 );
 
+let axeSource = null;
+try {
+  const require = createRequire(import.meta.url);
+  axeSource = await readFile(require.resolve("axe-core/axe.min.js"), "utf8");
+} catch {
+  console.log("axe-core not installed: skipping the accessibility scan");
+}
+
 await mkdir(outDir, { recursive: true });
 const browser = await chromium.launch(
   process.env.CHROMIUM_PATH
@@ -21,6 +35,39 @@ const browser = await chromium.launch(
     : {},
 );
 const report = [];
+
+async function runActions(page, actions = []) {
+  for (const action of actions) {
+    if (action.click) await page.click(action.click);
+    else if (action.hover) await page.hover(action.hover);
+    else if (action.fill) await page.fill(action.fill, action.value ?? "");
+    else if (action.press) await page.keyboard.press(action.press);
+    if (action.wait) await page.waitForTimeout(action.wait);
+    else await page.waitForTimeout(350);
+  }
+}
+
+async function scan(page) {
+  if (!axeSource) return null;
+  await page.addScriptTag({ content: axeSource });
+  const result = await page.evaluate(async () => {
+    // eslint-disable-next-line no-undef
+    const r = await axe.run(document, {
+      runOnly: {
+        type: "tag",
+        values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"],
+      },
+    });
+    return r.violations.map((v) => ({
+      id: v.id,
+      impact: v.impact,
+      help: v.help,
+      nodes: v.nodes.length,
+      targets: v.nodes.slice(0, 3).map((n) => n.target.join(" ")),
+    }));
+  });
+  return result;
+}
 
 for (const viewport of config.viewports) {
   const context = await browser.newContext({
@@ -33,6 +80,7 @@ for (const viewport of config.viewports) {
     reducedMotion: "reduce",
   });
   for (const route of config.routes) {
+    if (route.viewports && !route.viewports.includes(viewport.name)) continue;
     const page = await context.newPage();
     const problems = [];
     page.on("console", (msg) => {
@@ -47,11 +95,16 @@ for (const viewport of config.viewports) {
       ),
     );
     const started = Date.now();
-    await page.goto(new URL(route.path, baseUrl).href, {
-      waitUntil: "networkidle",
-    });
-    await page.evaluate(() => document.fonts.ready);
-    await page.waitForTimeout(route.wait ?? 900);
+    try {
+      await page.goto(new URL(route.path, baseUrl).href, {
+        waitUntil: "networkidle",
+      });
+      await page.evaluate(() => document.fonts.ready);
+      await page.waitForTimeout(route.wait ?? 900);
+      await runActions(page, route.actions);
+    } catch (error) {
+      problems.push(`navigation/action: ${error.message.split("\n")[0]}`);
+    }
     const file = path.join(outDir, `${route.name}-${viewport.name}.png`);
     await page.screenshot({
       path: file,
@@ -61,13 +114,21 @@ for (const viewport of config.viewports) {
     const scrollWidth = await page.evaluate(
       () => document.documentElement.scrollWidth,
     );
+    let violations = null;
+    try {
+      violations = await scan(page);
+    } catch (error) {
+      problems.push(`axe: ${error.message.split("\n")[0]}`);
+    }
     report.push({
       route: route.path,
+      name: route.name,
       viewport: viewport.name,
       file: path.basename(file),
       ms: Date.now() - started,
       horizontalOverflow: scrollWidth > viewport.width,
       problems,
+      violations,
     });
     await page.close();
   }
@@ -83,11 +144,17 @@ for (const row of report) {
   const flags = [
     row.horizontalOverflow ? "OVERFLOW" : "",
     row.problems.length ? `${row.problems.length} problem(s)` : "",
+    row.violations?.length ? `${row.violations.length} a11y issue(s)` : "",
   ]
     .filter(Boolean)
     .join(", ");
   console.log(
-    `${row.viewport.padStart(4)}  ${row.route.padEnd(32)} ${row.ms}ms ${flags}`,
+    `${row.viewport.padStart(4)}  ${row.name.padEnd(24)} ${row.ms}ms ${flags}`,
   );
   for (const p of row.problems) console.log(`      ${p}`);
+  for (const v of row.violations ?? []) {
+    console.log(
+      `      a11y ${v.impact} ${v.id} (${v.nodes}): ${v.help} — ${v.targets.join(" | ")}`,
+    );
+  }
 }

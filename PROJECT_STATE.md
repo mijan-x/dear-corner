@@ -7,7 +7,7 @@ Stack: Vite 8 + React 19 + TypeScript 6 + Tailwind CSS 4 + React Router 7 +
 Supabase, deployed on Vercel from GitHub (`mijan-x/dear-corner`, branch `main`).
 Reference project (read-only, never changed): `mijan-x/blyver`.
 
-Last updated: 2026-10-21 (end of Phase B).
+Last updated: 2026-10-21 (end of Phase C).
 
 ## Environments
 
@@ -17,19 +17,22 @@ Last updated: 2026-10-21 (end of Phase B).
 | Supabase URL      | https://elyntthbaoczxgjeadft.supabase.co                                                        |
 | Old project       | `Dear-Corner` in Seoul (`jzqfjnppeojlekprgjww`), empty — owner to delete                        |
 | Vercel project    | `dear-corner` (`prj_tdMnAqIX9IEHwihSzyqaPkoesB2x`), account dearcorner.bd@gmail.com, Hobby plan |
+| Production URL    | https://dear-corner-beta.vercel.app                                                             |
 | Vercel protection | Vercel login required on preview deployments only; production is public                         |
 | Admin email       | dearcorner.bd@gmail.com                                                                         |
 
 ## Environment variables
 
-| Name                     | Where                        | Notes                                                                             |
-| ------------------------ | ---------------------------- | --------------------------------------------------------------------------------- |
-| `VITE_SUPABASE_URL`      | Vercel (owner adds), CI vars | Project URL above                                                                 |
-| `VITE_SUPABASE_ANON_KEY` | Vercel (owner adds), CI vars | Anon or publishable key (`sb_publishable_…`). Public by design; RLS protects data |
-| `VITE_SITE_URL`          | optional                     | Absolute URL used in Open Graph tags. Default `https://dear-corner.vercel.app`    |
+| Name                     | Where                             | Notes                                                                               |
+| ------------------------ | --------------------------------- | ----------------------------------------------------------------------------------- |
+| `VITE_SUPABASE_URL`      | Vercel (set, Production), CI vars | Project URL above                                                                   |
+| `VITE_SUPABASE_ANON_KEY` | Vercel (set, Production), CI vars | Publishable key (`sb_publishable_…`). Public by design; RLS protects data           |
+| `VITE_SITE_URL`          | Vercel (set, Production)          | Absolute URL used in Open Graph tags. Default `https://dear-corner-beta.vercel.app` |
 
 Never commit real values. `.env.example` lists them. Without the Supabase
-values the site still loads; data calls throw `SupabaseNotConfiguredError`.
+values the site still loads; data calls reject with `SupabaseNotConfiguredError` and the header,
+menu and footer fall back to built-in defaults. Vercel's build-time `VERCEL_ENV` decides whether
+`/styleguide` is included (left out when it is `production`).
 
 ## Folder map
 
@@ -39,29 +42,43 @@ index.html                App shell: title, meta, Open Graph, favicons, manifest
 vercel.json               SPA rewrite to /index.html, cache + security headers
 public/                   favicon set, app icons, site.webmanifest, og-image.png, robots.txt
 scripts/
-  screenshots.mjs         Playwright: full-page screenshots at 360/768/1280 + console/overflow report
-  screenshot-routes.json  Routes and viewports to capture
+  screenshots.mjs         Playwright: screenshots at 360/768/1280 (pages and opened menus/dialogs),
+                          console/overflow report, axe accessibility scan when axe-core is installed
+  screenshot-routes.json  Routes, viewports and the clicks/hovers that reach each state
+  build-sql-bundle.sh     Rebuilds supabase/manual/finish-phase-b.sql (CI checks it)
   make-figures-font.py    Builds the "DC Figures" tabular-digit font from DM Sans
 src/
-  main.tsx                Entry: fonts, CSS, error boundary, router
-  router.tsx              Routes. Home eager; every other page lazy-loaded
+  main.tsx                Entry: fonts, CSS, error boundary, Lucide defaults (1.75 stroke), router
+  router.tsx              Routes inside RootLayout > ShopLayout. Home eager; every other page lazy
   index.css               Tailwind v4 @theme tokens, base styles, type scale, graphic devices
   styles/fonts.css        @font-face rules (Fraunces, DM Sans, Hind Siliguri, DC Taka, DC Figures)
   assets/brand/           Logo SVGs from dear-corner-logos-dc.zip (never retyped)
   assets/fonts/           DC Figures (tabular digits) + font licences
   components/brand/       Logo, HeaderLogo, Sparkle, LeafSprig
   components/system/      PageLoader (lamp-glow dot), ErrorBoundary, RouteError
-  components/ui/          (Phase C) buttons, inputs, badges, cards…
-  components/layout/      (Phase C) announcement bar, headers, footer, drawers
+  components/ui/          Button/ButtonLink, IconButton/IconLink, Field (text, phone +880, select,
+                          textarea), Choice (checkbox, radio card), QuantityStepper, OptionPicker,
+                          Chip, Badge, Price, Rating, Notice, EmptyState (+ copy), Skeleton,
+                          Accordion, Breadcrumbs, SectionHeading, LoadMore, FreeDeliveryProgress,
+                          OrderTimeline, Dialog (drawer/sheet/cart/modal/search), Toast, Spinner
+  components/product/     ProductCard, CategoryCard
+  components/layout/      AnnouncementBar, SiteHeader, DesktopNav (+ Shop panel), MenuDrawer,
+                          SearchDialog, SiteFooter, NewsletterForm, BottomNav
+  features/cart/          cartStore (guest cart in localStorage, count for badges)
+  features/catalog/       badges.ts (which badges a card shows)
+  features/search/        recentSearches (last 5, this browser only)
   features/auth/          (Phase E) auth provider, guards
-  hooks/                  usePageMeta
-  layouts/                RootLayout (skip link, Suspense loader, scroll restoration)
-  lib/                    env, Supabase client
-  pages/                  HomePage (holding page until Phase D), NotFoundPage
-  services/               (Phase C+) Supabase data access
+  hooks/                  usePageMeta, useDebouncedValue
+  layouts/                RootLayout (skip link, toasts, scroll restoration), ShopLayout (chrome)
+  lib/                    env, supabase (loaded on first use), routes (URL map), query (shared cache),
+                          store (localStorage store), storage, errors (shopper messages), images
+  pages/                  HomePage (holding page until Phase D), NotFoundPage, StyleguidePage
+                          (+ styleguide/ samples and demos)
+  services/               settings, catalog (menu, search suggestions), newsletter
   types/database.ts       Generated from the live database (regenerate after every migration)
   data/bd-geo.json        8 divisions / 64 districts / 612 areas for the address dropdowns
-  utils/                  formatPrice (৳1,290), discountPercent, cx
+  types/shop.ts           Storefront shapes (product card, nav) mapped from the database JSON
+  utils/                  formatPrice (৳1,290), discountPercent, formatDate (Asia/Dhaka), cx
 supabase/
   README.md               What each migration does, rules the database enforces, how to make an admin
   migrations/             SQL migrations, applied in file-name order
@@ -100,7 +117,18 @@ scripts/build-geo-data.py Builds src/data/bd-geo.json and the geo seed from nuhi
   - [x] Supabase advisors: security lists only the intended public RPCs and the admin RPCs (each checks
         `is_admin()` inside); performance lists only "unused index" notices (no traffic yet)
   - [x] `src/types/database.ts` regenerated from the live database
-- [ ] **Phase C — Design system and layout**: chrome, components, `/styleguide`
+- [x] **Phase C — Design system and layout** (branch `phase-c-design-system`)
+  - [x] Chrome: announcement bar (from store settings), sticky header (72px, 60px once stuck, without moving
+        the page), full navigation from 1280px with the Shop panel (6 categories + one image), menu drawer below
+        1280px, search overlay (5 products, 3 categories, recent searches, popular categories), Night Plum footer
+        (cream logo 300px, collapsible on phones, newsletter sign-up), bottom navigation on phones (hidden on
+        product, cart and checkout)
+  - [x] Components (see folder map) with every state: hover, focus, disabled, loading, success, error
+  - [x] Native `<dialog>` overlays: focus trap, Esc, backdrop, focus return, no scroll or layout shift
+  - [x] `/styleguide` with tokens, type, logo and devices, icons and all components; not in production builds
+  - [x] Supabase library split out of the first download (loaded on first data call)
+  - [x] 31 scripted interaction checks; screenshots at 360/768/1280 including open menu, search, Shop panel,
+        stuck header and cart drawer; axe accessibility scan in CI
 - [ ] **Phase D — Shop**: demo images, Home, Shop all, category/collection, product, search
 - [ ] **Phase E — Cart, checkout, account**: cart, checkout, confirmation, track order, auth, account
 - [ ] **Phase F — Admin**
@@ -120,6 +148,9 @@ scripts/build-geo-data.py Builds src/data/bd-geo.json and the geo seed from nuhi
   `type-card-title`, `type-product-title`, `type-price`, `type-price-card`, `type-price-old`, `figures`
 - Devices: `corner-mask` (sharp bottom-left), `glow`, `skeleton`, `link`, `container-page`, `section-y`
 - Plum Ink `#4A2545` is not used anywhere.
+
+Tabular figures (`figures`, DC Figures) only for prices and quantities; running text keeps DM Sans'
+proportional digits ("Add ৳710 more", "-17%").
 
 Contrast rules: lamp-glow on rosewood (4.25:1) only for text 24px+ or graphics; promo banners with
 lamp-glow text use night-plum (10.6:1). Never terracotta next to rosewood. Rosewood logo never on
@@ -144,6 +175,20 @@ night-plum (use cream).
 - 12 sample products marked [SAMPLE], removable in one click.
 - Badge order: Sold out, Sale, New, Low stock, Bestseller, Gift; max 2; never Sale + Bestseller together.
 - Full desktop nav from 1280px (menu drawer below). Bottom nav hidden on product, cart, checkout.
+
+## Storefront conventions (Phase C)
+
+- URLs (`src/lib/routes.ts`): `/shop`, `/shop/<category-or-sub-category>`, `/collections/<slug>`,
+  `/products/<slug>`, `/search?q=`, `/cart`, `/checkout`, `/track-order`, `/account`, `/account/sign-in`,
+  `/account/wishlist`, `/about`, `/contact`, `/faq`, `/delivery`, `/exchange-and-returns`, `/privacy`,
+  `/terms`. Links to pages not built yet show the 404 page until their phase.
+- Header icons: search and cart everywhere, account from 768px (phones use the bottom navigation).
+- Shop data is read through `useQuery` (shared, cached, refreshed in the background); settings and the
+  menu are also kept in localStorage so returning visitors see them instantly.
+- Errors shown to shoppers go through `toShopError()`; empty-state and error copy is word for word from
+  the brand doc (`components/ui/emptyStateCopy.ts`).
+- The sparkle appears once per layout; the corner (sharp bottom-left) is on badges, the hero panel and
+  the Shop panel image.
 
 ## Database (summary — details in `supabase/README.md`)
 
@@ -185,9 +230,15 @@ The authoring workspace cannot reach the npm registry, so GitHub Actions does th
   in `fonts.css`, so pages with prices don't download the full Bengali font.
 - Logo files are a recreation (see the logo README): a small spur at the top of the sprig stem in the
   monogram is worth a designer's review.
-- GitHub Actions variables can't be set from the authoring workspace. Until the owner adds
+- GitHub Actions variables can't be set (or read) from the authoring workspace. Until the owner adds
   `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` as repository variables, CI screenshots show pages
-  without live data.
+  with the built-in fallback menu.
+- The authoring workspace can't reach Supabase over HTTPS (only through the Supabase connector). Live-data
+  screenshots are made by serving responses captured through the connector to a local build.
+- The default announcement text wraps to two lines on 360px phones. A shorter line in admin Settings
+  (for example "Cash on Delivery · Free delivery over ৳1,000") keeps it to one.
+- Vercel environment variables are set for Production only; preview builds (PR links) have no database
+  until they are also enabled for Preview.
 - The Supabase connector asks for a confirmation before some migrations (the admin functions, grants and
   policy changes). If nobody confirms, it reports "cancelled" and nothing is applied; those parts can be
   pasted into the SQL editor instead (`supabase/manual/`).

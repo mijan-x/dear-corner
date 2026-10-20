@@ -1,14 +1,16 @@
-import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "../types/database";
 import { env, isSupabaseConfigured } from "./env";
 
 export type DearCornerClient = SupabaseClient<Database>;
 
 /**
- * The single Supabase client. When the env vars are missing (for example a
- * preview build before they are added in Vercel) the site still loads; any
- * data call throws SupabaseNotConfiguredError, which pages show as an error
- * state instead of a blank screen.
+ * The single Supabase client. The library is loaded on first use, in its own
+ * file, so the first paint of every page doesn't wait for it. When the env
+ * vars are missing (for example a preview build before they are added in
+ * Vercel) the site still loads; data calls reject with
+ * SupabaseNotConfiguredError, which pages show as an error state instead of
+ * a blank screen.
  */
 export class SupabaseNotConfiguredError extends Error {
   constructor() {
@@ -17,20 +19,29 @@ export class SupabaseNotConfiguredError extends Error {
   }
 }
 
-let client: DearCornerClient | null = null;
+let clientPromise: Promise<DearCornerClient> | null = null;
 
-export function getSupabase(): DearCornerClient {
-  if (!isSupabaseConfigured) throw new SupabaseNotConfiguredError();
-  if (!client) {
-    client = createClient<Database>(env.supabaseUrl, env.supabaseAnonKey, {
-      auth: {
-        persistSession: true,
-        autoRefreshToken: true,
-        detectSessionInUrl: true,
-      },
-    });
+export function getSupabase(): Promise<DearCornerClient> {
+  if (!isSupabaseConfigured) {
+    return Promise.reject(new SupabaseNotConfiguredError());
   }
-  return client;
+  if (!clientPromise) {
+    clientPromise = import("@supabase/supabase-js")
+      .then(({ createClient }) =>
+        createClient<Database>(env.supabaseUrl, env.supabaseAnonKey, {
+          auth: {
+            persistSession: true,
+            autoRefreshToken: true,
+            detectSessionInUrl: true,
+          },
+        }),
+      )
+      .catch((error: unknown) => {
+        clientPromise = null; // try again next time (for example after going offline)
+        throw error;
+      });
+  }
+  return clientPromise;
 }
 
 export { isSupabaseConfigured };
