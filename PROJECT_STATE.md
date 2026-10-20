@@ -7,7 +7,7 @@ Stack: Vite 8 + React 19 + TypeScript 6 + Tailwind CSS 4 + React Router 7 +
 Supabase, deployed on Vercel from GitHub (`mijan-x/dear-corner`, branch `main`).
 Reference project (read-only, never changed): `mijan-x/blyver`.
 
-Last updated: 2026-10-20 (end of Phase A).
+Last updated: 2026-10-20 (Phase B — database).
 
 ## Environments
 
@@ -58,10 +58,18 @@ src/
   layouts/                RootLayout (skip link, Suspense loader, scroll restoration)
   lib/                    env, Supabase client
   pages/                  HomePage (holding page until Phase D), NotFoundPage
-  services/               (Phase B+) Supabase data access
-  types/                  (Phase B+) shared types
+  services/               (Phase C+) Supabase data access
+  types/database.ts       Generated from the live database (regenerate after every migration)
+  data/bd-geo.json        8 divisions / 64 districts / 612 areas for the address dropdowns
   utils/                  formatPrice (৳1,290), discountPercent, cx
-supabase/migrations/      (Phase B) SQL migrations
+supabase/
+  README.md               What each migration does, rules the database enforces, how to make an admin
+  migrations/             SQL migrations, applied in file-name order
+  manual/                 One-paste SQL bundles for the dashboard SQL editor
+  seeds/                  12 [SAMPLE] products + their removal script
+  tests/                  SQL + concurrency tests (run_local.sh builds a throwaway PostgreSQL)
+  local/                  Supabase stand-in (roles, auth.users, storage) for the local tests
+scripts/build-geo-data.py Builds src/data/bd-geo.json and the geo seed from nuhil/bangladesh-geocode (MIT)
 ```
 
 ## Phase checklist
@@ -76,7 +84,22 @@ supabase/migrations/      (Phase B) SQL migrations
   - [x] Route shell with lazy routes and the lamp-glow loader, 404 page
   - [x] Vercel project created and linked to the repo
   - [x] Build, lint and format pass; screenshots at 360/768/1280
-- [ ] **Phase B — Database**: migrations, RLS, admin role + MFA, RPCs, storage, zones, BD geo data, sample products
+- [ ] **Phase B — Database** (branch `phase-b-database`) — built and tested; 3 of 12 migrations wait for the owner
+  - [x] Schema: catalog (categories, collections, products, options, one variant per SKU, images), customers
+        (addresses, cart, wishlist, newsletter, contact), orders (snapshots, history, notes), coupons, reviews
+  - [x] Row Level Security on every table; no public read on orders; admin = admin role **and** two-step login (aal2)
+  - [x] Server-side pricing (`price_cart`) shared by `quote_cart` and `place_order`; stock per SKU taken with row
+        locks in a fixed order; order numbers DC-10001…; Track order by number + phone; reviews only after delivery
+  - [x] Delivery zones (Inside Dhaka ৳80 2–3 days, Outside Dhaka ৳130 3–5 days, free from ৳1,000) and 612 BD areas
+  - [x] Storage buckets `product-images`, `site-media` (public read, admin-only write)
+  - [x] Foreign-key indexes; one policy per table/role/action (advisor clean-up)
+  - [x] 149 database checks (access, policies, pricing, orders, stock races) pass locally and in CI
+  - [x] Applied to Dear-Corner-SG: foundation, geo_and_shipping, catalog, customers, orders, reviews,
+        storefront_functions, fk_indexes, storage + the 12 sample products. Verified identical to the tested copy
+        (function, policy, table, trigger and index fingerprints)
+  - [ ] **Owner**: run `supabase/manual/finish-phase-b.sql` (admin_functions, grants, policy_tuning) — the
+        connector asks for confirmation on these and the confirmation was cancelled twice
+  - [ ] After that: regenerate `src/types/database.ts`, re-run the Supabase advisors
 - [ ] **Phase C — Design system and layout**: chrome, components, `/styleguide`
 - [ ] **Phase D — Shop**: demo images, Home, Shop all, category/collection, product, search
 - [ ] **Phase E — Cart, checkout, account**: cart, checkout, confirmation, track order, auth, account
@@ -122,6 +145,17 @@ night-plum (use cream).
 - Badge order: Sold out, Sale, New, Low stock, Bestseller, Gift; max 2; never Sale + Bestseller together.
 - Full desktop nav from 1280px (menu drawer below). Bottom nav hidden on product, cart, checkout.
 
+## Database (summary — details in `supabase/README.md`)
+
+- Money is whole taka (`integer`). The browser never sends prices.
+- Shopper errors carry a friendly message and a `DC_…` code in `DETAIL`.
+- Abuse limits: 3 open orders per phone, 10 orders / 10 min per connection, 20 lookups / 10 min,
+  5 contact messages / hour, 30 failed coupon codes / hour.
+- Supabase's "anyone can call any function" default is switched off (`…120900_grants`); every new
+  function needs an explicit `grant execute`.
+- Sample data: 12 `[SAMPLE]` products (SKUs `SAMPLE-…`), removable with the admin button or
+  `supabase/seeds/delete_sample_products.sql`.
+
 ## Open decisions / [TO CONFIRM]
 
 - Fault found after delivery (for example a lamp that won't light): what happens?
@@ -140,6 +174,8 @@ The authoring workspace cannot reach the npm registry, so GitHub Actions does th
 - A copy of `node_modules` (same OS/arch as the workspace) is published to the `ci-node-modules`
   branch whenever the lockfile changes, so builds, lint and screenshots also run locally.
 - Both side branches are force-pushed single commits; they can be deleted at the end of the project.
+- CI also runs the database tests: `supabase/tests/run_local.sh --seed --test` on the runner's PostgreSQL.
+  Locally: `RUN_AS=claude supabase/tests/run_local.sh --seed --test` (initdb refuses to run as root).
 
 ## Known issues
 
@@ -152,3 +188,8 @@ The authoring workspace cannot reach the npm registry, so GitHub Actions does th
 - GitHub Actions variables can't be set from the authoring workspace. Until the owner adds
   `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` as repository variables, CI screenshots show pages
   without live data.
+- The Supabase connector asks for a confirmation before some migrations (the admin functions, grants and
+  policy changes). If nobody confirms, it reports "cancelled" and nothing is applied; those parts can be
+  pasted into the SQL editor instead (`supabase/manual/`).
+- Migration versions in Supabase's history are the times they were applied (for example
+  `20261020173115_foundation`), not the file names; the names match.

@@ -127,9 +127,10 @@ jobs:
         continue-on-error: true
         run: |
           set -o pipefail
+          if [ -f scripts/build-sql-bundle.sh ]; then bash scripts/build-sql-bundle.sh --check | tee ci-out/db-tests.txt; fi
           PGBIN="$(ls -d /usr/lib/postgresql/*/bin | sort -V | tail -1)" \
           PGDATA_DIR="$RUNNER_TEMP/dc-pg" \
-          bash supabase/tests/run_local.sh --seed --test 2>&1 | tee ci-out/db-tests.txt
+          bash supabase/tests/run_local.sh --seed --test 2>&1 | tee -a ci-out/db-tests.txt
           ! grep -q "FAIL" ci-out/db-tests.txt
 
       - name: Screenshots

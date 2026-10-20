@@ -17,6 +17,21 @@ Everything is in SQL migrations in `supabase/migrations/`, applied in file-name 
 | `…120700_admin_functions`      | Order status workflow, courier, CSV export, dashboard, customers, product save, stock, sample removal                                        |
 | `…120800_storage`              | `product-images` and `site-media` buckets (public read, admin-only write)                                                                    |
 | `…120900_grants`               | Explicit function permissions (Supabase's "anyone can call any function" default removed)                                                    |
+| `…121000_fk_indexes`           | An index on every foreign key                                                                                                                |
+| `…121100_policy_tuning`        | Admin write policies split into insert / update / delete, so each table has one read policy per role                                         |
+
+## Live status (Dear-Corner-SG)
+
+Applied and verified identical to the tested copy: everything except `…120700_admin_functions`,
+`…120900_grants` and `…121100_policy_tuning`, plus the 12 sample products.
+
+To finish, open the Supabase dashboard → **SQL Editor** → **New query**, paste all of
+[`manual/finish-phase-b.sql`](manual/finish-phase-b.sql) and press **Run**. It is those three
+files in one transaction (all or nothing), checks it is in the right project first, records them in
+the migration history and is safe to run twice. It deletes no data. If the editor warns about a
+"destructive operation", that is the `drop policy` lines that swap the old admin policies for the
+new ones; choose **Run this query**. Rebuild the file with `scripts/build-sql-bundle.sh` if any of
+the three migrations change (CI checks it is up to date).
 
 ## Rules the database enforces
 
@@ -72,6 +87,7 @@ appear in orders are archived instead of deleted.
 stand-in (`supabase/local/00_supabase_shim.sql`), applies every migration and the seed, then runs:
 
 - `10_access.sql` — what visitors, customers, admins without and with two-step login can read and do
+- `15_policies.sql` — who can add, edit and delete catalog rows, delivery zones and addresses
 - `20_orders.sql` — pricing, coupons, delivery fees, placing and tracking orders, the status
   workflow, stock, reviews, contact form, addresses, admin tools
 - `30_concurrency.sh` — two shoppers buying the last item at the same moment, and ten shoppers
