@@ -116,7 +116,7 @@ jobs:
           set -o pipefail
           npm run build 2>&1 | tee ci-out/build.txt
           if [ -d dist ]; then
-            (cd dist && find . -type f -printf '%s\t%p\n' | sort -k2) > ../ci-out/dist-files.txt
+            (cd dist && find . -type f -printf '%s\t%p\n' | sort -k2) > ci-out/dist-files.txt
           fi
 
       - name: Screenshots
