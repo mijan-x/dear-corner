@@ -119,6 +119,19 @@ jobs:
             (cd dist && find . -type f -printf '%s\t%p\n' | sort -k2) > ci-out/dist-files.txt
           fi
 
+      - name: Database tests
+        # Every migration, the sample seed and the SQL/concurrency tests against
+        # the runner's PostgreSQL with a Supabase stand-in (supabase/local/).
+        id: dbtest
+        if: hashFiles('supabase/tests/run_local.sh') != ''
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          PGBIN="$(ls -d /usr/lib/postgresql/*/bin | sort -V | tail -1)" \
+          PGDATA_DIR="$RUNNER_TEMP/dc-pg" \
+          bash supabase/tests/run_local.sh --seed --test 2>&1 | tee ci-out/db-tests.txt
+          ! grep -q "FAIL" ci-out/db-tests.txt
+
       - name: Screenshots
         id: shots
         if: steps.install.outputs.skip != '1' && steps.build.outcome == 'success' && hashFiles('scripts/screenshots.mjs') != ''
@@ -141,6 +154,7 @@ jobs:
             echo "format=${{ steps.format.outcome }}"
             echo "lint=${{ steps.lint.outcome }}"
             echo "build=${{ steps.build.outcome }}"
+            echo "db_tests=${{ steps.dbtest.outcome }}"
             echo "screenshots=${{ steps.shots.outcome }}"
             echo "finished=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
           } >> ci-out/status.txt
@@ -173,5 +187,5 @@ jobs:
           exit 1
 
       - name: Fail if lint or build failed
-        if: steps.install.outputs.skip != '1' && (steps.lint.outcome == 'failure' || steps.build.outcome == 'failure' || steps.format.outcome == 'failure')
+        if: steps.install.outputs.skip != '1' && (steps.lint.outcome == 'failure' || steps.build.outcome == 'failure' || steps.format.outcome == 'failure' || steps.dbtest.outcome == 'failure')
         run: exit 1
