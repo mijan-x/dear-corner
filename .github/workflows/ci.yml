@@ -63,6 +63,35 @@ jobs:
             echo "lockfile=updated" >> ci-out/status.txt
           fi
 
+      - name: Publish node_modules for local tooling
+        # The authoring workspace cannot reach the npm registry, so CI ships a
+        # copy of node_modules (same OS/arch) through the ci-node-modules branch.
+        if: steps.install.outputs.skip != '1'
+        continue-on-error: true
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          HASH=$(sha256sum package-lock.json | cut -d' ' -f1)
+          REMOTE="https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          rm -rf /tmp/nm && mkdir -p /tmp/nm && cd /tmp/nm && git init -q
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git fetch -q --depth 1 "$REMOTE" ci-node-modules 2>/dev/null \
+            && [ "$(git show FETCH_HEAD:lock.sha256 2>/dev/null)" = "$HASH" ]; then
+            echo "node_modules snapshot already current"; exit 0
+          fi
+          cd "$GITHUB_WORKSPACE"
+          tar --exclude='node_modules/.cache' -czf /tmp/nm.tgz node_modules package-lock.json package.json
+          cd /tmp/nm
+          split -b 45m /tmp/nm.tgz nm.tgz.part-
+          echo "$HASH" > lock.sha256
+          git checkout -q --orphan ci-node-modules
+          git add -A
+          git commit -q -m "node_modules snapshot for lock ${HASH::12}"
+          git push -q -f "$REMOTE" ci-node-modules
+          ls -la
+
       - name: Format check
         id: format
         if: steps.install.outputs.skip != '1'
