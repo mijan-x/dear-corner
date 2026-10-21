@@ -133,6 +133,23 @@ function ProductGallery({
         <ul
           ref={track}
           aria-label={`Photos of ${name}`}
+          // Reachable by keyboard: arrow keys move between photos.
+          tabIndex={0}
+          onKeyDown={(event) => {
+            const next =
+              event.key === "ArrowRight"
+                ? active + 1
+                : event.key === "ArrowLeft"
+                  ? active - 1
+                  : event.key === "Home"
+                    ? 0
+                    : event.key === "End"
+                      ? images.length - 1
+                      : null;
+            if (next === null) return;
+            event.preventDefault();
+            show(Math.max(0, Math.min(images.length - 1, next)));
+          }}
           className="dc-scroller flex snap-x snap-mandatory [scroll-padding-inline:0] overflow-x-auto rounded-card border border-sand-line/80 bg-image-placeholder lg:overflow-hidden"
         >
           {images.map((image, i) => (
