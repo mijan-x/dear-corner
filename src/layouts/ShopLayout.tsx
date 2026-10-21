@@ -16,6 +16,8 @@ import { cx } from "../utils/cx";
 function ShopLayout() {
   const { pathname } = useLocation();
   const showBottomNav = !hidesBottomNav(pathname);
+  // Product pages have their own 72px bar (price and Add to cart) on phones.
+  const productBar = pathname.startsWith("/products/");
 
   return (
     <div className="flex min-h-dvh flex-col bg-linen">
@@ -30,6 +32,7 @@ function ShopLayout() {
         className={cx(
           showBottomNav &&
             "pb-[calc(56px+env(safe-area-inset-bottom))] md:pb-0",
+          productBar && "pb-[calc(72px+env(safe-area-inset-bottom))] lg:pb-0",
         )}
       />
       {showBottomNav && <BottomNav />}

@@ -7,6 +7,9 @@
 // A route can list `actions` to reach a state before the capture (open the
 // menu, hover the Shop panel): [{ "click" | "hover": "<selector>" } |
 // { "fill": "<selector>", "value": "lamp" } | { "wait": 300 }].
+//
+// With SUPABASE_MOCK_URL set (the build's VITE_SUPABASE_URL), shop data comes
+// from the local test database instead (scripts/supabase-mock.mjs).
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { createRequire } from "node:module";
@@ -35,6 +38,9 @@ const browser = await chromium.launch(
     : {},
 );
 const report = [];
+const mockUrl = process.env.SUPABASE_MOCK_URL;
+const mock = mockUrl ? await import("./supabase-mock.mjs") : null;
+if (mock) console.log(`Shop data from the local test database (${mockUrl})`);
 
 async function runActions(page, actions = []) {
   for (const action of actions) {
@@ -45,6 +51,35 @@ async function runActions(page, actions = []) {
     if (action.wait) await page.waitForTimeout(action.wait);
     else await page.waitForTimeout(350);
   }
+}
+
+// A full-page capture shows parts of the page that are far below the
+// screen; lazy images there would still be empty. Load them all first.
+async function loadAllImages(page) {
+  await page.evaluate(async () => {
+    const images = [...document.images];
+    for (const img of images) img.loading = "eager";
+    await Promise.race([
+      Promise.all(
+        images
+          .filter((img) => img.getClientRects().length > 0 && !img.complete)
+          .map(
+            (img) =>
+              new Promise((resolve) => {
+                img.addEventListener("load", resolve, { once: true });
+                img.addEventListener("error", resolve, { once: true });
+              }),
+          ),
+      ),
+      new Promise((resolve) => setTimeout(resolve, 6000)),
+    ]);
+    // Loaded isn't painted: wait for decoding too.
+    await Promise.all(
+      images
+        .filter((img) => img.complete && img.naturalWidth > 0)
+        .map((img) => img.decode().catch(() => {})),
+    );
+  });
 }
 
 async function scan(page) {
@@ -79,6 +114,7 @@ for (const viewport of config.viewports) {
     // the viewport, which would otherwise restart them mid-capture.
     reducedMotion: "reduce",
   });
+  if (mock) await mock.mockSupabase(context, mockUrl);
   for (const route of config.routes) {
     if (route.viewports && !route.viewports.includes(viewport.name)) continue;
     const page = await context.newPage();
@@ -101,6 +137,7 @@ for (const viewport of config.viewports) {
       });
       await page.evaluate(() => document.fonts.ready);
       await page.waitForTimeout(route.wait ?? 900);
+      if (route.fullPage !== false) await loadAllImages(page);
       await runActions(page, route.actions);
     } catch (error) {
       problems.push(`navigation/action: ${error.message.split("\n")[0]}`);

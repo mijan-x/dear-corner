@@ -6,10 +6,9 @@ name: Sample photos
 # files the shop serves are made from those originals and live in
 # public/samples/.
 
+# Run by hand (Actions → Sample photos → Run workflow) after a new export:
+# the links in export-links.json expire a few hours after Canva makes them.
 on:
-  push:
-    paths:
-      - scripts/sample-photos/export-links.json
   workflow_dispatch:
 
 permissions:

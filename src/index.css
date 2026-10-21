@@ -688,6 +688,50 @@
     }
   }
 
+  /* Scroll reveal (components/motion/Reveal.tsx): fades up once in view. */
+  .dc-reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 640ms var(--ease-out-soft) var(--reveal-delay, 0ms),
+      transform 640ms var(--ease-out-soft) var(--reveal-delay, 0ms);
+  }
+  .dc-reveal[data-shown] {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .dc-reveal {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @media (scripting: none) {
+    .dc-reveal {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Product gallery: the photo set fades when the color changes (200ms). */
+  .dc-gallery-swap {
+    animation: fade-in 200ms ease-out both;
+  }
+
+  /* Horizontal product rows: scroll-snap, no visible scrollbar on touch. */
+  .dc-scroller {
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+  .dc-scroller::-webkit-scrollbar {
+    display: none;
+  }
+  .dc-scroller > * {
+    scroll-snap-align: start;
+  }
+
   /* Accordions (<details>): animate open where the browser supports it. */
   .dc-details::details-content {
     block-size: 0;

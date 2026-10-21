@@ -35,7 +35,7 @@ export function Checkbox({
           className="pointer-events-none absolute text-white opacity-0 transition-opacity peer-checked:opacity-100"
         />
       </span>
-      <span className="flex flex-col">
+      <span className="flex min-w-0 flex-1 flex-col">
         <span className="type-body text-ink group-has-disabled:text-soft-ink">
           {label}
         </span>

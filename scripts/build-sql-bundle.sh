@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
-# Builds supabase/manual/finish-phase-b.sql: the migrations below in one
-# transaction, for pasting into the Supabase SQL editor.
+# Builds the files in supabase/manual/ for pasting into the Supabase SQL
+# editor, each in one transaction:
+#   finish-phase-b.sql      the migrations listed in PARTS
+#   phase-d-demo-photos.sql supabase/seeds/sample_products_images.sql
 # Usage: scripts/build-sql-bundle.sh            (writes the file)
 #        scripts/build-sql-bundle.sh --check    (fails if the file is out of date)
 set -euo pipefail
@@ -53,11 +55,42 @@ commit;
 SQL
 }
 
+OUT_D="$ROOT/supabase/manual/phase-d-demo-photos.sql"
+
+build_d() {
+  cat <<'SQL'
+-- Dear Corner — Phase D demo photos (Dear-Corner-SG only)
+--
+-- Paste this whole file into Supabase → SQL Editor → New query → Run.
+-- It links the demo photos that ship with the website (/samples/…) to the
+-- [SAMPLE] products, the five categories, the New arrivals and Gifts under
+-- ৳999 collections, and the homepage hero and banners. All or nothing, and
+-- safe to run again. It never overwrites a photo you uploaded yourself.
+-- Same content as supabase/seeds/sample_products_images.sql.
+
+begin;
+
+do $$
+begin
+  if to_regprocedure('public.home_feed()') is null
+     or not exists (select 1 from public.products where slug = 'sample-pleated-table-lamp') then
+    raise exception 'This is not the Dear Corner database, or the sample products are missing. Nothing was changed.';
+  end if;
+end;
+$$;
+
+SQL
+  cat "$ROOT/supabase/seeds/sample_products_images.sql"
+  printf '\ncommit;\n'
+}
+
 if [ "${1:-}" = "--check" ]; then
   diff -q <(build) "$OUT" >/dev/null || { echo "supabase/manual/finish-phase-b.sql is out of date: run scripts/build-sql-bundle.sh"; exit 1; }
-  echo "bundle up to date"
+  diff -q <(build_d) "$OUT_D" >/dev/null || { echo "supabase/manual/phase-d-demo-photos.sql is out of date: run scripts/build-sql-bundle.sh"; exit 1; }
+  echo "bundles up to date"
 else
   mkdir -p "$(dirname "$OUT")"
   build > "$OUT"
-  echo "wrote $OUT"
+  build_d > "$OUT_D"
+  echo "wrote $OUT and $OUT_D"
 fi

@@ -13,6 +13,7 @@ function SectionHeading({
   sparkle = false,
   description,
   link,
+  actions,
   id,
   className,
 }: {
@@ -21,6 +22,8 @@ function SectionHeading({
   sparkle?: boolean;
   description?: ReactNode;
   link?: { to: string; label: string };
+  /** Extra controls on the right (row arrows). */
+  actions?: ReactNode;
   id?: string;
   className?: string;
 }) {
@@ -45,13 +48,18 @@ function SectionHeading({
           <p className="mt-2 type-body text-soft-ink">{description}</p>
         )}
       </div>
-      {link && (
-        <Link
-          to={link.to}
-          className="inline-flex min-h-11 items-center type-nav link"
-        >
-          {link.label}
-        </Link>
+      {(link || actions) && (
+        <div className="flex items-center gap-4">
+          {link && (
+            <Link
+              to={link.to}
+              className="inline-flex min-h-11 items-center type-nav link"
+            >
+              {link.label}
+            </Link>
+          )}
+          {actions}
+        </div>
       )}
     </div>
   );

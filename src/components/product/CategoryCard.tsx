@@ -7,7 +7,8 @@ import type { CategoryCardData } from "../../types/shop";
 
 /**
  * Category card (brand doc section 6): square image with a 16px radius, the
- * name in DM Sans 600 at 16px below and the item count in soft ink.
+ * name in DM Sans 600 at 16px below and the item count in soft ink (left
+ * out when the count is unknown, -1).
  */
 function CategoryCard({
   category,
@@ -48,9 +49,11 @@ function CategoryCard({
       <span className="mt-3 text-[16px] leading-[22px] font-semibold text-ink underline-offset-4 group-hover:text-rosewood group-hover:underline">
         {category.name}
       </span>
-      <span className="type-caption text-soft-ink">
-        {category.count} {category.count === 1 ? "item" : "items"}
-      </span>
+      {category.count >= 0 && (
+        <span className="type-caption text-soft-ink">
+          {category.count} {category.count === 1 ? "item" : "items"}
+        </span>
+      )}
     </Link>
   );
 }

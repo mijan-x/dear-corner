@@ -21,6 +21,49 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
 
+    <script>
+      // Homepage only: start downloading the hero photo before the app runs
+      // (it is the Largest Contentful Paint). Same photo the page will pick:
+      // the one cached from the last visit, otherwise the built-in default.
+      // Keep in step with services/home.ts and lib/images.ts.
+      (function () {
+        if (location.pathname !== "/") return;
+        var desktop = "/samples/home/hero-desktop.webp";
+        var mobile = "/samples/home/hero-mobile.webp";
+        try {
+          var cached = JSON.parse(
+            localStorage.getItem("dc-cache:shop-settings") || "null",
+          );
+          var hero = cached && cached.homepage && cached.homepage.hero;
+          if (hero && typeof hero === "object") {
+            if ("image_desktop" in hero) desktop = hero.image_desktop;
+            if ("image_mobile" in hero) mobile = hero.image_mobile;
+          }
+        } catch (e) {}
+        var base = "%VITE_SUPABASE_URL%";
+        function url(path) {
+          if (!path || typeof path !== "string") return null;
+          if (/^(https?:)?\/\//.test(path) || path.charAt(0) === "/")
+            return path;
+          if (base.charAt(0) === "%") return null;
+          return base + "/storage/v1/object/public/site-media/" + path;
+        }
+        function preload(href, media) {
+          if (!href) return;
+          var link = document.createElement("link");
+          link.rel = "preload";
+          link.as = "image";
+          link.href = href;
+          link.media = media;
+          link.setAttribute("fetchpriority", "high");
+          document.head.appendChild(link);
+        }
+        var d = url(desktop);
+        preload(url(mobile) || d, "(max-width: 767.98px)");
+        preload(d, "(min-width: 768px)");
+      })();
+    </script>
+
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Dear Corner" />
     <meta
