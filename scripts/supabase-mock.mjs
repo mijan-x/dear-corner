@@ -443,6 +443,9 @@ function tableRequest(method, name, url, headers, body, claims) {
 // --------------------------------------------------------------------------
 // Email sign-in (/auth/v1/...)
 // --------------------------------------------------------------------------
+/** Passwords set with "Set a password" (email -> password), in memory. */
+const passwords = new Map();
+
 function ensureUser(email) {
   const address = email.trim().toLowerCase();
   const id =
@@ -531,6 +534,26 @@ function authRequest(method, path, url, body, claims) {
       };
     }
     return { status: 200, body: JSON.stringify(sessionFor(body.email)) };
+  }
+  if (
+    path === "token" &&
+    method === "POST" &&
+    url.searchParams.get("grant_type") === "password"
+  ) {
+    const address = String(body.email ?? "")
+      .trim()
+      .toLowerCase();
+    if (!address || passwords.get(address) !== body.password) {
+      return {
+        status: 400,
+        body: JSON.stringify({
+          code: 400,
+          error_code: "invalid_credentials",
+          msg: "Invalid login credentials",
+        }),
+      };
+    }
+    return { status: 200, body: JSON.stringify(sessionFor(address)) };
   }
   if (path === "token" && method === "POST") {
     const [, aal = "aal1", id = ""] =
@@ -630,6 +653,30 @@ function authRequest(method, path, url, body, claims) {
         status: 401,
         body: JSON.stringify({ code: 401, msg: "No session" }),
       };
+    return {
+      status: 200,
+      body: JSON.stringify(userJson({ id: claims.sub, email: claims.email })),
+    };
+  }
+  if (path === "user" && method === "PUT") {
+    if (!claims)
+      return {
+        status: 401,
+        body: JSON.stringify({ code: 401, msg: "No session" }),
+      };
+    if (typeof body.password === "string") {
+      if (passwords.get(claims.email) === body.password) {
+        return {
+          status: 422,
+          body: JSON.stringify({
+            code: 422,
+            error_code: "same_password",
+            msg: "New password should be different from the old password.",
+          }),
+        };
+      }
+      passwords.set(claims.email, body.password);
+    }
     return {
       status: 200,
       body: JSON.stringify(userJson({ id: claims.sub, email: claims.email })),

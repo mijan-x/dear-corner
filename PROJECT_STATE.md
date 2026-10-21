@@ -207,6 +207,9 @@ scripts/build-geo-data.py Builds src/data/bd-geo.json and the geo seed from nuhi
         product page). The cart follows the customer between devices; signing out clears it here
   - [x] Reviews: delivered items only, 1–5 stars, wait for approval; nothing invented
   - [x] Sign-in email templates + owner setup (`supabase/templates/`)
+  - [x] Password sign-in (optional): customers set a password in Profile and can then sign in with
+        it or with a code; "Forgot your password?" falls back to a code. Admin = sign-in + authenticator.
+  - [x] Live email setup done (Gmail SMTP, templates, 6-digit codes, Site URL dreamcornerbd.vercel.app)
   - [x] 55 end-to-end checks (`scripts/flow-checks.mjs`, also in CI); screenshots of 39 routes at
         360/768/1280 with no overflow or page errors
 - [x] **Phase F — Admin** (branch `phase-f-admin`)
