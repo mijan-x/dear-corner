@@ -30,9 +30,9 @@ Both emails must keep `{{ .Token }}` (the code) and `{{ .ConfirmationURL }}`
    own address, for testing.
 
 2. **Addresses.** Go to Authentication → URL Configuration.
-   - Site URL: `https://dear-corner-beta.vercel.app`, or the shop's own domain
+   - Site URL: `https://dreamcorner.vercel.app`, or the shop's own domain
      once it has one.
-   - Redirect URLs: add `https://dear-corner-beta.vercel.app/**`. If you test
+   - Redirect URLs: add `https://dreamcorner.vercel.app/**`. If you test
      sign-in on Vercel previews, also add your preview address pattern, for
      example `https://dear-corner-*-<your-vercel-team>.vercel.app/**`.
 3. **Templates.** Go to Authentication → Emails → Templates. Paste each file
