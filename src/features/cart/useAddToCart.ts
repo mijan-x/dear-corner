@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { useToast } from "../../components/ui/useToast";
 import { cartStore, MAX_PER_ITEM } from "./cartStore";
+import { cartDrawer } from "./cartDrawer";
 import type { ProductCardData } from "../../types/shop";
 
 /**
@@ -10,7 +11,12 @@ import type { ProductCardData } from "../../types/shop";
 export function useAddToCart() {
   const toast = useToast();
   return useCallback(
-    (variantId: string, quantity: number, name: string) => {
+    (
+      variantId: string,
+      quantity: number,
+      name: string,
+      { openCart = false }: { openCart?: boolean } = {},
+    ) => {
       const before = cartStore
         .get()
         .find((line) => line.variantId === variantId)?.quantity;
@@ -25,7 +31,8 @@ export function useAddToCart() {
         );
         return false;
       }
-      toast.show(`Added to cart: ${name}`, "success");
+      if (openCart) cartDrawer.open();
+      else toast.show(`Added to cart: ${name}`, "success");
       return true;
     },
     [toast],

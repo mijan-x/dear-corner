@@ -7,7 +7,7 @@ Stack: Vite 8 + React 19 + TypeScript 6 + Tailwind CSS 4 + React Router 7 +
 Supabase, deployed on Vercel from GitHub (`mijan-x/dear-corner`, branch `main`).
 Reference project (read-only, never changed): `mijan-x/blyver`.
 
-Last updated: 2026-10-21 (end of Phase D).
+Last updated: 2026-10-21 (end of Phase E).
 
 ## Environments
 
@@ -45,9 +45,13 @@ public/                   favicon set, app icons, site.webmanifest, og-image.png
 scripts/
   screenshots.mjs         Playwright: screenshots at 360/768/1280 (pages and opened menus/dialogs),
                           console/overflow report, axe accessibility scan when axe-core is installed
-  screenshot-routes.json  Routes, viewports and the clicks/hovers that reach each state
-  supabase-mock.mjs       Answers the shop's Supabase requests from the local test database
-                          (CI screenshots show the sample products)
+  screenshot-routes.json  Routes, viewports and the clicks/hovers that reach each state (signed in
+                          and with a cart where a route asks for it)
+  supabase-mock.mjs       Answers the shop's Supabase requests from the local test database: database
+                          functions, table reads/writes with Row Level Security as visitor or customer,
+                          and email sign-in (code 123456). Also makes the screenshots' demo customer
+  flow-checks.mjs         End-to-end checks: cart, coupon, checkout, price change, confirmation, track
+                          order, sign-in, profile, addresses, wishlist, review, reorder, sign-out
   build-sql-bundle.sh     Rebuilds the supabase/manual/ files (CI checks them)
   sample-photos/          build.py (Canva originals → WebP at size budgets), export-links.json
   make-figures-font.py    Builds the "DC Figures" tabular-digit font from DM Sans
@@ -73,19 +77,31 @@ src/
   components/motion/      Reveal (fade-up once in view, one shared IntersectionObserver)
   components/layout/      AnnouncementBar, SiteHeader, DesktopNav (+ Shop panel), MenuDrawer,
                           SearchDialog, SiteFooter, NewsletterForm, BottomNav
-  features/cart/          cartStore (guest cart in localStorage, count for badges), useAddToCart
+  features/cart/          cartStore (cart in localStorage, count for badges), cartSync (signed-in cart
+                          saved to the account), cartDrawer (open state), useAddToCart, reorder
+  features/checkout/      geo (division/district/area lists, loaded on demand), validate, lastOrder
   features/catalog/       badges.ts (which badges a card shows), listingState.ts (filters/sort in the
                           URL), variants.ts (selection, availability, price, gallery per color)
   features/search/        recentSearches (last 5, this browser only)
-  features/auth/          (Phase E) auth provider, guards
+  features/auth/          session (who is signed in; Supabase loaded only if a session may exist),
+                          safeNext (sign-in return path, same site only)
+  components/cart/        CartDrawer, CartLines, CartLineItem, CartTotals, CouponField, DeliveryEstimate
+  components/checkout/    AddressFields (cascading dropdowns + street)
+  components/order/       OrderDetails, OrderItems, OrderTotals, StatusChip, ReviewDialog
+  components/account/     AddressDialog
   hooks/                  usePageMeta, useDebouncedValue, useRowScroll
-  layouts/                RootLayout (skip link, toasts, scroll restoration), ShopLayout (chrome)
+  layouts/                RootLayout (skip link, toasts, scroll restoration), ShopLayout (chrome),
+                          AccountLayout (sign-in guard + account navigation)
   lib/                    env, supabase (loaded on first use), routes (URL map), query (shared cache),
                           store (localStorage store), storage, errors (shopper messages), images
   pages/                  HomePage, ListingPage (Shop all, category, collection, search),
-                          ProductPage, NotFoundPage, StyleguidePage (+ styleguide/ samples and demos)
+                          ProductPage, CartPage, CheckoutPage, OrderConfirmedPage, TrackOrderPage,
+                          account/ (SignIn, Orders, OrderDetail, Addresses, Profile, Wishlist),
+                          NotFoundPage, StyleguidePage (+ styleguide/ samples and demos)
   services/               settings, catalog (menu, search suggestions), home (feed + homepage
-                          content), listing, product, shipping, newsletter
+                          content), listing, product, shipping, newsletter, cart (quotes, coupon),
+                          orders (place, track, my order, reviews), account (orders, addresses,
+                          profile, wishlist)
   types/database.ts       Generated from the live database (regenerate after every migration)
   data/bd-geo.json        8 divisions / 64 districts / 612 areas for the address dropdowns
   types/shop.ts           Storefront shapes (product card, nav) mapped from the database JSON
@@ -98,6 +114,7 @@ supabase/
   seeds/                  12 [SAMPLE] products, their demo photos, and the removal script
   tests/                  SQL + concurrency tests (run_local.sh builds a throwaway PostgreSQL)
   local/                  Supabase stand-in (roles, auth.users, storage) for the local tests
+  templates/              Sign-in emails (code + link) and the owner's SMTP / URL setup steps
 scripts/build-geo-data.py Builds src/data/bd-geo.json and the geo seed from nuhil/bangladesh-geocode (MIT)
 ```
 
@@ -164,7 +181,26 @@ scripts/build-geo-data.py Builds src/data/bd-geo.json and the geo seed from nuhi
         delivery/COD/at-the-door info, accordions, You may also like, phone 72px bar; variant in the URL
   - [x] 50 scripted interaction checks pass; screenshots at 360/768/1280 with shop data from the local
         test database (also in CI now)
-- [ ] **Phase E — Cart, checkout, account**: cart, checkout, confirmation, track order, auth, account
+- [x] **Phase E — Cart, checkout, account** (branch `phase-e-checkout`)
+  - [x] Cart drawer (opens after Add to cart; bottom sheet on phones) and cart page: database prices,
+        sold-out/limited lines, quantity, remove, coupon, free-delivery progress, delivery estimate,
+        phone total bar. The badge reads the browser's cart (no request)
+  - [x] One-page checkout, guest by default: name, +880 phone, division → district → area, street,
+        delivery note, optional email; Cash on Delivery selected; "Place order · ৳X" with the real
+        total. Signed-in customers pick a saved address (default first) or save a new one
+  - [x] `place_order` works every price out again; changed prices, sold-out items and coupons that no
+        longer apply stop the order and show the new total. Errors land on their field
+  - [x] Confirmation: "Thank you, Rima! We've got your order #DC-10482. We'll call you soon to confirm
+        it.", what happens next, expected dates, address, items, totals, Cash on Delivery amount
+  - [x] Track order (number + phone, street hidden): timeline with times, Cancelled/Returned shown
+        separately, courier and tracking code, reviews of delivered items
+  - [x] Email sign-in with a 6-digit code (and link); account: orders with status chips and Reorder,
+        order page, saved addresses (add/edit/delete/default, max 10), profile, wishlist (heart on the
+        product page). The cart follows the customer between devices; signing out clears it here
+  - [x] Reviews: delivered items only, 1–5 stars, wait for approval; nothing invented
+  - [x] Sign-in email templates + owner setup (`supabase/templates/`)
+  - [x] 55 end-to-end checks (`scripts/flow-checks.mjs`, also in CI); screenshots of 39 routes at
+        360/768/1280 with no overflow or page errors
 - [ ] **Phase F — Admin**
 - [ ] **Phase G — Content and polish**: About, Contact, FAQ, policies, performance and accessibility passes
 
@@ -231,6 +267,21 @@ night-plum (use cream).
 - The sparkle appears once per layout; the corner (sharp bottom-left) is on badges, the hero panel and
   the Shop panel image.
 
+## Cart, checkout and account (Phase E)
+
+- The cart lives in the browser (`dc-cart-v1`: variant id + quantity). Signed in, each change is also
+  saved to `cart_items`; on sign-in the browser's lines are merged into the account once.
+- Every price shown in cart and checkout comes from `quote_cart`; `place_order` gets the total the
+  shopper saw and refuses the order if anything moved (`DC_PRICE_CHANGED`).
+- The coupon code is kept in `dc-coupon` from the cart to checkout, sent only when the quote says it
+  applies, and cleared after an order.
+- The order just placed is kept in this tab's sessionStorage for the confirmation page; signed-in
+  customers can also reopen it later (`my_order`).
+- Visitors who never signed in don't download the Supabase sign-in code: it loads only when a saved
+  session or a sign-in link is present.
+- Not in this build, ready to add: online payment (payment method and status are already on orders),
+  SMS/email order notifications, courier API (courier name, code and link are shown when set).
+
 ## Database (summary — details in `supabase/README.md`)
 
 - Money is whole taka (`integer`). The browser never sends prices.
@@ -284,7 +335,11 @@ The authoring workspace cannot reach the npm registry, so GitHub Actions does th
   until they are also enabled for Preview.
 - Demo photos are generated (Canva): replace them before launch. Category photos and the 4:1 desktop
   banners are crops of 2:1 images, so a few subjects sit close to the strip's edge.
-- "Order now" goes to `/checkout`, which is built in Phase E (404 until then).
+- Sign-in emails need the owner's setup (`supabase/templates/README.md`): Gmail SMTP with an app
+  password, Site URL and redirect URLs, the two templates. Until then Supabase's own mailer sends a
+  few test emails an hour and the email has no code (only the link).
+- Orders placed as a guest stay out of the account even if the same email signs up later; they're
+  tracked with number + phone.
 - The Supabase connector asks for a confirmation before some migrations (the admin functions, grants and
   policy changes). If nobody confirms, it reports "cancelled" and nothing is applied; those parts can be
   pasted into the SQL editor instead (`supabase/manual/`).

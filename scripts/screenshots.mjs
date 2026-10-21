@@ -9,7 +9,12 @@
 // { "fill": "<selector>", "value": "lamp" } | { "wait": 300 }].
 //
 // With SUPABASE_MOCK_URL set (the build's VITE_SUPABASE_URL), shop data comes
-// from the local test database instead (scripts/supabase-mock.mjs).
+// from the local test database instead (scripts/supabase-mock.mjs), with a
+// demo customer and orders. Then a route can also set:
+//   "session": true          signed in as the demo customer
+//   "cart": ["<slug>", ...]  those products in the cart
+// and use {order}, {delivered} and {phone} in its path and action values.
+// Routes that need these are skipped without the mock.
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { createRequire } from "node:module";
@@ -41,12 +46,20 @@ const report = [];
 const mockUrl = process.env.SUPABASE_MOCK_URL;
 const mock = mockUrl ? await import("./supabase-mock.mjs") : null;
 if (mock) console.log(`Shop data from the local test database (${mockUrl})`);
+const demo = mock ? mock.prepareDemoData() : null;
+const fill = (value) =>
+  typeof value === "string" && demo
+    ? value.replace(/\{(order|delivered|phone)\}/g, (_, key) => demo[key])
+    : value;
 
 async function runActions(page, actions = []) {
   for (const action of actions) {
     if (action.click) await page.click(action.click);
     else if (action.hover) await page.hover(action.hover);
-    else if (action.fill) await page.fill(action.fill, action.value ?? "");
+    else if (action.fill)
+      await page.fill(action.fill, fill(action.value ?? ""));
+    else if (action.select)
+      await page.selectOption(action.select, action.value);
     else if (action.press) await page.keyboard.press(action.press);
     if (action.wait) await page.waitForTimeout(action.wait);
     else await page.waitForTimeout(350);
@@ -117,7 +130,29 @@ for (const viewport of config.viewports) {
   if (mock) await mock.mockSupabase(context, mockUrl);
   for (const route of config.routes) {
     if (route.viewports && !route.viewports.includes(viewport.name)) continue;
+    if ((route.session || route.cart) && !mock) continue;
     const page = await context.newPage();
+    // Each route starts from a clean browser: signed in and with a cart only
+    // when it asks for them.
+    const storage = {};
+    if (route.session) {
+      const entry = mock.sessionStorageEntry(mockUrl, demo.email);
+      storage[entry.key] = entry.value;
+    }
+    if (route.cart) {
+      storage["dc-cart-v1"] = JSON.stringify(
+        mock
+          .variantsFor(route.cart)
+          .map((variantId) => ({ variantId, quantity: 1 })),
+      );
+    }
+    await page.addInitScript((entries) => {
+      if (sessionStorage.getItem("dc-shot-ready")) return;
+      localStorage.clear();
+      for (const [key, value] of Object.entries(entries))
+        localStorage.setItem(key, value);
+      sessionStorage.setItem("dc-shot-ready", "1");
+    }, storage);
     const problems = [];
     page.on("console", (msg) => {
       if (msg.type() === "error") problems.push(`console: ${msg.text()}`);
@@ -132,7 +167,7 @@ for (const viewport of config.viewports) {
     );
     const started = Date.now();
     try {
-      await page.goto(new URL(route.path, baseUrl).href, {
+      await page.goto(new URL(fill(route.path), baseUrl).href, {
         waitUntil: "networkidle",
       });
       await page.evaluate(() => document.fonts.ready);

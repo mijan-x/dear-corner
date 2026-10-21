@@ -20,6 +20,18 @@ export class SupabaseNotConfiguredError extends Error {
 }
 
 let clientPromise: Promise<DearCornerClient> | null = null;
+const readyListeners = new Set<(client: DearCornerClient) => void>();
+let readyClient: DearCornerClient | null = null;
+
+/**
+ * Runs once the client exists (right away if it already does). The sign-in
+ * state listens here, so it never loads the library just to find out a
+ * visitor isn't signed in.
+ */
+export function onSupabaseReady(listener: (client: DearCornerClient) => void) {
+  if (readyClient) listener(readyClient);
+  else readyListeners.add(listener);
+}
 
 export function getSupabase(): Promise<DearCornerClient> {
   if (!isSupabaseConfigured) {
@@ -36,6 +48,12 @@ export function getSupabase(): Promise<DearCornerClient> {
           },
         }),
       )
+      .then((client) => {
+        readyClient = client;
+        readyListeners.forEach((listener) => listener(client));
+        readyListeners.clear();
+        return client;
+      })
       .catch((error: unknown) => {
         clientPromise = null; // try again next time (for example after going offline)
         throw error;
