@@ -2,7 +2,7 @@ import { defineConfig, loadEnv, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 
-const DEFAULT_SITE_URL = "https://dreamcornerbd.vercel.app";
+const DEFAULT_SITE_URL = "https://dearcornerbd.vercel.app";
 
 /**
  * Replaces __SITE_URL__ in index.html (canonical, Open Graph) with the public
