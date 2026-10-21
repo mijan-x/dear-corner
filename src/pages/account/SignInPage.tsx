@@ -22,6 +22,12 @@ function authMessage(error: unknown): string {
     code?: string;
   };
   const text = (e.message ?? "").toLowerCase();
+  if (e.code === "invalid_credentials" || text.includes("invalid login")) {
+    return "That email and password don't match. No password yet? Sign in with a code, then set one in your account.";
+  }
+  if (e.code === "email_not_confirmed" || text.includes("not confirmed")) {
+    return "Please sign in with a code first to confirm your email.";
+  }
   if (
     e.status === 429 ||
     text.includes("rate limit") ||
@@ -44,9 +50,10 @@ function authMessage(error: unknown): string {
 }
 
 /**
- * Sign in or create an account with an email code (no password). The email
- * also has a link that signs in on the device it's opened on. Checkout never
- * needs an account.
+ * Sign in with an email code, or with a password once one is set in the
+ * account. New accounts start with a code (that confirms the email); the code
+ * email also has a link that signs in on the device it's opened on. Checkout
+ * never needs an account.
  */
 function SignInPage() {
   usePageMeta({ title: "Sign in", noindex: true });
@@ -54,6 +61,9 @@ function SignInPage() {
   const [params] = useSearchParams();
   const next = safeNext(params.get("next"));
   const [step, setStep] = useState<"email" | "code">("email");
+  const [method, setMethod] = useState<"code" | "password">("code");
+  const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState<string | null>(null);
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -105,6 +115,39 @@ function SignInPage() {
     }
   };
 
+  const signInWithPassword = async (event: FormEvent) => {
+    event.preventDefault();
+    const address = email.trim().toLowerCase();
+    const badEmail = EMAIL.test(address)
+      ? null
+      : "Enter an email address, like name@example.com.";
+    const badPassword = password ? null : "Enter your password.";
+    setFieldError(badEmail);
+    setPasswordError(badPassword);
+    if (badEmail || badPassword) return;
+    setError(null);
+    setBusy(true);
+    try {
+      const client = await getSupabase();
+      const { error: signInError } = await client.auth.signInWithPassword({
+        email: address,
+        password,
+      });
+      if (signInError) throw signInError;
+      // The session listener moves the page on to `next`.
+    } catch (e) {
+      setError(authMessage(e));
+      setBusy(false);
+    }
+  };
+
+  const chooseMethod = (value: "code" | "password") => {
+    setMethod(value);
+    setError(null);
+    setFieldError(null);
+    setPasswordError(null);
+  };
+
   const verify = async (event: FormEvent) => {
     event.preventDefault();
     const token = code.replace(/\D/g, "");
@@ -144,9 +187,42 @@ function SignInPage() {
                 Sign in or create an account
               </h1>
               <p className="mt-3 type-body-lg text-soft-ink">
-                We&rsquo;ll email you a 6-digit code. No password to remember.
+                {method === "code"
+                  ? "We’ll email you a 6-digit code. New here? This makes your account too."
+                  : "Use the password you set in your account."}
               </p>
-              <form onSubmit={send} noValidate className="mt-8 space-y-5">
+              <div
+                role="radiogroup"
+                aria-label="How to sign in"
+                className="mt-7 grid grid-cols-2 gap-1 rounded-full border border-sand-line bg-soft-sand/60 p-1"
+              >
+                {(
+                  [
+                    ["code", "Email code"],
+                    ["password", "Password"],
+                  ] as const
+                ).map(([value, label]) => (
+                  <button
+                    key={value}
+                    type="button"
+                    role="radio"
+                    aria-checked={method === value}
+                    onClick={() => chooseMethod(value)}
+                    className={`min-h-11 rounded-full px-4 type-label transition-colors ${
+                      method === value
+                        ? "bg-paper text-ink shadow-sm"
+                        : "text-soft-ink hover:text-ink"
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+              <form
+                onSubmit={method === "code" ? send : signInWithPassword}
+                noValidate
+                className="mt-6 space-y-5"
+              >
                 <TextField
                   label="Email address"
                   type="email"
@@ -157,16 +233,47 @@ function SignInPage() {
                   error={fieldError}
                   placeholder="name@example.com"
                 />
+                {method === "password" && (
+                  <TextField
+                    id="sign-in-password"
+                    label="Password"
+                    type="password"
+                    autoComplete="current-password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    error={passwordError}
+                  />
+                )}
                 {error && <Notice tone="error">{error}</Notice>}
-                <Button
-                  type="submit"
-                  fullWidth
-                  loading={busy}
-                  loadingLabel="Sending the code"
-                >
-                  Email me a code
-                </Button>
+                {method === "code" ? (
+                  <Button
+                    type="submit"
+                    fullWidth
+                    loading={busy}
+                    loadingLabel="Sending the code"
+                  >
+                    Email me a code
+                  </Button>
+                ) : (
+                  <Button
+                    type="submit"
+                    fullWidth
+                    loading={busy}
+                    loadingLabel="Signing you in"
+                  >
+                    Sign in
+                  </Button>
+                )}
               </form>
+              {method === "password" && (
+                <button
+                  type="button"
+                  onClick={() => chooseMethod("code")}
+                  className="mt-4 inline-flex min-h-11 items-center type-body link"
+                >
+                  Forgot your password? Sign in with a code
+                </button>
+              )}
             </>
           ) : (
             <>

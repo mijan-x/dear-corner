@@ -296,6 +296,72 @@ await step("price change", async () => {
 });
 
 // ---------------------------------------------------------------------------
+// Password: set one in the profile, then sign in with it
+// ---------------------------------------------------------------------------
+await step("password sign-in", async () => {
+  const address = `password.${Date.now()}@example.com`;
+  const first = await newPage();
+  await go(first.page, "/account/sign-in?next=%2Faccount%2Fprofile");
+  await first.page.fill("input[type='email']", address);
+  await first.page.locator("main button:has-text('Email me a code')").click();
+  await first.page.fill("#sign-in-code", MOCK_OTP_CODE);
+  await first.page.locator("main button:has-text('Sign in')").click();
+  await first.page.waitForURL((url) => url.pathname === "/account/profile", {
+    timeout: 8000,
+  });
+  await first.page.waitForSelector("#new-password");
+  await first.page.fill("#new-password", "short");
+  await first.page.fill("#repeat-password", "short");
+  await first.page.locator("main button:has-text('Save password')").click();
+  check(
+    "short password refused",
+    (await first.page.locator("main").innerText()).includes(
+      "Use at least 8 characters.",
+    ),
+  );
+  await first.page.fill("#new-password", "lovely-lamp-42");
+  await first.page.fill("#repeat-password", "lovely-lamp-42");
+  await first.page.locator("main button:has-text('Save password')").click();
+  await first.page.waitForTimeout(800);
+  check(
+    "password saved",
+    (await first.page.locator("body").innerText()).includes("Password saved."),
+  );
+  check(
+    "no page errors (set password)",
+    first.errors.length === 0,
+    first.errors.join(" | "),
+  );
+  await first.context.close();
+
+  const { context, page, errors } = await newPage();
+  await go(page, "/account/sign-in");
+  await page.locator("main [role='radio']:has-text('Password')").click();
+  await page.fill("input[type='email']", address);
+  await page.fill("#sign-in-password", "wrong-password");
+  await page.locator("main form button[type='submit']").click();
+  await page.waitForTimeout(800);
+  check(
+    "wrong password message",
+    (await page.locator("main").innerText()).includes(
+      "That email and password don't match.",
+    ),
+  );
+  await page.fill("#sign-in-password", "lovely-lamp-42");
+  await page.locator("main form button[type='submit']").click();
+  await page.waitForURL((url) => url.pathname === "/account", {
+    timeout: 8000,
+  });
+  check("signed in with password", true);
+  check(
+    "no page errors (password sign-in)",
+    errors.length === 0,
+    errors.join(" | "),
+  );
+  await context.close();
+});
+
+// ---------------------------------------------------------------------------
 // Sign in, account, signed-in checkout with a saved address
 // ---------------------------------------------------------------------------
 let accountOrder = null;
