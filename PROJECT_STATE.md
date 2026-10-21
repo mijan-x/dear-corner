@@ -259,6 +259,8 @@ The authoring workspace cannot reach the npm registry, so GitHub Actions does th
   branch whenever the lockfile changes, so builds, lint and screenshots also run locally.
 - Both side branches are force-pushed single commits; they can be deleted at the end of the project.
 - CI also runs the database tests: `supabase/tests/run_local.sh --seed --test` on the runner's PostgreSQL.
+- CI screenshots: a second, fresh local database (migrations + sample seed, no tests) answers the shop's
+  Supabase requests (`scripts/supabase-mock.mjs`), so every page shows the sample products and photos.
   Locally: `RUN_AS=claude supabase/tests/run_local.sh --seed --test` (initdb refuses to run as root).
 
 ## Known issues

@@ -141,10 +141,15 @@ jobs:
           set -o pipefail
           npm install --no-save playwright@1.56.0 axe-core@4.10.3 2>&1 | tail -2
           npx playwright install --with-deps chromium > /dev/null 2>&1
-          # With the test database from the step above still running, shop
-          # pages show the sample products (requests answered from it).
+          # A fresh local database (every migration + the sample seed, no
+          # tests) answers the shop's requests, so pages show the sample
+          # products. The DB tests' copy ends with their own test data.
           OUT=dist
-          if pg_isready -q -h /tmp -p 54329; then
+          if [ -f supabase/tests/run_local.sh ] && \
+            PGBIN="$(ls -d /usr/lib/postgresql/*/bin | sort -V | tail -1)" \
+            PGDATA_DIR="$RUNNER_TEMP/dc-pg-shots" PGPORT=54331 \
+            bash supabase/tests/run_local.sh --seed > ci-out/db-screenshots.txt 2>&1; then
+            export PGPORT=54331
             export SUPABASE_MOCK_URL=https://mock-project.supabase.co
             VITE_SUPABASE_URL=$SUPABASE_MOCK_URL VITE_SUPABASE_ANON_KEY=mock-anon-key \
               npx vite build --outDir dist-mock > ci-out/build-mock.txt 2>&1 && OUT=dist-mock
