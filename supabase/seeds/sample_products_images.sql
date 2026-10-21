@@ -11,15 +11,26 @@
 -- Product photos. Color photos are linked to their color value, so choosing
 -- a color swaps the gallery; each color variant points at its main photo.
 -- ---------------------------------------------------------------------------
-create temporary table sample_photo (
-  product_slug text,
-  file text,
-  color text,          -- option value the photo belongs to (null = every color)
-  alt text,
-  position integer
-);
+-- Earlier demo photos of these products are replaced; uploaded photos stay.
+delete from public.product_images i
+using public.products p
+where p.id = i.product_id and p.is_sample and i.path like '/samples/%';
 
-insert into sample_photo values
+-- Each photo: product, file, the color it shows (null = every color), alt
+-- text and its place in the gallery.
+insert into public.product_images (product_id, path, thumb_path, alt_text, width, height, position, option_value_id)
+select
+  p.id,
+  '/samples/products/' || s.file || '.webp',
+  '/samples/products/' || s.file || '-400.webp',
+  s.alt, 1200, 1200,
+  -- after any photos already uploaded for the product
+  s.position + coalesce((select max(i.position) + 1 from public.product_images i where i.product_id = p.id), 0),
+  (select ov.id
+   from public.product_option_values ov
+   join public.product_options o on o.id = ov.option_id
+   where ov.product_id = p.id and o.is_color and ov.value = s.color)
+from (values
   ('sample-ribbed-ceramic-bud-vase', 'vase-cream', 'Cream', 'Ribbed ceramic bud vase in cream with two daisies', 0),
   ('sample-ribbed-ceramic-bud-vase', 'vase-lifestyle', 'Cream', 'Cream bud vase with daisies on a sunny windowsill', 1),
   ('sample-ribbed-ceramic-bud-vase', 'vase-clay', 'Clay', 'Ribbed ceramic bud vase in clay with two daisies', 2),
@@ -40,26 +51,8 @@ insert into sample_photo values
   ('sample-canvas-tote-bag', 'tote-natural', 'Natural', 'Natural canvas tote bag', 0),
   ('sample-canvas-tote-bag', 'tote-black', 'Black', 'Black canvas tote bag', 1),
   ('sample-claw-hair-clip-set', 'claw-clips', null, 'Three matte claw clips in blush, sage and cream', 0),
-  ('sample-little-corner-gift-box', 'gift-box', null, 'Kraft gift box with a candle, a notebook and a claw clip', 0);
-
--- Earlier demo photos of these products are replaced; uploaded photos stay.
-delete from public.product_images i
-using public.products p
-where p.id = i.product_id and p.is_sample and i.path like '/samples/%';
-
-insert into public.product_images (product_id, path, thumb_path, alt_text, width, height, position, option_value_id)
-select
-  p.id,
-  '/samples/products/' || s.file || '.webp',
-  '/samples/products/' || s.file || '-400.webp',
-  s.alt, 1200, 1200,
-  -- after any photos already uploaded for the product
-  s.position + coalesce((select max(i.position) + 1 from public.product_images i where i.product_id = p.id), 0),
-  (select ov.id
-   from public.product_option_values ov
-   join public.product_options o on o.id = ov.option_id
-   where ov.product_id = p.id and o.is_color and ov.value = s.color)
-from sample_photo s
+  ('sample-little-corner-gift-box', 'gift-box', null, 'Kraft gift box with a candle, a notebook and a claw clip', 0)
+) as s(product_slug, file, color, alt, position)
 join public.products p on p.slug = s.product_slug and p.is_sample;
 
 -- Each color variant shows its own photo first.
@@ -76,7 +69,6 @@ where i.product_id = v.product_id
   )
   and (v.image_id is null or v.image_id not in (select id from public.product_images));
 
-drop table sample_photo;
 
 -- ---------------------------------------------------------------------------
 -- Category and collection images: square card, 4:1 desktop banner, 2:1 phone banner.
