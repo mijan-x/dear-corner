@@ -7,7 +7,7 @@ Stack: Vite 8 + React 19 + TypeScript 6 + Tailwind CSS 4 + React Router 7 +
 Supabase, deployed on Vercel from GitHub (`mijan-x/dear-corner`, branch `main`).
 Reference project (read-only, never changed): `mijan-x/blyver`.
 
-Last updated: 2026-10-21 (end of Phase E).
+Last updated: 2026-10-21 (end of Phase F).
 
 ## Environments
 
@@ -51,7 +51,9 @@ scripts/
                           functions, table reads/writes with Row Level Security as visitor or customer,
                           and email sign-in (code 123456). Also makes the screenshots' demo customer
   flow-checks.mjs         End-to-end checks: cart, coupon, checkout, price change, confirmation, track
-                          order, sign-in, profile, addresses, wishlist, review, reorder, sign-out
+                          order, sign-in, profile, addresses, wishlist, review, reorder, sign-out, and the
+                          admin (two-step login, orders, print, CSV, products + photos, stock, coupons,
+                          shipping, reviews, messages, settings, categories)
   build-sql-bundle.sh     Rebuilds the supabase/manual/ files (CI checks them)
   sample-photos/          build.py (Canva originals → WebP at size budgets), export-links.json
   make-figures-font.py    Builds the "DC Figures" tabular-digit font from DM Sans
@@ -89,9 +91,15 @@ src/
   components/checkout/    AddressFields (cascading dropdowns + street)
   components/order/       OrderDetails, OrderItems, OrderTotals, StatusChip, ReviewDialog
   components/account/     AddressDialog
+  admin/                  The admin (own lazy chunks): lib/ (access + two-step login check, data cache,
+                          paths, browser photo resizing + upload, product form model), services/ (orders,
+                          catalog, taxonomy, inventory, coupons, shipping, settings, dashboard),
+                          components/ (AdminPage, Panel, Table, QueryView, Toggle, Tabs, Pager, SearchBox,
+                          ConfirmDialog, ImageField, HomepageEditor, TwoStep, product/ editors), pages/
   hooks/                  usePageMeta, useDebouncedValue, useRowScroll
   layouts/                RootLayout (skip link, toasts, scroll restoration), ShopLayout (chrome),
-                          AccountLayout (sign-in guard + account navigation)
+                          AccountLayout (sign-in guard + account navigation), AdminLayout (admin role +
+                          two-step login guard, sidebar / phone menu)
   lib/                    env, supabase (loaded on first use), routes (URL map), query (shared cache),
                           store (localStorage store), storage, errors (shopper messages), images
   pages/                  HomePage, ListingPage (Shop all, category, collection, search),
@@ -201,7 +209,24 @@ scripts/build-geo-data.py Builds src/data/bd-geo.json and the geo seed from nuhi
   - [x] Sign-in email templates + owner setup (`supabase/templates/`)
   - [x] 55 end-to-end checks (`scripts/flow-checks.mjs`, also in CI); screenshots of 39 routes at
         360/768/1280 with no overflow or page errors
-- [ ] **Phase F — Admin**
+- [x] **Phase F — Admin** (branch `phase-f-admin`)
+  - [x] `/admin`: admin role **and** two-step login (authenticator app, TOTP): first visit shows a QR code
+        to set it up, later visits ask for the code. The database checks the same on every request
+  - [x] Dashboard (today's orders and sales, waiting orders, reviews, messages, latest orders, low stock)
+  - [x] Orders: status filters, search (number, name, phone), dates, CSV export; order page with the next
+        allowed steps (confirm, pack, hand to courier with courier/code/link, out for delivery, delivered,
+        cancel/return with stock back), history, customer details edit (until handed over), courier,
+        team notes, A4 invoice and A6 parcel label
+  - [x] Products (Products / Categories / Collections tabs): list with filters; editor with options (up to 3,
+        colors with swatches), variant table (SKU, price, old price, stock, alert level, photo, on/off),
+        photos resized in the browser to 1200 px WebP under 150 KB + 400 px thumbnail, order, alt text,
+        color link; categories and collections with card and banner photos
+  - [x] Inventory (stock per SKU, corrections with a reason, recent stock changes), Coupons, Customers
+        (accounts + guests by phone), Shipping (zones, fees, days, areas, free-delivery threshold), Reviews
+        (publish / don't publish / delete), Messages (reply by phone, WhatsApp, email), Settings
+        (announcement, contact, limits, homepage hero / banners / Instagram, newsletter CSV, remove sample
+        data), Activity log
+  - [x] 86 end-to-end checks (31 for the admin), 124 screenshots (21 admin routes) with no overflow
 - [ ] **Phase G — Content and polish**: About, Contact, FAQ, policies, performance and accessibility passes
 
 ## Design tokens (summary — full list in `src/index.css`)
@@ -281,6 +306,16 @@ night-plum (use cream).
   session or a sign-in link is present.
 - Not in this build, ready to add: online payment (payment method and status are already on orders),
   SMS/email order notifications, courier API (courier name, code and link are shown when set).
+
+## Admin (Phase F)
+
+- Make someone an admin: they sign up with their email, then in the Supabase SQL editor
+  `update public.user_roles set role = 'admin' where user_id = (select id from auth.users where email = '…');`.
+  They set up two-step login the first time they open `/admin` (Supabase Auth → MFA: TOTP must be on;
+  it is by default).
+- Photos go to the `product-images` bucket (`products/<id>/…`) and `site-media` (`categories/`,
+  `collections/`, `home/`, `instagram/`). Removing a photo from a product deletes its files on save.
+- Order history, stock movements and the activity log are written by the database, not the page.
 
 ## Database (summary — details in `supabase/README.md`)
 

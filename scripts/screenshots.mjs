@@ -13,7 +13,10 @@
 // demo customer and orders. Then a route can also set:
 //   "session": true          signed in as the demo customer
 //   "cart": ["<slug>", ...]  those products in the cart
-// and use {order}, {delivered} and {phone} in its path and action values.
+//   "admin": true            signed in to the admin (two-step login done);
+//            "enroll"        an admin who still has to set up two-step login
+// and use {order}, {delivered}, {phone}, {orderId} and {productId} in its
+// path and action values.
 // Routes that need these are skipped without the mock.
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
@@ -49,7 +52,10 @@ if (mock) console.log(`Shop data from the local test database (${mockUrl})`);
 const demo = mock ? mock.prepareDemoData() : null;
 const fill = (value) =>
   typeof value === "string" && demo
-    ? value.replace(/\{(order|delivered|phone)\}/g, (_, key) => demo[key])
+    ? value.replace(
+        /\{(order|delivered|phone|orderId|productId)\}/g,
+        (_, key) => demo[key],
+      )
     : value;
 
 async function runActions(page, actions = []) {
@@ -130,13 +136,26 @@ for (const viewport of config.viewports) {
   if (mock) await mock.mockSupabase(context, mockUrl);
   for (const route of config.routes) {
     if (route.viewports && !route.viewports.includes(viewport.name)) continue;
-    if ((route.session || route.cart) && !mock) continue;
+    if ((route.session || route.cart || route.admin) && !mock) continue;
+    // SHOT_FILTER=admin takes only the routes whose name contains "admin".
+    if (
+      process.env.SHOT_FILTER &&
+      !route.name.includes(process.env.SHOT_FILTER)
+    )
+      continue;
     const page = await context.newPage();
     // Each route starts from a clean browser: signed in and with a cart only
     // when it asks for them.
     const storage = {};
     if (route.session) {
       const entry = mock.sessionStorageEntry(mockUrl, demo.email);
+      storage[entry.key] = entry.value;
+    }
+    if (route.admin) {
+      const entry =
+        route.admin === "enroll"
+          ? mock.sessionStorageEntry(mockUrl, mock.DEMO_NEW_ADMIN)
+          : mock.sessionStorageEntry(mockUrl, mock.DEMO_ADMIN, { aal: "aal2" });
       storage[entry.key] = entry.value;
     }
     if (route.cart) {
@@ -146,6 +165,9 @@ for (const viewport of config.viewports) {
           .map((variantId) => ({ variantId, quantity: 1 })),
       );
     }
+    await page.addInitScript(() => {
+      window.print = () => {};
+    });
     await page.addInitScript((entries) => {
       if (sessionStorage.getItem("dc-shot-ready")) return;
       localStorage.clear();
