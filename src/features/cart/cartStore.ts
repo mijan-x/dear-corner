@@ -7,7 +7,7 @@ import { createStoredStore } from "../../lib/store";
  */
 export type CartLine = { variantId: string; quantity: number };
 
-const MAX_PER_ITEM = 10;
+export const MAX_PER_ITEM = 10;
 
 const cart = createStoredStore<CartLine[]>("dc-cart-v1", []);
 

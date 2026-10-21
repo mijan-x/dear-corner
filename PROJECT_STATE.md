@@ -7,7 +7,7 @@ Stack: Vite 8 + React 19 + TypeScript 6 + Tailwind CSS 4 + React Router 7 +
 Supabase, deployed on Vercel from GitHub (`mijan-x/dear-corner`, branch `main`).
 Reference project (read-only, never changed): `mijan-x/blyver`.
 
-Last updated: 2026-10-21 (end of Phase C).
+Last updated: 2026-10-21 (end of Phase D).
 
 ## Environments
 
@@ -41,11 +41,15 @@ menu and footer fall back to built-in defaults. Vercel's build-time `VERCEL_ENV`
 index.html                App shell: title, meta, Open Graph, favicons, manifest
 vercel.json               SPA rewrite to /index.html, cache + security headers
 public/                   favicon set, app icons, site.webmanifest, og-image.png, robots.txt
+  samples/                Demo photos (WebP): products/, categories/, home/. Replace before launch
 scripts/
   screenshots.mjs         Playwright: screenshots at 360/768/1280 (pages and opened menus/dialogs),
                           console/overflow report, axe accessibility scan when axe-core is installed
   screenshot-routes.json  Routes, viewports and the clicks/hovers that reach each state
-  build-sql-bundle.sh     Rebuilds supabase/manual/finish-phase-b.sql (CI checks it)
+  supabase-mock.mjs       Answers the shop's Supabase requests from the local test database
+                          (CI screenshots show the sample products)
+  build-sql-bundle.sh     Rebuilds the supabase/manual/ files (CI checks them)
+  sample-photos/          build.py (Canva originals → WebP at size budgets), export-links.json
   make-figures-font.py    Builds the "DC Figures" tabular-digit font from DM Sans
 src/
   main.tsx                Entry: fonts, CSS, error boundary, Lucide defaults (1.75 stroke), router
@@ -61,29 +65,37 @@ src/
                           Chip, Badge, Price, Rating, Notice, EmptyState (+ copy), Skeleton,
                           Accordion, Breadcrumbs, SectionHeading, LoadMore, FreeDeliveryProgress,
                           OrderTimeline, Dialog (drawer/sheet/cart/modal/search), Toast, Spinner
-  components/product/     ProductCard, CategoryCard
+  components/product/     ProductCard, CategoryCard, ProductRow (snap row + arrows), ProductGallery,
+                          DeliveryInfo
+  components/home/        Hero, PromoBanner, PromiseStrip, HomeReviews, InstagramGrid
+  components/listing/     ListingHeader, FilterPanel, ListingToolbar (sort select, phone Filter/Sort
+                          sheets), AppliedFilters, ProductResults (pages + Load more), SearchForm
+  components/motion/      Reveal (fade-up once in view, one shared IntersectionObserver)
   components/layout/      AnnouncementBar, SiteHeader, DesktopNav (+ Shop panel), MenuDrawer,
                           SearchDialog, SiteFooter, NewsletterForm, BottomNav
-  features/cart/          cartStore (guest cart in localStorage, count for badges)
-  features/catalog/       badges.ts (which badges a card shows)
+  features/cart/          cartStore (guest cart in localStorage, count for badges), useAddToCart
+  features/catalog/       badges.ts (which badges a card shows), listingState.ts (filters/sort in the
+                          URL), variants.ts (selection, availability, price, gallery per color)
   features/search/        recentSearches (last 5, this browser only)
   features/auth/          (Phase E) auth provider, guards
-  hooks/                  usePageMeta, useDebouncedValue
+  hooks/                  usePageMeta, useDebouncedValue, useRowScroll
   layouts/                RootLayout (skip link, toasts, scroll restoration), ShopLayout (chrome)
   lib/                    env, supabase (loaded on first use), routes (URL map), query (shared cache),
                           store (localStorage store), storage, errors (shopper messages), images
-  pages/                  HomePage (holding page until Phase D), NotFoundPage, StyleguidePage
-                          (+ styleguide/ samples and demos)
-  services/               settings, catalog (menu, search suggestions), newsletter
+  pages/                  HomePage, ListingPage (Shop all, category, collection, search),
+                          ProductPage, NotFoundPage, StyleguidePage (+ styleguide/ samples and demos)
+  services/               settings, catalog (menu, search suggestions), home (feed + homepage
+                          content), listing, product, shipping, newsletter
   types/database.ts       Generated from the live database (regenerate after every migration)
   data/bd-geo.json        8 divisions / 64 districts / 612 areas for the address dropdowns
   types/shop.ts           Storefront shapes (product card, nav) mapped from the database JSON
-  utils/                  formatPrice (৳1,290), discountPercent, formatDate (Asia/Dhaka), cx
+  utils/                  formatPrice (৳1,290), discountPercent, formatDate (Asia/Dhaka), cx,
+                          emphasis (*word* → italics in admin-editable titles)
 supabase/
   README.md               What each migration does, rules the database enforces, how to make an admin
   migrations/             SQL migrations, applied in file-name order
   manual/                 One-paste SQL bundles for the dashboard SQL editor
-  seeds/                  12 [SAMPLE] products + their removal script
+  seeds/                  12 [SAMPLE] products, their demo photos, and the removal script
   tests/                  SQL + concurrency tests (run_local.sh builds a throwaway PostgreSQL)
   local/                  Supabase stand-in (roles, auth.users, storage) for the local tests
 scripts/build-geo-data.py Builds src/data/bd-geo.json and the geo seed from nuhil/bangladesh-geocode (MIT)
@@ -129,7 +141,27 @@ scripts/build-geo-data.py Builds src/data/bd-geo.json and the geo seed from nuhi
   - [x] Supabase library split out of the first download (loaded on first data call)
   - [x] 31 scripted interaction checks; screenshots at 360/768/1280 including open menu, search, Shop panel,
         stuck header and cart drawer; axe accessibility scan in CI
-- [ ] **Phase D — Shop**: demo images, Home, Shop all, category/collection, product, search
+- [x] **Phase D — Shop** (branch `phase-d-shop`)
+  - [x] 31 demo photos generated in Canva (design "Dear Corner demo photos", DAHYk4iBZN8): 12 products,
+        6 color variants, 3 lifestyle shots, hero (desktop + phone), 2 banners, 6 category images. No text,
+        brand palette, few props. Originals on the `sample-photos-src` branch; WebP built by
+        `scripts/sample-photos/build.py` (hero 47 + 38 KB, product photos 30–123 KB, 1200 + 400 px)
+  - [x] Photos linked in the database by `supabase/seeds/sample_products_images.sql` (each color has its
+        photos; each color variant its main photo). Live: the owner pastes
+        `supabase/manual/phase-d-demo-photos.sql` (the connector's write was cancelled)
+  - [x] Home: split hero (`<picture>`, high priority, preloaded from index.html), 6 category cards, New
+        arrivals row (2.3 cards on phones), two promo banners, Best sellers, promises strip; reviews and
+        Instagram hidden until real ones exist
+  - [x] Shop all, category (banner 4:1 / 2:1, sub-category chips), collection and search on one listing
+        page: filters (category, price presets + min/max, color, in stock, on sale) with counts, five
+        sorts (+ Best match for search), Load more 24 at a time, all kept in the URL; phone Filter/Sort
+        bottom sheets under a sticky bar; removable filter chips
+  - [x] Product page: gallery (swipe + dots on phones; 72px thumbnails + hover zoom on desktop), color
+        switch swaps photos with a 200ms fade, sold-out options crossed out and named, "From ৳520" until
+        a size is chosen, stock line, quantity capped by stock, Add to cart (toast + badge), Order now,
+        delivery/COD/at-the-door info, accordions, You may also like, phone 72px bar; variant in the URL
+  - [x] 50 scripted interaction checks pass; screenshots at 360/768/1280 with shop data from the local
+        test database (also in CI now)
 - [ ] **Phase E — Cart, checkout, account**: cart, checkout, confirmation, track order, auth, account
 - [ ] **Phase F — Admin**
 - [ ] **Phase G — Content and polish**: About, Contact, FAQ, policies, performance and accessibility passes
@@ -183,6 +215,13 @@ night-plum (use cream).
   `/account/wishlist`, `/about`, `/contact`, `/faq`, `/delivery`, `/exchange-and-returns`, `/privacy`,
   `/terms`. Links to pages not built yet show the 404 page until their phase.
 - Header icons: search and cart everywhere, account from 768px (phones use the bottom navigation).
+- Listing URLs: `?sort=&min=&max=&color=…&stock=1&sale=1&cat=&q=&page=` (defaults left out). Filters
+  push a history entry (Back undoes them); Load more replaces it.
+- Product URLs carry the chosen variant: `/products/<slug>?variant=<id>`.
+- Homepage text, photos and banners come from `store_settings.homepage` (shape in `services/home.ts`);
+  missing fields use the built-in defaults. In titles, `*word*` is shown in italics.
+- Motion: `Reveal` fades sections up once (opacity/transform only); the hero photo never animates
+  (Largest Contentful Paint). Everything is static with reduced motion.
 - Shop data is read through `useQuery` (shared, cached, refreshed in the background); settings and the
   menu are also kept in localStorage so returning visitors see them instantly.
 - Errors shown to shoppers go through `toShopError()`; empty-state and error copy is word for word from
@@ -220,6 +259,8 @@ The authoring workspace cannot reach the npm registry, so GitHub Actions does th
   branch whenever the lockfile changes, so builds, lint and screenshots also run locally.
 - Both side branches are force-pushed single commits; they can be deleted at the end of the project.
 - CI also runs the database tests: `supabase/tests/run_local.sh --seed --test` on the runner's PostgreSQL.
+- CI screenshots: a second, fresh local database (migrations + sample seed, no tests) answers the shop's
+  Supabase requests (`scripts/supabase-mock.mjs`), so every page shows the sample products and photos.
   Locally: `RUN_AS=claude supabase/tests/run_local.sh --seed --test` (initdb refuses to run as root).
 
 ## Known issues
@@ -239,6 +280,11 @@ The authoring workspace cannot reach the npm registry, so GitHub Actions does th
   (for example "Cash on Delivery · Free delivery over ৳1,000") keeps it to one.
 - Vercel environment variables are set for Production only; preview builds (PR links) have no database
   until they are also enabled for Preview.
+- Demo photos are generated (Canva): replace them before launch. Category photos and the 4:1 desktop
+  banners are crops of 2:1 images, so a few subjects sit close to the strip's edge.
+- "Order now" goes to `/checkout`, which is built in Phase E (404 until then).
+- The Supabase connector cancelled the Phase D photo SQL; until the owner pastes
+  `supabase/manual/phase-d-demo-photos.sql`, live product and category cards show the leaf placeholder.
 - The Supabase connector asks for a confirmation before some migrations (the admin functions, grants and
   policy changes). If nobody confirms, it reports "cancelled" and nothing is applied; those parts can be
   pasted into the SQL editor instead (`supabase/manual/`).

@@ -20,7 +20,7 @@ function LoadMore({
   const percent = total > 0 ? Math.min(100, (shown / total) * 100) : 100;
   return (
     <div className="mx-auto flex max-w-xs flex-col items-center gap-4 text-center">
-      <p className="type-caption text-soft-ink">
+      <p aria-live="polite" className="type-caption text-soft-ink">
         {`Showing ${shown} of ${total} ${noun}`}
       </p>
       <div

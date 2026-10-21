@@ -1,25 +1,132 @@
 {
   "viewports": [
-    { "name": "360", "width": 360, "height": 780 },
-    { "name": "768", "width": 768, "height": 1024 },
-    { "name": "1280", "width": 1280, "height": 800 }
+    {
+      "name": "360",
+      "width": 360,
+      "height": 780
+    },
+    {
+      "name": "768",
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "name": "1280",
+      "width": 1280,
+      "height": 800
+    }
   ],
   "routes": [
-    { "name": "home", "path": "/" },
-    { "name": "styleguide", "path": "/styleguide" },
-    { "name": "not-found", "path": "/this-page-does-not-exist" },
+    {
+      "name": "home",
+      "path": "/"
+    },
+    {
+      "name": "styleguide",
+      "path": "/styleguide"
+    },
+    {
+      "name": "not-found",
+      "path": "/this-page-does-not-exist"
+    },
+    {
+      "name": "shop",
+      "path": "/shop"
+    },
+    {
+      "name": "category",
+      "path": "/shop/lighting"
+    },
+    {
+      "name": "collection",
+      "path": "/collections/new-arrivals"
+    },
+    {
+      "name": "search-results",
+      "path": "/search?q=lamp"
+    },
+    {
+      "name": "search-none",
+      "path": "/search?q=sofa",
+      "viewports": ["360", "1280"]
+    },
+    {
+      "name": "filtered",
+      "path": "/shop?color=Sage&sort=price_desc",
+      "viewports": ["360", "1280"]
+    },
+    {
+      "name": "product",
+      "path": "/products/sample-pleated-table-lamp"
+    },
+    {
+      "name": "product-sizes",
+      "path": "/products/sample-linen-photo-frame",
+      "viewports": ["360", "1280"]
+    },
+    {
+      "name": "product-sold-out",
+      "path": "/products/sample-mushroom-night-lamp",
+      "viewports": ["360"]
+    },
+    {
+      "name": "product-color",
+      "path": "/products/sample-ribbed-ceramic-bud-vase",
+      "viewports": ["1280"],
+      "fullPage": false,
+      "actions": [
+        {
+          "click": "fieldset label[title='Clay']",
+          "wait": 600
+        }
+      ]
+    },
+    {
+      "name": "filter-sheet",
+      "path": "/shop",
+      "viewports": ["360", "768"],
+      "fullPage": false,
+      "actions": [
+        {
+          "click": "main button:has-text('Filter')",
+          "wait": 600
+        }
+      ]
+    },
+    {
+      "name": "sort-sheet",
+      "path": "/shop",
+      "viewports": ["360"],
+      "fullPage": false,
+      "actions": [
+        {
+          "click": "main button:has-text('Sort')",
+          "wait": 600
+        }
+      ]
+    },
     {
       "name": "menu-open",
       "path": "/",
       "viewports": ["360", "768"],
       "fullPage": false,
-      "actions": [{ "click": "button[aria-label='Open menu']", "wait": 500 }]
+      "actions": [
+        {
+          "click": "button[aria-label='Open menu']",
+          "wait": 500
+        }
+      ]
     },
     {
       "name": "search-open",
       "path": "/",
       "fullPage": false,
-      "actions": [{ "click": "button[aria-label='Search']", "wait": 500 }]
+      "actions": [
+        {
+          "click": "button[aria-label='Search']",
+          "wait": 500
+        }
+      ]
     },
     {
       "name": "shop-panel",
@@ -27,7 +134,10 @@
       "viewports": ["1280"],
       "fullPage": false,
       "actions": [
-        { "hover": "nav[aria-label='Main'] button[aria-expanded]", "wait": 500 }
+        {
+          "hover": "nav[aria-label='Main'] button[aria-expanded]",
+          "wait": 500
+        }
       ]
     },
     {
@@ -35,7 +145,12 @@
       "path": "/styleguide",
       "viewports": ["360", "1280"],
       "fullPage": false,
-      "actions": [{ "click": "a[href='#cards']:visible", "wait": 600 }]
+      "actions": [
+        {
+          "click": "a[href='#cards']:visible",
+          "wait": 600
+        }
+      ]
     },
     {
       "name": "cart-drawer",
@@ -43,8 +158,14 @@
       "viewports": ["360", "1280"],
       "fullPage": false,
       "actions": [
-        { "click": "a[href='#overlays']:visible", "wait": 400 },
-        { "click": "button:has-text('Cart drawer')", "wait": 500 }
+        {
+          "click": "a[href='#overlays']:visible",
+          "wait": 400
+        },
+        {
+          "click": "button:has-text('Cart drawer')",
+          "wait": 500
+        }
       ]
     }
   ]

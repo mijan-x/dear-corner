@@ -17,6 +17,8 @@ export type ShopSettings = {
   instagram_url: string;
   instagram_handle: string;
   tiktok_url: string;
+  /** Homepage text, photos and banners (shape in services/home.ts). */
+  homepage: unknown;
 };
 
 /** Same values as the database defaults, so the first paint matches. */
@@ -36,6 +38,7 @@ export const DEFAULT_SETTINGS: ShopSettings = {
   instagram_url: "",
   instagram_handle: "",
   tiktok_url: "",
+  homepage: {},
 };
 
 const COLUMNS = Object.keys(DEFAULT_SETTINGS).join(", ");

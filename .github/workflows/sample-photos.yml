@@ -1,0 +1,52 @@
+name: Sample photos
+
+# Downloads the demo product photos exported from Canva (their links expire a
+# few hours after export, and the authoring workspace cannot reach Canva) and
+# stores the untouched originals on the `sample-photos-src` branch. The WebP
+# files the shop serves are made from those originals and live in
+# public/samples/.
+
+# Run by hand (Actions → Sample photos → Run workflow) after a new export:
+# the links in export-links.json expire a few hours after Canva makes them.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Download originals
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/src
+          jq -c '.photos[]' scripts/sample-photos/export-links.json | while read -r row; do
+            name=$(echo "$row" | jq -r .name)
+            url=$(echo "$row" | jq -r .url)
+            curl -sSfL --retry 3 -o "/tmp/src/${name}.jpg" "$url"
+            file "/tmp/src/${name}.jpg" | grep -q JPEG
+            echo "${name}: $(stat -c %s "/tmp/src/${name}.jpg") bytes"
+          done
+          ls /tmp/src | wc -l
+
+      - name: Publish to sample-photos-src branch
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          REMOTE="https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          cd /tmp/src
+          git init -q
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -q --orphan sample-photos-src
+          printf 'Demo photos generated in Canva (design DAHYk4iBZN8), exported as JPG.\nReplace before launch.\n' > README.txt
+          git add -A
+          git commit -q -m "Demo photo originals from Canva export"
+          git push -q -f "$REMOTE" sample-photos-src

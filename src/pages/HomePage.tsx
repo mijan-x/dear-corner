@@ -1,61 +1,158 @@
-import LeafSprig from "../components/brand/LeafSprig";
-import Sparkle from "../components/brand/Sparkle";
-import { ButtonLink } from "../components/ui/Button";
+import Hero from "../components/home/Hero";
+import PromoBanner from "../components/home/PromoBanner";
+import PromiseStrip from "../components/home/PromiseStrip";
+import HomeReviews from "../components/home/HomeReviews";
+import InstagramGrid from "../components/home/InstagramGrid";
+import Reveal from "../components/motion/Reveal";
+import CategoryCard from "../components/product/CategoryCard";
+import ProductCard from "../components/product/ProductCard";
+import ProductRow, { RowArrows } from "../components/product/ProductRow";
+import { useRowScroll } from "../hooks/useRowScroll";
+import SectionHeading from "../components/ui/SectionHeading";
+import { Skeleton } from "../components/ui/Skeleton";
+import { useQuickAdd } from "../features/cart/useAddToCart";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { routes } from "../lib/routes";
+import { useStorefrontNav } from "../services/catalog";
+import { toHomepageContent, useHomeFeed } from "../services/home";
+import { useShopSettings } from "../services/settings";
+import { cx } from "../utils/cx";
+import type { CategoryCardData } from "../types/shop";
 
 /**
- * Holding page inside the shop frame. Replaced by the full homepage
- * (hero, category cards, new arrivals, best sellers…) in Phase D.
+ * Homepage (brand doc section 6): split hero, six category cards (five
+ * categories and New arrivals), the New arrivals row, a promo banner, Best
+ * sellers, the gift banner and the shop's promises. Reviews appear once one
+ * is approved; the Instagram grid once six photos are set.
+ * Home is the only page in the first download (every other page is loaded
+ * on demand).
  */
 function HomePage() {
   usePageMeta({});
+  const { settings } = useShopSettings();
+  const content = toHomepageContent(settings.homepage);
+  const feed = useHomeFeed();
+  const nav = useStorefrontNav();
+  const quickAdd = useQuickAdd();
+  const row = useRowScroll();
+  const data = feed.data;
+  const threshold = settings.free_delivery_threshold;
+
+  // Without the database (offline, or not set up yet) the cards still lead
+  // into the shop, just without photos and counts.
+  const fallbackCards: CategoryCardData[] = [
+    ...nav.categories.map((c) => ({
+      kind: "category" as const,
+      slug: c.slug,
+      name: c.name,
+      image: c.image,
+      count: -1,
+    })),
+    ...nav.collections.slice(0, 1).map((c) => ({
+      kind: "collection" as const,
+      slug: c.slug,
+      name: c.name,
+      image: null,
+      count: -1,
+    })),
+  ];
+  const categories = data?.categories.length
+    ? data.categories
+    : feed.error
+      ? fallbackCards
+      : [];
+  const loadingFirst = !data && !feed.error;
+  const [firstBanner, secondBanner] = content.banners;
+  const bestsellers = data?.bestsellers ?? [];
 
   return (
-    <section className="container-page grid items-center gap-12 section-y lg:min-h-[560px] lg:grid-cols-12">
-      <div className="max-w-2xl lg:col-span-6">
-        <p
-          className="flex animate-fade-up items-center gap-2 type-eyebrow text-terracotta-deep"
-          style={{ animationDelay: "60ms" }}
-        >
-          <Sparkle size={12} className="text-rosewood" />
-          Opening soon
-        </p>
-        <h1
-          className="mt-4 animate-fade-up type-hero"
-          style={{ animationDelay: "140ms" }}
-        >
-          Little things for <em className="italic">quiet</em> corners
-        </h1>
-        <p
-          className="mt-5 max-w-xl animate-fade-up type-body-lg text-soft-ink"
-          style={{ animationDelay: "220ms" }}
-        >
-          Room decor, lamps, desk picks and gifts, chosen for how they look in a
-          real room. We&rsquo;re arranging the shelves now.
-        </p>
-        <div
-          className="mt-8 animate-fade-up"
-          style={{ animationDelay: "300ms" }}
-        >
-          <ButtonLink to={routes.newArrivals}>Shop new arrivals</ButtonLink>
-        </div>
+    <>
+      <Hero hero={content.hero} freeDeliveryThreshold={threshold} />
+
+      <div className="space-y-16 pb-16 md:space-y-20 lg:space-y-28 lg:pb-24">
+        <section aria-labelledby="home-categories" className="container-page">
+          <SectionHeading id="home-categories" title="Shop by category" />
+          <ul className="mt-6 grid grid-cols-2 gap-x-3 gap-y-6 md:mt-8 md:grid-cols-3 md:gap-x-6 md:gap-y-8 lg:grid-cols-6">
+            {loadingFirst
+              ? Array.from({ length: 6 }, (_, i) => (
+                  <li key={i} aria-hidden="true">
+                    <Skeleton className="aspect-square w-full rounded-card" />
+                    <Skeleton className="mt-3 h-4 w-2/3" />
+                    <Skeleton className="mt-2 h-3 w-1/3" />
+                  </li>
+                ))
+              : categories.map((category, i) => (
+                  <Reveal as="li" key={category.slug} delay={i * 50}>
+                    <CategoryCard category={category} />
+                  </Reveal>
+                ))}
+          </ul>
+        </section>
+
+        {(loadingFirst || (data && data.newArrivals.length > 0)) && (
+          <section aria-labelledby="home-new" className="container-page">
+            <SectionHeading
+              id="home-new"
+              eyebrow="Just in"
+              title="New arrivals"
+              link={{ to: routes.newArrivals, label: "View all" }}
+              actions={
+                <RowArrows
+                  edges={row.edges}
+                  scrollBy={row.scrollBy}
+                  label="new arrivals"
+                />
+              }
+            />
+            <Reveal className="mt-6 md:mt-8">
+              <ProductRow
+                listRef={row.ref}
+                label="New arrivals"
+                products={data?.newArrivals ?? []}
+                loading={loadingFirst}
+                onQuickAdd={quickAdd}
+              />
+            </Reveal>
+          </section>
+        )}
+
+        {firstBanner && <PromoBanner banner={firstBanner} />}
+
+        {bestsellers.length > 0 && (
+          <section aria-labelledby="home-best" className="container-page">
+            <SectionHeading
+              id="home-best"
+              title="Best sellers"
+              link={{ to: routes.shop, label: "Shop all" }}
+            />
+            <ul
+              className={cx(
+                "mt-6 grid grid-cols-2 gap-x-3 gap-y-8 md:mt-8 md:grid-cols-3 md:gap-x-6",
+                bestsellers.length >= 4 && "lg:grid-cols-4",
+              )}
+            >
+              {bestsellers.map((product, i) => (
+                <Reveal as="li" key={product.id} delay={(i % 4) * 60}>
+                  <ProductCard product={product} onQuickAdd={quickAdd} />
+                </Reveal>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {secondBanner && <PromoBanner banner={secondBanner} flip />}
+
+        {data?.hasReviews && <HomeReviews />}
+
+        <InstagramGrid
+          photos={content.instagram}
+          handle={settings.instagram_handle}
+          profileUrl={settings.instagram_url}
+        />
       </div>
 
-      {/* Quiet composition: clay-blush panel with the corner mask, a lamp
-          glow and the leaf sprig. Decorative only. */}
-      <div
-        aria-hidden="true"
-        className="relative hidden animate-fade-in lg:col-span-5 lg:col-start-8 lg:block"
-        style={{ animationDelay: "300ms" }}
-      >
-        <div className="relative aspect-[4/5] overflow-hidden corner-mask-lg bg-clay-blush">
-          <div className="absolute -top-16 -right-16 size-[420px] glow" />
-          <LeafSprig className="absolute bottom-[14%] left-1/2 h-[58%] -translate-x-1/2 text-rosewood" />
-          <div className="absolute inset-x-10 bottom-10 h-px bg-rosewood/40" />
-        </div>
-      </div>
-    </section>
+      <PromiseStrip freeDeliveryThreshold={threshold} />
+    </>
   );
 }
 
