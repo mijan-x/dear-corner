@@ -761,3 +761,37 @@
     interpolate-size: allow-keywords;
   }
 }
+
+/* ------------------------------------------------------------------ */
+/* Admin print documents (invoice A4, parcel label A6)                 */
+/* ------------------------------------------------------------------ */
+.print-a4 {
+  width: 210mm;
+  min-height: 297mm;
+  box-shadow: 0 4px 24px rgb(36 27 34 / 0.12);
+}
+.print-a6 {
+  width: 105mm;
+  height: 148mm;
+  box-shadow: 0 4px 24px rgb(36 27 34 / 0.12);
+}
+@media screen and (max-width: 840px) {
+  .print-a4 {
+    width: 100%;
+    min-height: 0;
+  }
+}
+@media screen and (max-width: 440px) {
+  .print-a6 {
+    width: 100%;
+    height: auto;
+    min-height: 148mm;
+  }
+}
+@media print {
+  .print-a4,
+  .print-a6 {
+    box-shadow: none;
+    margin: 0;
+  }
+}

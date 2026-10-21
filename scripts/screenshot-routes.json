@@ -355,6 +355,157 @@
       "name": "wishlist",
       "path": "/account/wishlist",
       "session": true
+    },
+    {
+      "name": "admin-two-step",
+      "path": "/admin",
+      "admin": "enroll",
+      "viewports": ["360", "1280"],
+      "fullPage": false,
+      "wait": 1500
+    },
+    {
+      "name": "admin-dashboard",
+      "path": "/admin",
+      "admin": true
+    },
+    {
+      "name": "admin-menu",
+      "path": "/admin",
+      "admin": true,
+      "viewports": ["360"],
+      "fullPage": false,
+      "actions": [
+        {
+          "click": "button[aria-label='Open admin menu']",
+          "wait": 500
+        }
+      ]
+    },
+    {
+      "name": "admin-orders",
+      "path": "/admin/orders",
+      "admin": true
+    },
+    {
+      "name": "admin-order",
+      "path": "/admin/orders/{orderId}",
+      "admin": true
+    },
+    {
+      "name": "admin-status-dialog",
+      "path": "/admin/orders/{orderId}",
+      "admin": true,
+      "viewports": ["1280"],
+      "fullPage": false,
+      "actions": [
+        {
+          "click": "main button:has-text('Out for delivery')",
+          "wait": 500
+        }
+      ]
+    },
+    {
+      "name": "admin-invoice",
+      "path": "/admin/print/{orderId}?doc=invoice",
+      "admin": true,
+      "viewports": ["1280"]
+    },
+    {
+      "name": "admin-label",
+      "path": "/admin/print/{orderId}?doc=label",
+      "admin": true,
+      "viewports": ["1280"]
+    },
+    {
+      "name": "admin-products",
+      "path": "/admin/products",
+      "admin": true,
+      "viewports": ["360", "1280"]
+    },
+    {
+      "name": "admin-product",
+      "path": "/admin/products/{productId}",
+      "admin": true
+    },
+    {
+      "name": "admin-categories",
+      "path": "/admin/products/categories",
+      "admin": true,
+      "viewports": ["360", "1280"]
+    },
+    {
+      "name": "admin-inventory",
+      "path": "/admin/inventory",
+      "admin": true,
+      "viewports": ["360", "1280"]
+    },
+    {
+      "name": "admin-coupons",
+      "path": "/admin/coupons",
+      "admin": true,
+      "viewports": ["360", "1280"]
+    },
+    {
+      "name": "admin-coupon-dialog",
+      "path": "/admin/coupons",
+      "admin": true,
+      "viewports": ["360"],
+      "fullPage": false,
+      "actions": [
+        {
+          "click": "main button:has-text('New coupon')",
+          "wait": 500
+        }
+      ]
+    },
+    {
+      "name": "admin-customers",
+      "path": "/admin/customers",
+      "admin": true,
+      "viewports": ["360", "1280"]
+    },
+    {
+      "name": "admin-shipping",
+      "path": "/admin/shipping",
+      "admin": true,
+      "viewports": ["360", "1280"]
+    },
+    {
+      "name": "admin-reviews",
+      "path": "/admin/reviews",
+      "admin": true,
+      "viewports": ["1280"]
+    },
+    {
+      "name": "admin-messages",
+      "path": "/admin/messages",
+      "admin": true,
+      "viewports": ["360", "1280"]
+    },
+    {
+      "name": "admin-settings",
+      "path": "/admin/settings",
+      "admin": true,
+      "viewports": ["360", "1280"]
+    },
+    {
+      "name": "admin-homepage",
+      "path": "/admin/settings",
+      "admin": true,
+      "viewports": ["1280"],
+      "actions": [
+        {
+          "click": "[role='tab']:has-text('Homepage')",
+          "wait": 600
+        }
+      ]
+    },
+    {
+      "name": "admin-activity",
+      "path": "/admin/activity",
+      "admin": true,
+      "viewports": ["1280"]
     }
   ]
 }

@@ -519,6 +519,343 @@ await step("cart sync", async () => {
   await context.close();
 });
 
+// ---------------------------------------------------------------------------
+// Admin: access, two-step login, orders, catalog, stock, coupons, shipping,
+// reviews, messages, settings
+// ---------------------------------------------------------------------------
+const ADMIN = `owner.${Date.now()}@example.com`;
+await step("admin", async () => {
+  const { context, page, errors } = await newPage({ width: 1280, height: 900 });
+  await context.addInitScript(() => {
+    window.print = () => {
+      window.__printed = true;
+    };
+  });
+  const signIn = async (email) => {
+    await go(page, "/account/sign-in?next=%2Fadmin");
+    await page.fill("input[type='email']", email);
+    await page.locator("main button:has-text('Email me a code')").click();
+    await page.fill("#sign-in-code", MOCK_OTP_CODE);
+    await page.locator("main button:has-text('Sign in')").click();
+    await page.waitForURL((url) => url.pathname.startsWith("/admin"), {
+      timeout: 8000,
+    });
+    await page.waitForTimeout(800);
+  };
+  // A customer account can't get in.
+  await signIn(`shopper.${Date.now()}@example.com`);
+  check(
+    "customers can't open the admin",
+    (await page.locator("body").innerText()).includes(
+      "This page is for the shop team",
+    ),
+  );
+  await page.evaluate(() => localStorage.clear());
+
+  // The owner sets up two-step login, then gets in.
+  mock.setAdminRole(ADMIN);
+  await signIn(ADMIN);
+  check(
+    "admin must turn on two-step login",
+    (await text(page, "h1")) === "Turn on two-step login",
+  );
+  check("QR code shown", await page.locator("img[alt^='QR code']").isVisible());
+  await page.fill("#admin-code", "000000");
+  await page.locator("button:has-text('Turn on and continue')").click();
+  await page.waitForTimeout(700);
+  check(
+    "wrong code refused",
+    (await page.locator("body").innerText()).includes("That code didn't work"),
+  );
+  await page.fill("#admin-code", MOCK_OTP_CODE);
+  await page.locator("button:has-text('Turn on and continue')").click();
+  await page.waitForSelector("main h1:has-text('Dashboard')", {
+    timeout: 8000,
+  });
+  check("dashboard after two-step login", true);
+  check(
+    "dashboard shows waiting orders",
+    (await page.locator("main").innerText()).includes("Waiting for a call"),
+  );
+
+  // Orders: find the guest order, confirm, pack, hand to courier.
+  await go(page, "/admin/orders");
+  await page.waitForTimeout(800);
+  check(
+    "orders list shows the guest order",
+    (await page.locator("main").innerText()).includes(guestOrder),
+  );
+  await page.fill("main input[type='search']", "Rima");
+  await page.waitForTimeout(900);
+  check(
+    "order search by name",
+    (await page.locator("main tbody").innerText()).includes(guestOrder),
+  );
+  await page.locator(`main a:has-text('${guestOrder}')`).first().click();
+  await page.waitForSelector("main h1:has-text('Order')");
+  await page.waitForTimeout(500);
+  const status = () =>
+    sql(
+      `select status from public.orders where order_number = '${guestOrder}'`,
+    );
+  await page
+    .locator("main button:has-text('Confirm (called the customer)')")
+    .click();
+  await page.fill("dialog[open] textarea", "Called, all good");
+  await page.locator("dialog[open] button[type='submit']").click();
+  await page.waitForTimeout(900);
+  check("order confirmed", status() === "confirmed");
+  await page.locator("main button:has-text('Mark packed')").click();
+  await page.locator("dialog[open] button[type='submit']").click();
+  await page.waitForTimeout(900);
+  await page.locator("main button:has-text('Hand to courier')").click();
+  await page.locator("dialog[open] input").first().fill("Steadfast");
+  await page.locator("dialog[open] input").nth(1).fill("SF12345");
+  await page.locator("dialog[open] button[type='submit']").click();
+  await page.waitForTimeout(900);
+  check(
+    "handed to courier with tracking",
+    sql(
+      `select status || ' ' || courier_name || ' ' || tracking_code from public.orders where order_number = '${guestOrder}'`,
+    ) === "handed_to_courier Steadfast SF12345",
+  );
+  check(
+    "details can't be edited after hand-over",
+    (await page.locator("main button:has-text('Edit')").count()) === 1,
+  );
+  await page.fill("main textarea", "Fragile, wrap well");
+  await page.locator("main button:has-text('Add note')").click();
+  await page.waitForTimeout(800);
+  check(
+    "team note saved",
+    (await page.locator("main").innerText()).includes("Fragile, wrap well"),
+  );
+  const orderId = page.url().split("/").pop();
+
+  // Invoice and label pages.
+  const printPage = await context.newPage();
+  await printPage.goto(
+    new URL(`/admin/print/${orderId}?doc=invoice`, baseUrl).href,
+    { waitUntil: "networkidle" },
+  );
+  await printPage.waitForTimeout(900);
+  check(
+    "invoice prints",
+    (await printPage.locator("body").innerText()).includes("Invoice") &&
+      (await printPage.evaluate(() => window.__printed === true)),
+  );
+  await printPage.goto(
+    new URL(`/admin/print/${orderId}?doc=label`, baseUrl).href,
+    { waitUntil: "networkidle" },
+  );
+  await printPage.waitForTimeout(900);
+  check(
+    "label shows cash to collect",
+    /cash to collect/i.test(await printPage.locator("body").innerText()),
+  );
+  await printPage.close();
+
+  // CSV export.
+  await go(page, "/admin/orders");
+  await page.waitForTimeout(600);
+  const [download] = await Promise.all([
+    page.waitForEvent("download"),
+    page.locator("main button:has-text('Export CSV')").click(),
+  ]);
+  const csv = await (
+    await download.createReadStream()
+  )
+    .toArray()
+    .then((c) => Buffer.concat(c).toString("utf8"));
+  check(
+    "CSV export has the orders",
+    csv.includes(guestOrder) && csv.includes("order_number"),
+  );
+
+  // New product with two colors and a photo.
+  await go(page, "/admin/products/new");
+  await page.fill("main input >> nth=0", "Test linen cushion");
+  await page.selectOption("main select >> nth=0", { label: "Room decor" });
+  await page.locator("main button:has-text('Add an option')").click();
+  for (const color of ["Sand", "Sage"]) {
+    await page.fill("main input[placeholder='Add a value']", color);
+    await page.keyboard.press("Enter");
+  }
+  await page.waitForTimeout(200);
+  const rows = page.locator("main table tbody tr");
+  check("variants made for each color", (await rows.count()) === 2);
+  for (let i = 0; i < 2; i += 1) {
+    await rows.nth(i).locator("input[aria-label^='Price']").fill("1290");
+    await rows.nth(i).locator("input[aria-label^='Stock']").fill("6");
+  }
+  await page.locator("main button:has-text('Create product')").first().click();
+  await page.waitForURL(/\/admin\/products\/[0-9a-f-]{36}$/, { timeout: 8000 });
+  await page.waitForTimeout(900);
+  check(
+    "product saved with 2 variants",
+    sql(
+      "select count(*) from public.product_variants v join public.products p on p.id = v.product_id where p.name = 'Test linen cushion'",
+    ) === "2",
+  );
+  await page.setInputFiles("main input[type='file']", "public/og-image.png");
+  await page
+    .waitForSelector("main img[src*='products/']", { timeout: 10000 })
+    .catch(() => {});
+  check(
+    "photo uploaded (resized to WebP)",
+    sql(
+      "select count(*) || ' ' || bool_and(i.path like '%.webp') from public.product_images i join public.products p on p.id = i.product_id where p.name = 'Test linen cushion'",
+    ) === "1 true",
+  );
+  await page.selectOption(
+    "main select:has(option[value='archived'])",
+    "active",
+  );
+  await page.locator("main button:has-text('Save product')").first().click();
+  await page.waitForTimeout(1500);
+  check(
+    "product is active",
+    sql(
+      "select status from public.products where name = 'Test linen cushion'",
+    ) === "active",
+  );
+
+  // Inventory correction.
+  await go(page, "/admin/inventory");
+  await page.waitForTimeout(800);
+  await page.fill("main input[type='search']", "Test linen");
+  await page.waitForTimeout(600);
+  await page.locator("main button:has-text('Set stock')").first().click();
+  await page.fill("dialog[open] input >> nth=0", "11");
+  await page.fill("dialog[open] input >> nth=1", "Counted the shelf");
+  await page.locator("dialog[open] button[type='submit']").click();
+  await page.waitForTimeout(900);
+  check(
+    "stock corrected and logged",
+    sql(
+      "select count(*) from public.inventory_movements where reason = 'correction' and note = 'Counted the shelf' and stock_after = 11",
+    ) === "1",
+  );
+
+  // Coupon.
+  await go(page, "/admin/coupons");
+  await page.locator("main button:has-text('New coupon')").click();
+  await page.fill("dialog[open] input >> nth=0", "save50");
+  await page.selectOption("dialog[open] select", "fixed");
+  await page.fill("dialog[open] input >> nth=2", "50");
+  await page.locator("dialog[open] button[type='submit']").click();
+  await page.waitForTimeout(900);
+  check(
+    "coupon created",
+    sql(
+      "select type || ' ' || value from public.coupons where code = 'SAVE50'",
+    ) === "fixed 50",
+  );
+
+  // Shipping fee.
+  await go(page, "/admin/shipping");
+  await page.waitForTimeout(800);
+  await page.locator("main button[aria-label='Edit Inside Dhaka']").click();
+  await page.fill("dialog[open] input >> nth=1", "90");
+  await page.locator("dialog[open] button[type='submit']").click();
+  await page.waitForTimeout(1200);
+  check(
+    "delivery fee changed, areas kept",
+    sql(
+      "select z.fee || ' ' || count(a.*) from public.shipping_zones z left join public.shipping_zone_areas a on a.zone_id = z.id where z.name = 'Inside Dhaka' group by z.fee",
+    ) === "90 52",
+  );
+
+  // Review moderation.
+  await go(page, "/admin/reviews");
+  await page.waitForTimeout(800);
+  await page.locator("main li button:has-text('Publish')").first().click();
+  await page.waitForTimeout(900);
+  check(
+    "review published",
+    sql("select count(*) from public.reviews where status = 'approved'") ===
+      "1",
+  );
+
+  // Messages.
+  sql(
+    "insert into public.contact_messages (name, phone, message) values ('Nusrat', '01712345678', 'Is the lamp available in blue?')",
+  );
+  await go(page, "/admin/messages");
+  await page.waitForTimeout(800);
+  await page.locator("main button:has-text('Mark done')").first().click();
+  await page.waitForTimeout(800);
+  check(
+    "message marked done",
+    sql("select status from public.contact_messages where name = 'Nusrat'") ===
+      "done",
+  );
+
+  // Settings and homepage.
+  await go(page, "/admin/settings");
+  await page.waitForTimeout(800);
+  await page.fill(
+    "main input >> nth=0",
+    "Cash on Delivery · Free delivery over ৳1,000",
+  );
+  await page.locator("main button:has-text('Save settings')").click();
+  await page.waitForTimeout(900);
+  check(
+    "announcement saved",
+    sql("select announcement_text from public.store_settings").startsWith(
+      "Cash on Delivery ·",
+    ),
+  );
+  await page.locator("[role='tab']:has-text('Homepage')").click();
+  await page.waitForTimeout(500);
+  await page
+    .locator("main input")
+    .nth(1)
+    .fill("Little *things*, lovely spaces");
+  await page.locator("main button:has-text('Save homepage')").click();
+  await page.waitForTimeout(900);
+  check(
+    "homepage hero saved",
+    sql("select homepage->'hero'->>'title' from public.store_settings") ===
+      "Little *things*, lovely spaces",
+  );
+
+  // Categories and collections.
+  await go(page, "/admin/products/categories");
+  await page.locator("main button:has-text('New category')").click();
+  await page.fill("dialog[open] input >> nth=0", "Desk plants");
+  await page.locator("dialog[open] button[type='submit']").click();
+  await page.waitForTimeout(900);
+  check(
+    "category created",
+    sql("select slug from public.categories where name = 'Desk plants'") ===
+      "desk-plants",
+  );
+
+  await go(page, "/admin/customers");
+  await page.waitForTimeout(800);
+  check(
+    "customers list",
+    (await page.locator("main").innerText()).includes("01712345678"),
+  );
+  await go(page, "/admin/activity");
+  await page.waitForTimeout(800);
+  check("activity log", (await page.locator("main tbody tr").count()) > 3);
+
+  // Phone layout: menu opens.
+  await page.setViewportSize({ width: 390, height: 844 });
+  await go(page, "/admin");
+  await page.waitForTimeout(600);
+  await page.locator("button[aria-label='Open admin menu']").click();
+  await page.waitForTimeout(400);
+  check(
+    "phone admin menu",
+    await page.locator("dialog[open] a:has-text('Inventory')").isVisible(),
+  );
+  check("no page errors (admin)", errors.length === 0, errors.join(" | "));
+  await context.close();
+});
+
 await browser.close();
 console.log(`\n${results.length - failures}/${results.length} checks passed`);
 if (outFile) await writeFile(outFile, JSON.stringify(results, null, 2));
