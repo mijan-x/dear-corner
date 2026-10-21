@@ -14,6 +14,7 @@ import Notice from "../components/ui/Notice";
 import OptionPicker from "../components/ui/OptionPicker";
 import Price from "../components/ui/Price";
 import QuantityStepper from "../components/ui/QuantityStepper";
+import WishlistButton from "../components/product/WishlistButton";
 import Rating from "../components/ui/Rating";
 import SectionHeading from "../components/ui/SectionHeading";
 import { Skeleton } from "../components/ui/Skeleton";
@@ -239,7 +240,7 @@ function ProductView({ product }: { product: ProductDetail }) {
       v.title && v.title !== "Default"
         ? `${product.name}, ${v.title}`
         : product.name;
-    const ok = addToCart(v.id, qty, label);
+    const ok = addToCart(v.id, qty, label, { openCart: true });
     if (ok) setAdded(true);
     return ok;
   };
@@ -368,6 +369,10 @@ function ProductView({ product }: { product: ProductDetail }) {
               >
                 {addLabel}
               </Button>
+              <WishlistButton
+                productId={product.id}
+                productName={product.name}
+              />
             </div>
             {soldOut && cat && (
               <p className="mt-3 type-body text-soft-ink">

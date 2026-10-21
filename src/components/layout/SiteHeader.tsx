@@ -7,6 +7,7 @@ import DesktopNav from "./DesktopNav";
 import MenuDrawer from "./MenuDrawer";
 import SearchDialog from "./SearchDialog";
 import { useCartCount } from "../../features/cart/cartStore";
+import { cartDrawer } from "../../features/cart/cartDrawer";
 import { routes } from "../../lib/routes";
 import { cx } from "../../utils/cx";
 
@@ -101,11 +102,12 @@ function SiteHeader() {
                   icon={<UserRound aria-hidden="true" />}
                 />
               </span>
-              <IconLink
-                to={routes.cart}
+              <IconButton
                 label="Cart"
                 count={count}
                 icon={<ShoppingBag aria-hidden="true" />}
+                onClick={() => cartDrawer.open()}
+                aria-haspopup="dialog"
                 className="-mr-2.5 xl:mr-0"
               />
             </div>

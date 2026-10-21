@@ -13,9 +13,17 @@ export const routes = {
     query ? `/search?q=${encodeURIComponent(query)}` : "/search",
   cart: "/cart",
   checkout: "/checkout",
+  orderConfirmed: (number: string) =>
+    `/order-confirmed/${encodeURIComponent(number)}`,
   trackOrder: "/track-order",
   account: "/account",
+  accountOrder: (number: string) =>
+    `/account/orders/${encodeURIComponent(number)}`,
+  addresses: "/account/addresses",
+  profile: "/account/profile",
   signIn: "/account/sign-in",
+  signInNext: (next: string) =>
+    `/account/sign-in?next=${encodeURIComponent(next)}`,
   wishlist: "/account/wishlist",
   about: "/about",
   contact: "/contact",

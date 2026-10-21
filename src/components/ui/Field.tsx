@@ -132,7 +132,7 @@ export function PhoneField({
           type="tel"
           inputMode="numeric"
           autoComplete="tel-national"
-          maxLength={14}
+          maxLength={16}
           placeholder="01XXXXXXXXX"
           aria-invalid={error ? true : undefined}
           aria-describedby={describedBy(id, error, helper)}

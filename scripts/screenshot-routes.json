@@ -167,6 +167,194 @@
           "wait": 500
         }
       ]
+    },
+    {
+      "name": "cart",
+      "path": "/cart",
+      "cart": [
+        "sample-pleated-table-lamp",
+        "sample-warm-fairy-lights",
+        "sample-grid-notebook-a5"
+      ]
+    },
+    {
+      "name": "cart-empty",
+      "path": "/cart",
+      "viewports": ["360"]
+    },
+    {
+      "name": "cart-drawer-live",
+      "path": "/products/sample-bubble-candle-set-of-2",
+      "viewports": ["360", "1280"],
+      "fullPage": false,
+      "cart": ["sample-warm-fairy-lights"],
+      "actions": [
+        {
+          "click": "main button:has-text('Add to cart')",
+          "wait": 900
+        }
+      ]
+    },
+    {
+      "name": "checkout",
+      "path": "/checkout",
+      "cart": [
+        "sample-pleated-table-lamp",
+        "sample-warm-fairy-lights",
+        "sample-grid-notebook-a5"
+      ]
+    },
+    {
+      "name": "checkout-filled",
+      "path": "/checkout",
+      "cart": ["sample-bubble-candle-set-of-2", "sample-claw-hair-clip-set"],
+      "viewports": ["360", "1280"],
+      "actions": [
+        {
+          "fill": "#checkout-name",
+          "value": "Nabila Hasan"
+        },
+        {
+          "fill": "#checkout-phone",
+          "value": "01812345678"
+        },
+        {
+          "select": "#checkout-division",
+          "value": "Dhaka"
+        },
+        {
+          "select": "#checkout-district",
+          "value": "Dhaka"
+        },
+        {
+          "select": "#checkout-area",
+          "value": "Mirpur"
+        },
+        {
+          "fill": "#checkout-address",
+          "value": "House 3, Road 11, Block D",
+          "wait": 1200
+        }
+      ]
+    },
+    {
+      "name": "checkout-errors",
+      "path": "/checkout",
+      "cart": ["sample-bubble-candle-set-of-2", "sample-claw-hair-clip-set"],
+      "viewports": ["360"],
+      "fullPage": false,
+      "actions": [
+        {
+          "click": "button[form='checkout-form']:visible",
+          "wait": 600
+        }
+      ]
+    },
+    {
+      "name": "checkout-signed-in",
+      "path": "/checkout",
+      "cart": ["sample-bubble-candle-set-of-2", "sample-claw-hair-clip-set"],
+      "session": true,
+      "viewports": ["768", "1280"]
+    },
+    {
+      "name": "order-confirmed",
+      "path": "/order-confirmed/{order}",
+      "session": true
+    },
+    {
+      "name": "track-order",
+      "path": "/track-order",
+      "viewports": ["360", "1280"]
+    },
+    {
+      "name": "track-result",
+      "path": "/track-order?order={order}",
+      "actions": [
+        {
+          "fill": "#track-phone",
+          "value": "{phone}"
+        },
+        {
+          "click": "main button:has-text('Track order')",
+          "wait": 1200
+        }
+      ]
+    },
+    {
+      "name": "sign-in",
+      "path": "/account/sign-in",
+      "viewports": ["360", "1280"]
+    },
+    {
+      "name": "sign-in-code",
+      "path": "/account/sign-in",
+      "viewports": ["360"],
+      "fullPage": false,
+      "cart": [],
+      "actions": [
+        {
+          "fill": "input[type='email']",
+          "value": "rima@example.com"
+        },
+        {
+          "click": "main button:has-text('Email me a code')",
+          "wait": 900
+        }
+      ]
+    },
+    {
+      "name": "account-orders",
+      "path": "/account",
+      "session": true
+    },
+    {
+      "name": "account-order",
+      "path": "/account/orders/{delivered}",
+      "session": true
+    },
+    {
+      "name": "review-dialog",
+      "path": "/account/orders/{delivered}",
+      "session": true,
+      "viewports": ["360", "1280"],
+      "fullPage": false,
+      "actions": [
+        {
+          "click": "main button:has-text('Write a review')",
+          "wait": 600
+        }
+      ]
+    },
+    {
+      "name": "addresses",
+      "path": "/account/addresses",
+      "session": true,
+      "viewports": ["360", "1280"]
+    },
+    {
+      "name": "address-dialog",
+      "path": "/account/addresses",
+      "session": true,
+      "viewports": ["360"],
+      "fullPage": false,
+      "actions": [
+        {
+          "click": "main button:has-text('Add an address')",
+          "wait": 700
+        }
+      ]
+    },
+    {
+      "name": "profile",
+      "path": "/account/profile",
+      "session": true,
+      "viewports": ["360", "1280"]
+    },
+    {
+      "name": "wishlist",
+      "path": "/account/wishlist",
+      "session": true
     }
   ]
 }

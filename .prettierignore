@@ -9,3 +9,5 @@ src/assets
 *.svg
 src/data
 src/types/database.ts
+# Email HTML is pasted into Supabase as written.
+supabase/templates/*.html

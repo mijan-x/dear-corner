@@ -159,6 +159,22 @@ jobs:
           for i in $(seq 1 30); do curl -sf http://localhost:4173 > /dev/null && break; sleep 1; done
           node scripts/screenshots.mjs http://localhost:4173 ci-out/screenshots 2>&1 | tee -a ci-out/screenshots.txt
 
+      - name: Flow checks
+        id: flows
+        if: steps.shots.outcome != 'skipped' && hashFiles('scripts/flow-checks.mjs') != '' && hashFiles('dist-mock/index.html') != ''
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          # Cart, checkout, order, track, sign-in and account, end to end, on
+          # their own fresh database (they place orders and change prices).
+          PGBIN="$(ls -d /usr/lib/postgresql/*/bin | sort -V | tail -1)" \
+            PGDATA_DIR="$RUNNER_TEMP/dc-pg-flows" PGPORT=54332 \
+            bash supabase/tests/run_local.sh --seed > ci-out/db-flows.txt 2>&1
+          (npx vite preview --outDir dist-mock --port 4174 --strictPort > ci-out/preview-flows.txt 2>&1 &)
+          for i in $(seq 1 30); do curl -sf http://localhost:4174 > /dev/null && break; sleep 1; done
+          PGPORT=54332 SUPABASE_MOCK_URL=https://mock-project.supabase.co \
+            node scripts/flow-checks.mjs http://localhost:4174 ci-out/flow-checks.json 2>&1 | tee ci-out/flow-checks.txt
+
       - name: Write status
         if: always()
         run: |
@@ -171,6 +187,7 @@ jobs:
             echo "build=${{ steps.build.outcome }}"
             echo "db_tests=${{ steps.dbtest.outcome }}"
             echo "screenshots=${{ steps.shots.outcome }}"
+            echo "flow_checks=${{ steps.flows.outcome }}"
             echo "finished=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
           } >> ci-out/status.txt
           cat ci-out/status.txt
