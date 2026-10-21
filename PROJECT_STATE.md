@@ -17,7 +17,7 @@ Last updated: 2026-10-21 (end of Phase F).
 | Supabase URL      | https://elyntthbaoczxgjeadft.supabase.co                                                        |
 | Old project       | `Dear-Corner` in Seoul (`jzqfjnppeojlekprgjww`), empty — owner to delete                        |
 | Vercel project    | `dear-corner` (`prj_tdMnAqIX9IEHwihSzyqaPkoesB2x`), account dearcorner.bd@gmail.com, Hobby plan |
-| Production URL    | https://dreamcornerbd.vercel.app                                                                |
+| Production URL    | https://dearcornerbd.vercel.app                                                                |
 | Vercel protection | Vercel login required on preview deployments only; production is public                         |
 | Admin email       | dearcorner.bd@gmail.com                                                                         |
 
@@ -27,7 +27,7 @@ Last updated: 2026-10-21 (end of Phase F).
 | ------------------------ | --------------------------------- | -------------------------------------------------------------------------------- |
 | `VITE_SUPABASE_URL`      | Vercel (set, Production), CI vars | Project URL above                                                                |
 | `VITE_SUPABASE_ANON_KEY` | Vercel (set, Production), CI vars | Publishable key (`sb_publishable_…`). Public by design; RLS protects data        |
-| `VITE_SITE_URL`          | Vercel (set, Production)          | Absolute URL used in Open Graph tags. Default `https://dreamcornerbd.vercel.app` |
+| `VITE_SITE_URL`          | Vercel (set, Production)          | Absolute URL used in Open Graph tags. Default `https://dearcornerbd.vercel.app` |
 
 Never commit real values. `.env.example` lists them. Without the Supabase
 values the site still loads; data calls reject with `SupabaseNotConfiguredError` and the header,
@@ -209,7 +209,7 @@ scripts/build-geo-data.py Builds src/data/bd-geo.json and the geo seed from nuhi
   - [x] Sign-in email templates + owner setup (`supabase/templates/`)
   - [x] Password sign-in (optional): customers set a password in Profile and can then sign in with
         it or with a code; "Forgot your password?" falls back to a code. Admin = sign-in + authenticator.
-  - [x] Live email setup done (Gmail SMTP, templates, 6-digit codes, Site URL dreamcornerbd.vercel.app)
+  - [x] Live email setup done (Gmail SMTP, templates, 6-digit codes, Site URL dearcornerbd.vercel.app)
   - [x] 55 end-to-end checks (`scripts/flow-checks.mjs`, also in CI); screenshots of 39 routes at
         360/768/1280 with no overflow or page errors
 - [x] **Phase F — Admin** (branch `phase-f-admin`)
