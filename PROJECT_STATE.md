@@ -17,17 +17,17 @@ Last updated: 2026-10-21 (end of Phase F).
 | Supabase URL      | https://elyntthbaoczxgjeadft.supabase.co                                                        |
 | Old project       | `Dear-Corner` in Seoul (`jzqfjnppeojlekprgjww`), empty — owner to delete                        |
 | Vercel project    | `dear-corner` (`prj_tdMnAqIX9IEHwihSzyqaPkoesB2x`), account dearcorner.bd@gmail.com, Hobby plan |
-| Production URL    | https://dreamcorner.vercel.app                                                                  |
+| Production URL    | https://dreamcornerbd.vercel.app                                                                |
 | Vercel protection | Vercel login required on preview deployments only; production is public                         |
 | Admin email       | dearcorner.bd@gmail.com                                                                         |
 
 ## Environment variables
 
-| Name                     | Where                             | Notes                                                                          |
-| ------------------------ | --------------------------------- | ------------------------------------------------------------------------------ |
-| `VITE_SUPABASE_URL`      | Vercel (set, Production), CI vars | Project URL above                                                              |
-| `VITE_SUPABASE_ANON_KEY` | Vercel (set, Production), CI vars | Publishable key (`sb_publishable_…`). Public by design; RLS protects data      |
-| `VITE_SITE_URL`          | Vercel (set, Production)          | Absolute URL used in Open Graph tags. Default `https://dreamcorner.vercel.app` |
+| Name                     | Where                             | Notes                                                                            |
+| ------------------------ | --------------------------------- | -------------------------------------------------------------------------------- |
+| `VITE_SUPABASE_URL`      | Vercel (set, Production), CI vars | Project URL above                                                                |
+| `VITE_SUPABASE_ANON_KEY` | Vercel (set, Production), CI vars | Publishable key (`sb_publishable_…`). Public by design; RLS protects data        |
+| `VITE_SITE_URL`          | Vercel (set, Production)          | Absolute URL used in Open Graph tags. Default `https://dreamcornerbd.vercel.app` |
 
 Never commit real values. `.env.example` lists them. Without the Supabase
 values the site still loads; data calls reject with `SupabaseNotConfiguredError` and the header,
