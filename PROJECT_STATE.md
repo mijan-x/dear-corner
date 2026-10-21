@@ -147,8 +147,10 @@ scripts/build-geo-data.py Builds src/data/bd-geo.json and the geo seed from nuhi
         brand palette, few props. Originals on the `sample-photos-src` branch; WebP built by
         `scripts/sample-photos/build.py` (hero 47 + 38 KB, product photos 30–123 KB, 1200 + 400 px)
   - [x] Photos linked in the database by `supabase/seeds/sample_products_images.sql` (each color has its
-        photos; each color variant its main photo). Live: the owner pastes
-        `supabase/manual/phase-d-demo-photos.sql` (the connector's write was cancelled)
+        photos; each color variant its main photo). Live: pasted by the owner from
+        `supabase/manual/phase-d-demo-photos.sql` on 21 Oct and verified (21 photos, 10 color links,
+        5 categories, 2 collections, homepage hero and banners). The file uses no temporary table, so
+        it can be run again from the SQL editor
   - [x] Home: split hero (`<picture>`, high priority, preloaded from index.html), 6 category cards, New
         arrivals row (2.3 cards on phones), two promo banners, Best sellers, promises strip; reviews and
         Instagram hidden until real ones exist
@@ -283,8 +285,6 @@ The authoring workspace cannot reach the npm registry, so GitHub Actions does th
 - Demo photos are generated (Canva): replace them before launch. Category photos and the 4:1 desktop
   banners are crops of 2:1 images, so a few subjects sit close to the strip's edge.
 - "Order now" goes to `/checkout`, which is built in Phase E (404 until then).
-- The Supabase connector cancelled the Phase D photo SQL; until the owner pastes
-  `supabase/manual/phase-d-demo-photos.sql`, live product and category cards show the leaf placeholder.
 - The Supabase connector asks for a confirmation before some migrations (the admin functions, grants and
   policy changes). If nobody confirms, it reports "cancelled" and nothing is applied; those parts can be
   pasted into the SQL editor instead (`supabase/manual/`).
