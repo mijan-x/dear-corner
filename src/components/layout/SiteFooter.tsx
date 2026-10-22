@@ -138,6 +138,7 @@ function SiteFooter({ className }: { className?: string }) {
     { to: routes.returns, label: "Exchange and returns" },
     { to: routes.faq, label: "FAQ" },
     { to: routes.contact, label: "Contact us" },
+    { to: routes.about, label: "About Dear Corner" },
   ];
   const social: FooterLink[] = [
     settings.instagram_url && {

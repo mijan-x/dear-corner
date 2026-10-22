@@ -18,6 +18,37 @@ function siteUrl(url: string): Plugin {
 }
 
 /**
+ * Writes robots.txt at build time so its Sitemap line uses the site address.
+ * Private pages (account, checkout, admin) stay out of search results.
+ */
+function robotsTxt(url: string): Plugin {
+  const site = url.replace(/\/$/, "");
+  return {
+    name: "dear-corner:robots",
+    apply: "build",
+    generateBundle() {
+      this.emitFile({
+        type: "asset",
+        fileName: "robots.txt",
+        source: [
+          "User-agent: *",
+          "Allow: /",
+          "Disallow: /admin",
+          "Disallow: /account",
+          "Disallow: /cart",
+          "Disallow: /checkout",
+          "Disallow: /order-confirmed/",
+          "Disallow: /styleguide",
+          "",
+          `Sitemap: ${site}/sitemap.xml`,
+          "",
+        ].join("\n"),
+      });
+    },
+  };
+}
+
+/**
  * Preloads the DM Sans 400 (Latin) font file. Its file name is hashed at build
  * time, so the <link rel="preload"> is injected after bundling.
  */
@@ -56,6 +87,7 @@ export default defineConfig(({ mode }) => {
       react(),
       tailwindcss(),
       siteUrl(env.VITE_SITE_URL || DEFAULT_SITE_URL),
+      robotsTxt(env.VITE_SITE_URL || DEFAULT_SITE_URL),
       preloadBodyFont(),
     ],
     define: {

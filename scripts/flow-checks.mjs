@@ -590,6 +590,52 @@ await step("cart sync", async () => {
 // reviews, messages, settings
 // ---------------------------------------------------------------------------
 const ADMIN = `owner.${Date.now()}@example.com`;
+await step("contact form", async () => {
+  const { context, page, errors } = await newPage();
+  await go(page, "/contact");
+  await page.locator("main button:has-text('Send message')").click();
+  await page.waitForTimeout(300);
+  check(
+    "contact form shows errors next to the fields",
+    (await page.locator("#contact-name[aria-invalid='true']").count()) === 1 &&
+      (await page.locator("#contact-message[aria-invalid='true']").count()) ===
+        1,
+  );
+  check(
+    "first invalid field gets focus",
+    await page.evaluate(() => document.activeElement?.id === "contact-name"),
+  );
+  await page.fill("#contact-name", "Rima Akter");
+  await page.fill("#contact-phone", "01712345678");
+  await page.fill("#contact-order", "dc-10001");
+  await page.fill("#contact-message", "Is the pleated lamp available in sage?");
+  await page.locator("main button:has-text('Send message')").click();
+  await page.waitForSelector("#contact-sent", { timeout: 8000 });
+  check(
+    "contact message sent",
+    (await text(page, "#contact-sent")).includes("we\u2019ve got it"),
+  );
+  check(
+    "contact message saved for the admin",
+    sql(
+      "select order_number from public.contact_messages where name = 'Rima Akter' order by created_at desc limit 1",
+    ) === "DC-10001",
+  );
+  for (const [path, heading] of [
+    ["/about", "About Dear Corner"],
+    ["/faq", "Questions and answers"],
+    ["/delivery", "Delivery"],
+    ["/exchange-and-returns", "Exchange and returns"],
+    ["/privacy", "Privacy"],
+    ["/terms", "Terms of sale"],
+  ]) {
+    await go(page, path);
+    check(`${path} page`, (await text(page, "h1")) === heading);
+  }
+  check("no page errors (help pages)", errors.length === 0, errors.join(" | "));
+  await context.close();
+});
+
 await step("admin", async () => {
   const { context, page, errors } = await newPage({ width: 1280, height: 900 });
   await context.addInitScript(() => {

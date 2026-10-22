@@ -1,8 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /admin
-Disallow: /account
-Disallow: /checkout
-Disallow: /cart
-Disallow: /order/
-Disallow: /styleguide

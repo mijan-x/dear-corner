@@ -1,6 +1,6 @@
 /**
- * Every URL the shop links to, in one place. Pages arrive phase by phase;
- * links to pages that don't exist yet show the "This corner is empty" page.
+ * Every URL the shop links to, in one place. Unknown URLs show the
+ * "This corner is empty" page.
  */
 export const routes = {
   home: "/",
