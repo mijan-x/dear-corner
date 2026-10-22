@@ -1,0 +1,10 @@
+branch=ci-skip-slow-steps
+sha=1fda0170a920a53e7bc24f799a8369f98f083b7c
+install=success
+format=success
+lint=success
+build=success
+db_tests=success
+screenshots=success
+flow_checks=success
+finished=2026-10-22T05:36:18Z

@@ -1,0 +1,10 @@
+branch=password-sign-in
+sha=a2dff99eadf1aaaf97c36d65220c3fe29f3dd9f4
+install=success
+format=success
+lint=success
+build=success
+db_tests=success
+screenshots=success
+flow_checks=success
+finished=2026-10-21T17:54:28Z

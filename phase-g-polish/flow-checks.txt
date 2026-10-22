@@ -1,0 +1,109 @@
+pass  add to cart opens the cart drawer
+pass  drawer shows the item
+pass  drawer has Checkout
+pass  badge count is 1
+pass  cart page heading
+pass  quantity goes up
+pass  coupon applies
+pass  checkout heading
+pass  cash on delivery selected
+pass  empty form shows errors
+pass  focus moves to the first error
+pass  short phone is rejected
+pass  delivery zone shows
+pass  button shows the real total  (Place order · ৳3,402)
+pass  order number format  (DC-10001)
+pass  thank-you message  (Thank you, Rima!)
+pass  owner's message
+pass  cart is empty after ordering
+pass  coupon is cleared
+pass  server totals: 2 lamps, 10% off, free delivery  ({"fee": 0, "total": 3402, "coupon": "HELLO10", "discount": 378})
+pass  no page errors (guest)
+pass  order number prefilled
+pass  wrong phone: not found message
+pass  status timeline shows
+pass  street address is hidden
+      mock POST /rest/v1/rpc/place_order ERROR Prices changed since you opened checkout. Please check your order and place it again.
+pass  price change stops the order
+pass  price change message
+pass  total updates  (Place order · ৳580 → Place order · ৳630)
+pass  order goes through with the new total
+pass  short password refused
+pass  password saved
+pass  no page errors (set password)
+      mock POST /auth/v1/token 400
+pass  wrong password message
+pass  signed in with password
+pass  no page errors (password sign-in)
+pass  account asks to sign in
+pass  code step
+      mock POST /auth/v1/verify 403
+pass  wrong code message
+pass  signed in to orders
+pass  empty orders
+pass  profile saved
+pass  name prefilled from profile
+pass  save address offered
+pass  signed-in order placed
+pass  order belongs to the account
+pass  order in the list with status
+pass  address was saved as default
+pass  saved address preselected
+pass  no details form with a saved address
+pass  second address added
+pass  heart is on
+pass  wishlist shows the lamp
+pass  delivered order shows Write a review
+pass  review needs a rating
+pass  review sent
+pass  review waits for approval
+pass  item says review sent
+pass  reorder fills the cart and opens it
+pass  signed out, cart cleared here
+pass  no page errors (account)
+pass  saved cart comes back after signing in
+pass  contact form shows errors next to the fields
+pass  first invalid field gets focus
+pass  contact message sent
+pass  contact message saved for the admin
+pass  /about page
+pass  /faq page
+pass  /delivery page
+pass  /exchange-and-returns page
+pass  /privacy page
+pass  /terms page
+pass  no page errors (help pages)
+pass  customers can't open the admin
+pass  admin must turn on two-step login
+pass  QR code shown
+      mock POST /auth/v1/factors/01ca51cb-6c44-4610-a480-0157a993cc82/verify 422
+pass  wrong code refused
+pass  dashboard after two-step login
+pass  dashboard shows waiting orders
+pass  orders list shows the guest order
+pass  order search by name
+pass  order confirmed
+pass  handed to courier with tracking
+pass  details can't be edited after hand-over
+pass  team note saved
+pass  invoice prints
+pass  label shows cash to collect
+pass  CSV export has the orders
+pass  variants made for each color
+pass  product saved with 2 variants
+pass  photo uploaded (resized to WebP)
+pass  product is active
+pass  stock corrected and logged
+pass  coupon created
+pass  delivery fee changed, areas kept
+pass  review published
+pass  message marked done
+pass  announcement saved
+pass  homepage hero saved
+pass  category created
+pass  customers list
+pass  activity log
+pass  phone admin menu
+pass  no page errors (admin)
+
+103/103 checks passed

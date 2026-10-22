@@ -1,0 +1,114 @@
+migrate  20261020120000_foundation.sql
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020120000_foundation.sql:9: NOTICE:  extension "pgcrypto" already exists, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020120000_foundation.sql:10: NOTICE:  extension "pg_trgm" already exists, skipping
+migrate  20261020120100_geo_and_shipping.sql
+migrate  20261020120200_catalog.sql
+migrate  20261020120300_customers.sql
+migrate  20261020120400_orders.sql
+migrate  20261020120500_reviews.sql
+migrate  20261020120600_storefront_functions.sql
+migrate  20261020120700_admin_functions.sql
+migrate  20261020120800_storage.sql
+migrate  20261020120900_grants.sql
+migrate  20261020121000_fk_indexes.sql
+migrate  20261020121100_policy_tuning.sql
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:42: NOTICE:  policy "Admins can add categories" for relation "public.categories" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:42: NOTICE:  policy "Admins can edit categories" for relation "public.categories" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:42: NOTICE:  policy "Admins can delete categories" for relation "public.categories" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:42: NOTICE:  policy "Admins can add collections" for relation "public.collections" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:42: NOTICE:  policy "Admins can edit collections" for relation "public.collections" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:42: NOTICE:  policy "Admins can delete collections" for relation "public.collections" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:42: NOTICE:  policy "Admins can add products" for relation "public.products" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:42: NOTICE:  policy "Admins can edit products" for relation "public.products" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:42: NOTICE:  policy "Admins can delete products" for relation "public.products" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:42: NOTICE:  policy "Admins can add options" for relation "public.product_options" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:42: NOTICE:  policy "Admins can edit options" for relation "public.product_options" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:42: NOTICE:  policy "Admins can delete options" for relation "public.product_options" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:42: NOTICE:  policy "Admins can add option values" for relation "public.product_option_values" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:42: NOTICE:  policy "Admins can edit option values" for relation "public.product_option_values" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:42: NOTICE:  policy "Admins can delete option values" for relation "public.product_option_values" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:42: NOTICE:  policy "Admins can add images" for relation "public.product_images" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:42: NOTICE:  policy "Admins can edit images" for relation "public.product_images" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:42: NOTICE:  policy "Admins can delete images" for relation "public.product_images" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:42: NOTICE:  policy "Admins can add variants" for relation "public.product_variants" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:42: NOTICE:  policy "Admins can edit variants" for relation "public.product_variants" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:42: NOTICE:  policy "Admins can delete variants" for relation "public.product_variants" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:42: NOTICE:  policy "Admins can add collection membership" for relation "public.product_collections" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:42: NOTICE:  policy "Admins can edit collection membership" for relation "public.product_collections" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:42: NOTICE:  policy "Admins can delete collection membership" for relation "public.product_collections" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:42: NOTICE:  policy "Admins can add areas" for relation "public.geo_areas" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:42: NOTICE:  policy "Admins can edit areas" for relation "public.geo_areas" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:42: NOTICE:  policy "Admins can delete areas" for relation "public.geo_areas" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:42: NOTICE:  policy "Admins can add delivery zones" for relation "public.shipping_zones" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:42: NOTICE:  policy "Admins can edit delivery zones" for relation "public.shipping_zones" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:42: NOTICE:  policy "Admins can delete delivery zones" for relation "public.shipping_zones" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:42: NOTICE:  policy "Admins can add delivery zone areas" for relation "public.shipping_zone_areas" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:42: NOTICE:  policy "Admins can edit delivery zone areas" for relation "public.shipping_zone_areas" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:42: NOTICE:  policy "Admins can delete delivery zone areas" for relation "public.shipping_zone_areas" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:47: NOTICE:  policy "Customers read their own addresses" for relation "public.addresses" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:48: NOTICE:  policy "Customers add their own addresses" for relation "public.addresses" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:49: NOTICE:  policy "Customers edit their own addresses" for relation "public.addresses" does not exist, skipping
+psql:/home/runner/work/dear-corner/dear-corner/supabase/migrations/20261020121100_policy_tuning.sql:50: NOTICE:  policy "Customers delete their own addresses" for relation "public.addresses" does not exist, skipping
+seed     sample_products.sql
+            sample_product            
+--------------------------------------
+ e9005523-af0c-481a-a537-036a016dfe16
+(1 row)
+
+            sample_product            
+--------------------------------------
+ cadd01d5-cbd5-4ef2-96ef-78af5cf7fdb8
+(1 row)
+
+            sample_product            
+--------------------------------------
+ 4241fba7-bebf-43c4-9b53-7cd9aa282644
+(1 row)
+
+            sample_product            
+--------------------------------------
+ 9a15d8e1-d45c-412b-92f4-6cc4e97b6c48
+(1 row)
+
+            sample_product            
+--------------------------------------
+ f9b9711b-43ad-40c0-b8a4-933a56f2d0a9
+(1 row)
+
+            sample_product            
+--------------------------------------
+ b2a9aa8e-8baf-45ca-b323-2bcb5c7c612b
+(1 row)
+
+            sample_product            
+--------------------------------------
+ 0513feee-1ac8-488a-add1-fc1b8255ea82
+(1 row)
+
+            sample_product            
+--------------------------------------
+ 9d6cedc1-d23b-4b9c-813f-177a93746ec7
+(1 row)
+
+            sample_product            
+--------------------------------------
+ 77b88cf6-2e8a-4352-879a-3227c7afbba2
+(1 row)
+
+            sample_product            
+--------------------------------------
+ 602f6cb8-8ed0-464f-942a-075fb1cf4c74
+(1 row)
+
+            sample_product            
+--------------------------------------
+ 97b01d83-4a1a-49fc-bdad-398b3eac9463
+(1 row)
+
+            sample_product            
+--------------------------------------
+ 61a7feee-fd13-4c2c-b8a4-cdb58c563de2
+(1 row)
+
+seed     sample_products_images.sql
+ok: local database on port 54331 (data in /home/runner/work/_temp/dc-pg-shots)

@@ -1,0 +1,142 @@
+[36mvite v8.3.4 [32mbuilding client environment for production...[36m[39m
+transforming...
+✓ 2180 modules transformed.
+rendering chunks...
+computing gzip size...
+dist-mock/robots.txt                                                             0.19 kB │ gzip:  0.14 kB
+dist-mock/assets/dc-figures-400-Crc9bxru.woff                                    1.90 kB
+dist-mock/assets/dc-figures-700-CZpy8wYQ.woff                                    1.90 kB
+dist-mock/assets/dc-figures-600-3Hkm73zM.woff                                    1.91 kB
+dist-mock/assets/dc-figures-500-CHNOu952.woff                                    1.92 kB
+dist-mock/assets/dear-corner_monogram-simple_rosewood-00KLU9Wn.svg               2.29 kB │ gzip:  0.94 kB
+dist-mock/assets/dear-corner_monogram_cream-CD2A35Kc.svg                         3.51 kB │ gzip:  1.37 kB
+dist-mock/assets/dear-corner_monogram_rosewood-DU8khOsL.svg                      3.51 kB │ gzip:  1.37 kB
+dist-mock/index.html                                                             5.26 kB │ gzip:  1.85 kB
+dist-mock/assets/dear-corner_wordmark-compact_cream-BE6DICae.svg                 5.47 kB │ gzip:  2.30 kB
+dist-mock/assets/dear-corner_wordmark-compact_rosewood-Bf5uODs_.svg              5.47 kB │ gzip:  2.30 kB
+dist-mock/assets/dear-corner_primary-horizontal_rosewood-vwtRAChe.svg           12.93 kB │ gzip:  3.58 kB
+dist-mock/assets/dear-corner_primary-stacked_rosewood-B58ibyhJ.svg              13.14 kB │ gzip:  3.61 kB
+dist-mock/assets/dm-sans-latin-600-normal-Aqo67rzb.woff2                        14.14 kB
+dist-mock/assets/dm-sans-latin-400-normal-CW0RaeGs.woff2                        14.20 kB
+dist-mock/assets/dm-sans-latin-500-normal-B9HHJjqV.woff2                        14.30 kB
+dist-mock/assets/dm-sans-latin-700-normal-DvUfVpUG.woff2                        14.34 kB
+dist-mock/assets/fraunces-latin-600-normal-BFCDtZfi.woff2                       18.09 kB
+dist-mock/assets/dear-corner_primary-horizontal-tagline_cream-BpMy8Gki.svg      18.26 kB │ gzip:  5.48 kB
+dist-mock/assets/dear-corner_primary-horizontal-tagline_rosewood-BF7pCpZm.svg   18.27 kB │ gzip:  5.48 kB
+dist-mock/assets/fraunces-latin-600-italic-O70d2LGK.woff2                       23.03 kB
+dist-mock/assets/hind-siliguri-bengali-400-normal-rHQ7AW0H.woff2                71.07 kB
+dist-mock/assets/hind-siliguri-bengali-600-normal-DLZF4s8q.woff2                74.78 kB
+dist-mock/assets/index-CmXBP8up.css                                             91.61 kB │ gzip: 18.34 kB
+dist-mock/assets/reorder-DLsYt39K.js                                             0.17 kB │ gzip:  0.15 kB
+dist-mock/assets/arrow-left-DzJ51dBL.js                                          0.20 kB │ gzip:  0.19 kB
+dist-mock/assets/rotate-ccw-7Yxcy4sO.js                                          0.24 kB │ gzip:  0.21 kB
+dist-mock/assets/lastOrder-FX9FgJAb.js                                           0.25 kB │ gzip:  0.18 kB
+dist-mock/assets/mail-Cez526cI.js                                                0.25 kB │ gzip:  0.22 kB
+dist-mock/assets/storage-By6grJpS.js                                             0.26 kB │ gzip:  0.17 kB
+dist-mock/assets/circle-x-CjBct6tt.js                                            0.26 kB │ gzip:  0.21 kB
+dist-mock/assets/log-out-TmHzUpqL.js                                             0.27 kB │ gzip:  0.22 kB
+dist-mock/assets/download-ob-oaj6I.js                                            0.27 kB │ gzip:  0.22 kB
+dist-mock/assets/banknote-D3-qQjzw.js                                            0.28 kB │ gzip:  0.23 kB
+dist-mock/assets/external-link-DcRucT5v.js                                       0.29 kB │ gzip:  0.23 kB
+dist-mock/assets/map-pin-CKX7q-2I.js                                             0.29 kB │ gzip:  0.25 kB
+dist-mock/assets/pencil-Bm8eZeu7.js                                              0.31 kB │ gzip:  0.25 kB
+dist-mock/assets/wallet-ccJZqHzn.js                                              0.32 kB │ gzip:  0.23 kB
+dist-mock/assets/shield-check-CKoKlFy2.js                                        0.36 kB │ gzip:  0.27 kB
+dist-mock/assets/phone-BFXi1Jxb.js                                               0.36 kB │ gzip:  0.26 kB
+dist-mock/assets/data-Bw8Ji0hA.js                                                0.37 kB │ gzip:  0.24 kB
+dist-mock/assets/formatDate-CJ-pHFzh.js                                          0.37 kB │ gzip:  0.21 kB
+dist-mock/assets/trash-BnpiQjnY.js                                               0.38 kB │ gzip:  0.25 kB
+dist-mock/assets/package-Zb64wVzd.js                                             0.41 kB │ gzip:  0.28 kB
+dist-mock/assets/package-check-CFwPnCV7.js                                       0.45 kB │ gzip:  0.30 kB
+dist-mock/assets/Panel-BbphPDjk.js                                               0.49 kB │ gzip:  0.30 kB
+dist-mock/assets/paths-Cwxdr4e_.js                                               0.52 kB │ gzip:  0.23 kB
+dist-mock/assets/store-BbwE6pMQ.js                                               0.52 kB │ gzip:  0.34 kB
+dist-mock/assets/geo-cQajs2Py.js                                                 0.55 kB │ gzip:  0.33 kB
+dist-mock/assets/fieldStyles-RnWFiTbP.js                                         0.58 kB │ gzip:  0.35 kB
+dist-mock/assets/ConfirmDialog-BSNr8zJ_.js                                       0.60 kB │ gzip:  0.37 kB
+dist-mock/assets/supabase-xRFeHIPt.js                                            0.61 kB │ gzip:  0.42 kB
+dist-mock/assets/EmptyState-TSr1_J6n.js                                          0.67 kB │ gzip:  0.40 kB
+dist-mock/assets/tabs-EsSQBtwA.js                                                0.69 kB │ gzip:  0.43 kB
+dist-mock/assets/SearchBox-OtIo2klP.js                                           0.70 kB │ gzip:  0.46 kB
+dist-mock/assets/Accordion-CyA9D8Cc.js                                           0.75 kB │ gzip:  0.45 kB
+dist-mock/assets/Breadcrumbs-C86A6xSr.js                                         0.77 kB │ gzip:  0.45 kB
+dist-mock/assets/validate-BSudY87P.js                                            0.84 kB │ gzip:  0.48 kB
+dist-mock/assets/Pager-9bZndhnC.js                                               0.86 kB │ gzip:  0.46 kB
+dist-mock/assets/settings-DPSGpO30.js                                            0.89 kB │ gzip:  0.48 kB
+dist-mock/assets/dashboard-DfsB5TCu.js                                           0.89 kB │ gzip:  0.43 kB
+dist-mock/assets/FreeDeliveryProgress-NNVl6QkR.js                                0.92 kB │ gzip:  0.53 kB
+dist-mock/assets/taxonomy-CL8ZjItU.js                                            0.94 kB │ gzip:  0.40 kB
+dist-mock/assets/Table-CM0OCbCb.js                                               0.95 kB │ gzip:  0.47 kB
+dist-mock/assets/Toggle-PGr7qI2X.js                                              0.98 kB │ gzip:  0.53 kB
+dist-mock/assets/Chip-e7dh7pJk.js                                                1.03 kB │ gzip:  0.55 kB
+dist-mock/assets/ActivityPage-DgOR88zA.js                                        1.05 kB │ gzip:  0.59 kB
+dist-mock/assets/SearchForm-BNB2RaKJ.js                                          1.06 kB │ gzip:  0.62 kB
+dist-mock/assets/StatusChip-CEvkd0bn.js                                          1.10 kB │ gzip:  0.56 kB
+dist-mock/assets/WishlistButton-D5CW905P.js                                      1.22 kB │ gzip:  0.74 kB
+dist-mock/assets/LoadMore-B40tTfCe.js                                            1.22 kB │ gzip:  0.69 kB
+dist-mock/assets/query-B8RjOo4u.js                                               1.25 kB │ gzip:  0.62 kB
+dist-mock/assets/QuantityStepper-CS5FZVZK.js                                     1.26 kB │ gzip:  0.69 kB
+dist-mock/assets/Notice-JKSloguJ.js                                              1.33 kB │ gzip:  0.66 kB
+dist-mock/assets/NotFoundPage-BGe1aOIU.js                                        1.39 kB │ gzip:  0.66 kB
+dist-mock/assets/QueryView-DecrCvmv.js                                           1.50 kB │ gzip:  0.73 kB
+dist-mock/assets/catalog-DiahlVh7.js                                             1.51 kB │ gzip:  0.68 kB
+dist-mock/assets/AddressFields-RHOzKisy.js                                       1.62 kB │ gzip:  0.67 kB
+dist-mock/assets/ImageField-DqYroWUx.js                                          1.68 kB │ gzip:  0.87 kB
+dist-mock/assets/WishlistPage-DVkMKAji.js                                        1.69 kB │ gzip:  0.83 kB
+dist-mock/assets/OrderDetailPage-C6UEZXTH.js                                     1.73 kB │ gzip:  0.86 kB
+dist-mock/assets/CustomersPage-ur3QWEkt.js                                       2.23 kB │ gzip:  1.06 kB
+dist-mock/assets/images-KWMlgC0b.js                                              2.26 kB │ gzip:  1.21 kB
+dist-mock/assets/CartDrawer-k2egYSa0.js                                          2.36 kB │ gzip:  1.16 kB
+dist-mock/assets/OptionPicker-BKPfBcDm.js                                        2.46 kB │ gzip:  1.08 kB
+dist-mock/assets/Choice-BPkDnLfW.js                                              2.50 kB │ gzip:  0.91 kB
+dist-mock/assets/OrderTimeline-THa1LT7p.js                                       2.50 kB │ gzip:  0.96 kB
+dist-mock/assets/AccountLayout-DkDEHyaS.js                                       2.61 kB │ gzip:  1.23 kB
+dist-mock/assets/orders-B05wZDYj.js                                              2.74 kB │ gzip:  1.22 kB
+dist-mock/assets/Field-zTssFUZ2.js                                               3.04 kB │ gzip:  1.16 kB
+dist-mock/assets/ReturnsPage-CJBiYmJP.js                                         3.05 kB │ gzip:  1.22 kB
+dist-mock/assets/orders-B9RiMS_A.js                                              3.12 kB │ gzip:  1.39 kB
+dist-mock/assets/TermsPage-Mi74RUe9.js                                           3.17 kB │ gzip:  1.33 kB
+dist-mock/assets/ContentPage-C8Aaqv4l.js                                         3.24 kB │ gzip:  1.37 kB
+dist-mock/assets/TrackOrderPage-Bb6P_5_b.js                                      3.31 kB │ gzip:  1.62 kB
+dist-mock/assets/createLucideIcon-DEmJDPNV.js                                    3.37 kB │ gzip:  1.55 kB
+dist-mock/assets/DeliveryPage-CdvHHq_F.js                                        3.41 kB │ gzip:  1.39 kB
+dist-mock/assets/PrivacyPage-BCG44TCZ.js                                         3.54 kB │ gzip:  1.35 kB
+dist-mock/assets/OrdersPage-4ITxeexO.js                                          3.56 kB │ gzip:  1.69 kB
+dist-mock/assets/OrderTotals-aKuOBJAa.js                                         3.61 kB │ gzip:  1.34 kB
+dist-mock/assets/account-mPPEF-ZB.js                                             3.69 kB │ gzip:  1.36 kB
+dist-mock/assets/FaqPage-DYZ4cn6Q.js                                             3.81 kB │ gzip:  1.60 kB
+dist-mock/assets/ProductsPage-D2c9k-Gt.js                                        3.81 kB │ gzip:  1.67 kB
+dist-mock/assets/AboutPage-DB58MmFn.js                                           3.84 kB │ gzip:  1.81 kB
+dist-mock/assets/OrdersPage-B3meaoy8.js                                          3.92 kB │ gzip:  1.56 kB
+dist-mock/assets/DashboardPage-DUvXwA0x.js                                       4.26 kB │ gzip:  1.57 kB
+dist-mock/assets/ProfilePage-BJixrlL9.js                                         4.32 kB │ gzip:  1.74 kB
+dist-mock/assets/CouponField-zM1iyKMx.js                                         4.32 kB │ gzip:  1.80 kB
+dist-mock/assets/CartPage-CQgApjC1.js                                            4.48 kB │ gzip:  1.77 kB
+dist-mock/assets/MessagesPage-aS0jPPm3.js                                        4.83 kB │ gzip:  1.94 kB
+dist-mock/assets/OrderConfirmedPage-DGYgVqEg.js                                  5.03 kB │ gzip:  1.83 kB
+dist-mock/assets/ReviewsPage-B5O2vOxf.js                                         5.29 kB │ gzip:  2.27 kB
+dist-mock/assets/InventoryPage-B-BfNw_b.js                                       5.62 kB │ gzip:  2.28 kB
+dist-mock/assets/ContactPage-DCPSjFc5.js                                         5.96 kB │ gzip:  2.46 kB
+dist-mock/assets/PrintPage-C4NeWsGr.js                                           6.13 kB │ gzip:  1.85 kB
+dist-mock/assets/CollectionsPage-DhrkiLwB.js                                     6.21 kB │ gzip:  2.44 kB
+dist-mock/assets/CategoriesPage-tUU73LHb.js                                      6.32 kB │ gzip:  2.50 kB
+dist-mock/assets/cart-qM7wWR7R.js                                                6.37 kB │ gzip:  2.54 kB
+dist-mock/assets/AddressesPage-CY4y321h.js                                       6.86 kB │ gzip:  2.57 kB
+dist-mock/assets/OrderDetails-CfAc79qg.js                                        8.06 kB │ gzip:  3.08 kB
+dist-mock/assets/ShippingPage-CO7m2aQq.js                                        8.14 kB │ gzip:  3.09 kB
+dist-mock/assets/SignInPage-Bfuuo6PU.js                                          8.25 kB │ gzip:  3.19 kB
+dist-mock/assets/CouponsPage-CbEy5j36.js                                         8.62 kB │ gzip:  3.25 kB
+dist-mock/assets/bd-geo-Cj2Bnx2f.js                                              9.36 kB │ gzip:  3.33 kB
+dist-mock/assets/CheckoutPage-BtHba11b.js                                       11.84 kB │ gzip:  4.52 kB
+dist-mock/assets/AdminLayout-2Y7tQfuf.js                                        12.54 kB │ gzip:  4.87 kB
+dist-mock/assets/SettingsPage-15pVd9b9.js                                       13.56 kB │ gzip:  4.53 kB
+dist-mock/assets/OrderDetailPage-D03THY6B.js                                    14.34 kB │ gzip:  4.41 kB
+dist-mock/assets/ProductPage-p9d8ufc_.js                                        18.43 kB │ gzip:  6.41 kB
+dist-mock/assets/ProductEditorPage-QEChcLcn.js                                  20.62 kB │ gzip:  6.65 kB
+dist-mock/assets/ListingPage-Dm8DKO0d.js                                        23.55 kB │ gzip:  7.52 kB
+dist-mock/assets/StyleguidePage-BVcYRK18.js                                     35.35 kB │ gzip: 10.55 kB
+dist-mock/assets/env-DZkaWeAm.js                                               105.61 kB │ gzip: 35.13 kB
+dist-mock/assets/dist-DUv6x2D9.js                                              214.40 kB │ gzip: 55.16 kB
+dist-mock/assets/index-B2AzuSYF.js                                             303.04 kB │ gzip: 94.32 kB
+
+[32m✓ built in 563ms[39m

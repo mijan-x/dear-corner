@@ -1,0 +1,10 @@
+branch=phase-f-admin
+sha=80a1ae06720e43ca667b6230b1b9063ec094791c
+install=success
+format=success
+lint=success
+build=success
+db_tests=success
+screenshots=success
+flow_checks=success
+finished=2026-10-21T14:49:46Z

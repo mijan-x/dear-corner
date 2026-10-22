@@ -1,0 +1,452 @@
+[
+  {
+    "route": "/",
+    "name": "home",
+    "viewport": "360",
+    "file": "home-360.png",
+    "ms": 2629,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/styleguide",
+    "name": "styleguide",
+    "viewport": "360",
+    "file": "styleguide-360.png",
+    "ms": 3530,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/this-page-does-not-exist",
+    "name": "not-found",
+    "viewport": "360",
+    "file": "not-found-360.png",
+    "ms": 2162,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/shop",
+    "name": "shop",
+    "viewport": "360",
+    "file": "shop-360.png",
+    "ms": 2638,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/shop/lighting",
+    "name": "category",
+    "viewport": "360",
+    "file": "category-360.png",
+    "ms": 2470,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/collections/new-arrivals",
+    "name": "collection",
+    "viewport": "360",
+    "file": "collection-360.png",
+    "ms": 2455,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/search?q=lamp",
+    "name": "search-results",
+    "viewport": "360",
+    "file": "search-results-360.png",
+    "ms": 2366,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/search?q=sofa",
+    "name": "search-none",
+    "viewport": "360",
+    "file": "search-none-360.png",
+    "ms": 2299,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/shop?color=Sage&sort=price_desc",
+    "name": "filtered",
+    "viewport": "360",
+    "file": "filtered-360.png",
+    "ms": 2408,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/products/sample-pleated-table-lamp",
+    "name": "product",
+    "viewport": "360",
+    "file": "product-360.png",
+    "ms": 2524,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/products/sample-linen-photo-frame",
+    "name": "product-sizes",
+    "viewport": "360",
+    "file": "product-sizes-360.png",
+    "ms": 2493,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/products/sample-mushroom-night-lamp",
+    "name": "product-sold-out",
+    "viewport": "360",
+    "file": "product-sold-out-360.png",
+    "ms": 2462,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/shop",
+    "name": "filter-sheet",
+    "viewport": "360",
+    "file": "filter-sheet-360.png",
+    "ms": 3005,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/shop",
+    "name": "sort-sheet",
+    "viewport": "360",
+    "file": "sort-sheet-360.png",
+    "ms": 2931,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/",
+    "name": "menu-open",
+    "viewport": "360",
+    "file": "menu-open-360.png",
+    "ms": 2646,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/",
+    "name": "search-open",
+    "viewport": "360",
+    "file": "search-open-360.png",
+    "ms": 2626,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/styleguide",
+    "name": "header-scrolled",
+    "viewport": "360",
+    "file": "header-scrolled-360.png",
+    "ms": 3628,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/styleguide",
+    "name": "cart-drawer",
+    "viewport": "360",
+    "file": "cart-drawer-360.png",
+    "ms": 3307,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/",
+    "name": "home",
+    "viewport": "768",
+    "file": "home-768.png",
+    "ms": 2749,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/styleguide",
+    "name": "styleguide",
+    "viewport": "768",
+    "file": "styleguide-768.png",
+    "ms": 3641,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/this-page-does-not-exist",
+    "name": "not-found",
+    "viewport": "768",
+    "file": "not-found-768.png",
+    "ms": 2175,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/shop",
+    "name": "shop",
+    "viewport": "768",
+    "file": "shop-768.png",
+    "ms": 2730,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/shop/lighting",
+    "name": "category",
+    "viewport": "768",
+    "file": "category-768.png",
+    "ms": 2509,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/collections/new-arrivals",
+    "name": "collection",
+    "viewport": "768",
+    "file": "collection-768.png",
+    "ms": 2530,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/search?q=lamp",
+    "name": "search-results",
+    "viewport": "768",
+    "file": "search-results-768.png",
+    "ms": 2419,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/products/sample-pleated-table-lamp",
+    "name": "product",
+    "viewport": "768",
+    "file": "product-768.png",
+    "ms": 2761,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/shop",
+    "name": "filter-sheet",
+    "viewport": "768",
+    "file": "filter-sheet-768.png",
+    "ms": 3037,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/",
+    "name": "menu-open",
+    "viewport": "768",
+    "file": "menu-open-768.png",
+    "ms": 2682,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/",
+    "name": "search-open",
+    "viewport": "768",
+    "file": "search-open-768.png",
+    "ms": 2652,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/",
+    "name": "home",
+    "viewport": "1280",
+    "file": "home-1280.png",
+    "ms": 2882,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/styleguide",
+    "name": "styleguide",
+    "viewport": "1280",
+    "file": "styleguide-1280.png",
+    "ms": 3773,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/this-page-does-not-exist",
+    "name": "not-found",
+    "viewport": "1280",
+    "file": "not-found-1280.png",
+    "ms": 2220,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/shop",
+    "name": "shop",
+    "viewport": "1280",
+    "file": "shop-1280.png",
+    "ms": 2964,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/shop/lighting",
+    "name": "category",
+    "viewport": "1280",
+    "file": "category-1280.png",
+    "ms": 2675,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/collections/new-arrivals",
+    "name": "collection",
+    "viewport": "1280",
+    "file": "collection-1280.png",
+    "ms": 2696,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/search?q=lamp",
+    "name": "search-results",
+    "viewport": "1280",
+    "file": "search-results-1280.png",
+    "ms": 2510,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/search?q=sofa",
+    "name": "search-none",
+    "viewport": "1280",
+    "file": "search-none-1280.png",
+    "ms": 2417,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/shop?color=Sage&sort=price_desc",
+    "name": "filtered",
+    "viewport": "1280",
+    "file": "filtered-1280.png",
+    "ms": 2606,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/products/sample-pleated-table-lamp",
+    "name": "product",
+    "viewport": "1280",
+    "file": "product-1280.png",
+    "ms": 2721,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/products/sample-linen-photo-frame",
+    "name": "product-sizes",
+    "viewport": "1280",
+    "file": "product-sizes-1280.png",
+    "ms": 2668,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/products/sample-ribbed-ceramic-bud-vase",
+    "name": "product-color",
+    "viewport": "1280",
+    "file": "product-color-1280.png",
+    "ms": 3122,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/",
+    "name": "search-open",
+    "viewport": "1280",
+    "file": "search-open-1280.png",
+    "ms": 2734,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/",
+    "name": "shop-panel",
+    "viewport": "1280",
+    "file": "shop-panel-1280.png",
+    "ms": 2899,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/styleguide",
+    "name": "header-scrolled",
+    "viewport": "1280",
+    "file": "header-scrolled-1280.png",
+    "ms": 3661,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/styleguide",
+    "name": "cart-drawer",
+    "viewport": "1280",
+    "file": "cart-drawer-1280.png",
+    "ms": 3365,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  }
+]

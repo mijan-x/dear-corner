@@ -1,0 +1,86 @@
+
+> dear-corner@0.1.0 build
+> tsc -b && vite build
+
+[36mvite v8.3.4 [32mbuilding client environment for production...[36m[39m
+transforming...
+✓ 2124 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/assets/dc-figures-400-Crc9bxru.woff                                    1.90 kB
+dist/assets/dc-figures-700-CZpy8wYQ.woff                                    1.90 kB
+dist/assets/dc-figures-600-3Hkm73zM.woff                                    1.91 kB
+dist/assets/dc-figures-500-CHNOu952.woff                                    1.92 kB
+dist/assets/dear-corner_monogram-simple_rosewood-00KLU9Wn.svg               2.29 kB │ gzip:  0.94 kB
+dist/assets/dear-corner_monogram_cream-CD2A35Kc.svg                         3.51 kB │ gzip:  1.37 kB
+dist/assets/dear-corner_monogram_rosewood-DU8khOsL.svg                      3.51 kB │ gzip:  1.37 kB
+dist/index.html                                                             4.83 kB │ gzip:  1.75 kB
+dist/assets/dear-corner_wordmark-compact_cream-BE6DICae.svg                 5.47 kB │ gzip:  2.30 kB
+dist/assets/dear-corner_wordmark-compact_rosewood-Bf5uODs_.svg              5.47 kB │ gzip:  2.30 kB
+dist/assets/dear-corner_primary-horizontal_rosewood-vwtRAChe.svg           12.93 kB │ gzip:  3.58 kB
+dist/assets/dear-corner_primary-stacked_rosewood-B58ibyhJ.svg              13.14 kB │ gzip:  3.61 kB
+dist/assets/dm-sans-latin-600-normal-Aqo67rzb.woff2                        14.14 kB
+dist/assets/dm-sans-latin-400-normal-CW0RaeGs.woff2                        14.20 kB
+dist/assets/dm-sans-latin-500-normal-B9HHJjqV.woff2                        14.30 kB
+dist/assets/dm-sans-latin-700-normal-DvUfVpUG.woff2                        14.34 kB
+dist/assets/fraunces-latin-600-normal-BFCDtZfi.woff2                       18.09 kB
+dist/assets/dear-corner_primary-horizontal-tagline_cream-BpMy8Gki.svg      18.26 kB │ gzip:  5.48 kB
+dist/assets/dear-corner_primary-horizontal-tagline_rosewood-BF7pCpZm.svg   18.27 kB │ gzip:  5.48 kB
+dist/assets/fraunces-latin-600-italic-O70d2LGK.woff2                       23.03 kB
+dist/assets/hind-siliguri-bengali-400-normal-rHQ7AW0H.woff2                71.07 kB
+dist/assets/hind-siliguri-bengali-600-normal-DLZF4s8q.woff2                74.78 kB
+dist/assets/index-DUe3emHP.css                                             84.77 kB │ gzip: 17.18 kB
+dist/assets/env-C6rykZO6.js                                                 0.16 kB │ gzip:  0.14 kB
+dist/assets/reorder-Bz00xNJT.js                                             0.17 kB │ gzip:  0.15 kB
+dist/assets/rotate-ccw-BYFx8BUE.js                                          0.22 kB │ gzip:  0.19 kB
+dist/assets/lastOrder-FX9FgJAb.js                                           0.25 kB │ gzip:  0.18 kB
+dist/assets/circle-x-Dd0wLtNx.js                                            0.25 kB │ gzip:  0.20 kB
+dist/assets/storage-By6grJpS.js                                             0.26 kB │ gzip:  0.17 kB
+dist/assets/banknote-CrQDfeUt.js                                            0.27 kB │ gzip:  0.22 kB
+dist/assets/map-pin-l2UFOjC_.js                                             0.28 kB │ gzip:  0.23 kB
+dist/assets/trash-CzoNDiU4.js                                               0.37 kB │ gzip:  0.24 kB
+dist/assets/formatDate-CJ-pHFzh.js                                          0.37 kB │ gzip:  0.21 kB
+dist/assets/package-C1R83lE2.js                                             0.39 kB │ gzip:  0.26 kB
+dist/assets/fieldStyles-IB6UABPx.js                                         0.57 kB │ gzip:  0.35 kB
+dist/assets/EmptyState-BOds1jrf.js                                          0.66 kB │ gzip:  0.39 kB
+dist/assets/Breadcrumbs-D0EdiPGX.js                                         0.77 kB │ gzip:  0.45 kB
+dist/assets/NotFoundPage-Bnz0xxGG.js                                        0.81 kB │ gzip:  0.44 kB
+dist/assets/validate-BRKwlDIS.js                                            0.84 kB │ gzip:  0.48 kB
+dist/assets/FreeDeliveryProgress-Z4lz1zSU.js                                0.92 kB │ gzip:  0.53 kB
+dist/assets/QuantityStepper-0dulT68X.js                                     1.21 kB │ gzip:  0.66 kB
+dist/assets/WishlistButton-DTbrDBeL.js                                      1.22 kB │ gzip:  0.74 kB
+dist/assets/Notice-Ba-CdvYR.js                                              1.28 kB │ gzip:  0.63 kB
+dist/assets/StatusChip-bp9aYl4M.js                                          1.44 kB │ gzip:  0.75 kB
+dist/assets/WishlistPage-BamVYx3J.js                                        1.68 kB │ gzip:  0.83 kB
+dist/assets/OrderDetailPage-S0LCkIIv.js                                     1.79 kB │ gzip:  0.91 kB
+dist/assets/AddressFields-DVVkUNuD.js                                       2.07 kB │ gzip:  0.87 kB
+dist/assets/LoadMore-BnrGDUxR.js                                            2.13 kB │ gzip:  1.01 kB
+dist/assets/ProfilePage-GW-pl3W0.js                                         2.23 kB │ gzip:  1.09 kB
+dist/assets/CartDrawer-Bl6dwyIa.js                                          2.36 kB │ gzip:  1.16 kB
+dist/assets/Choice-BadVfDa1.js                                              2.50 kB │ gzip:  0.90 kB
+dist/assets/OrderTimeline-DINDNbjK.js                                       2.50 kB │ gzip:  0.95 kB
+dist/assets/AccountLayout-C_iZGZ7b.js                                       2.78 kB │ gzip:  1.33 kB
+dist/assets/Field-DLM8XZ4t.js                                               3.03 kB │ gzip:  1.15 kB
+dist/assets/orders-CtMJ5SUH.js                                              3.11 kB │ gzip:  1.39 kB
+dist/assets/OptionPicker-BctVKTdh.js                                        3.15 kB │ gzip:  1.32 kB
+dist/assets/TrackOrderPage-B5wxO3kw.js                                      3.31 kB │ gzip:  1.62 kB
+dist/assets/OrderTotals-DpNNLOIX.js                                         3.57 kB │ gzip:  1.31 kB
+dist/assets/account-D_s4n7sS.js                                             3.63 kB │ gzip:  1.32 kB
+dist/assets/OrdersPage-DYUWLla1.js                                          3.92 kB │ gzip:  1.56 kB
+dist/assets/CartPage-CKTOW8z-.js                                            4.44 kB │ gzip:  1.75 kB
+dist/assets/CouponField-BZa_zps-.js                                         4.58 kB │ gzip:  1.93 kB
+dist/assets/OrderConfirmedPage-C4gp1fWL.js                                  4.99 kB │ gzip:  1.80 kB
+dist/assets/cart-6mWQo9G0.js                                                6.27 kB │ gzip:  2.49 kB
+dist/assets/SignInPage-DpuMCD0_.js                                          6.43 kB │ gzip:  2.64 kB
+dist/assets/AddressesPage-43le0F3D.js                                       7.07 kB │ gzip:  2.72 kB
+dist/assets/OrderDetails-npRJSwA8.js                                        8.18 kB │ gzip:  3.14 kB
+dist/assets/bd-geo-BOd2dHGh.js                                              9.36 kB │ gzip:  3.33 kB
+dist/assets/CheckoutPage-DfBdIdKa.js                                       11.65 kB │ gzip:  4.43 kB
+dist/assets/ProductPage-zSO83I7D.js                                        18.33 kB │ gzip:  6.37 kB
+dist/assets/ListingPage-BaebgxX4.js                                        24.25 kB │ gzip:  7.67 kB
+dist/assets/StyleguidePage-M0vL00sf.js                                     35.23 kB │ gzip: 10.49 kB
+dist/assets/cx-CLaz018k.js                                                108.78 kB │ gzip: 36.29 kB
+dist/assets/dist-DUv6x2D9.js                                              214.40 kB │ gzip: 55.16 kB
+dist/assets/index-Rwf9PJco.js                                             298.84 kB │ gzip: 93.10 kB
+
+[32m✓ built in 514ms[39m

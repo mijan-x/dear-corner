@@ -1,0 +1,126 @@
+screenshots from dist-mock
+Shop data from the local test database (https://mock-project.supabase.co)
+ 360  home                     2700ms 
+ 360  styleguide               3546ms 
+ 360  not-found                2158ms 
+ 360  shop                     2734ms 
+ 360  category                 2483ms 
+ 360  collection               2458ms 
+ 360  search-results           2380ms 
+ 360  search-none              2309ms 
+ 360  filtered                 2436ms 
+ 360  product                  2627ms 
+ 360  product-sizes            2501ms 
+ 360  product-sold-out         2504ms 
+ 360  filter-sheet             3013ms 
+ 360  sort-sheet               2948ms 
+ 360  menu-open                2680ms 
+ 360  search-open              2684ms 
+ 360  header-scrolled          3603ms 
+ 360  cart-drawer              3353ms 
+ 360  cart                     2358ms 
+ 360  cart-empty               1988ms 
+ 360  cart-drawer-live         3250ms 
+ 360  checkout                 2446ms 
+ 360  checkout-filled          5468ms 
+ 360  checkout-errors          2976ms 
+ 360  order-confirmed          2376ms 
+ 360  track-order              2038ms 
+ 360  track-result             3822ms 
+ 360  sign-in                  1998ms 
+ 360  sign-in-code             3263ms 
+ 360  account-orders           2318ms 
+ 360  account-order            2414ms 
+ 360  review-dialog            2851ms 
+ 360  addresses                2297ms 
+ 360  address-dialog           2921ms 
+ 360  profile                  2227ms 
+ 360  wishlist                 2369ms 
+ 360  admin-two-step           2431ms 
+ 360  admin-dashboard          2281ms 
+ 360  admin-menu               2747ms 
+ 360  admin-orders             2301ms 
+ 360  admin-order              2362ms 
+ 360  admin-products           2499ms 
+ 360  admin-product            2635ms 
+ 360  admin-categories         2358ms 
+ 360  admin-inventory          2696ms 
+ 360  admin-coupons            2235ms 
+ 360  admin-coupon-dialog      2826ms 
+ 360  admin-customers          2283ms 
+ 360  admin-shipping           2315ms 
+ 360  admin-messages           2277ms 
+ 360  admin-settings           2322ms 
+ 768  home                     2766ms 
+ 768  styleguide               3663ms 
+ 768  not-found                2169ms 
+ 768  shop                     2729ms 
+ 768  category                 2523ms 
+ 768  collection               2536ms 
+ 768  search-results           2405ms 
+ 768  product                  2762ms 
+ 768  filter-sheet             3050ms 
+ 768  menu-open                2739ms 
+ 768  search-open              2684ms 
+ 768  cart                     2377ms 
+ 768  checkout                 2487ms 
+ 768  checkout-signed-in       2575ms 
+ 768  order-confirmed          2335ms 
+ 768  track-result             3857ms 
+ 768  account-orders           2358ms 
+ 768  account-order            2414ms 
+ 768  wishlist                 2415ms 
+ 768  admin-dashboard          2327ms 
+ 768  admin-orders             2338ms 
+ 768  admin-order              2408ms 
+ 768  admin-product            2705ms 
+1280  home                     2904ms 
+1280  styleguide               3842ms 
+1280  not-found                2231ms 
+1280  shop                     2959ms 
+1280  category                 2645ms 
+1280  collection               2739ms 
+1280  search-results           2519ms 
+1280  search-none              2409ms 
+1280  filtered                 2624ms 
+1280  product                  2689ms 
+1280  product-sizes            2677ms 
+1280  product-color            3123ms 
+1280  search-open              2748ms 
+1280  shop-panel               2910ms 
+1280  header-scrolled          3712ms 
+1280  cart-drawer              3378ms 
+1280  cart                     2405ms 
+1280  cart-drawer-live         3333ms 
+1280  checkout                 2501ms 
+1280  checkout-filled          5521ms 
+1280  checkout-signed-in       2569ms 
+1280  order-confirmed          2366ms 
+1280  track-order              2101ms 
+1280  track-result             3884ms 
+1280  sign-in                  2093ms 
+1280  account-orders           2385ms 
+1280  account-order            2458ms 
+1280  review-dialog            2859ms 
+1280  addresses                2335ms 
+1280  profile                  2312ms 
+1280  wishlist                 2445ms 
+1280  admin-two-step           2435ms 
+1280  admin-dashboard          2348ms 
+1280  admin-orders             2345ms 
+1280  admin-order              2403ms 
+1280  admin-status-dialog      2811ms 
+1280  admin-invoice            2286ms 
+1280  admin-label              2205ms 
+1280  admin-products           2531ms 
+1280  admin-product            2799ms 
+1280  admin-categories         2461ms 
+1280  admin-inventory          2851ms 
+1280  admin-coupons            2278ms 
+1280  admin-customers          2311ms 
+1280  admin-shipping           2334ms 
+1280  admin-reviews            2235ms 
+1280  admin-messages           2309ms 
+1280  admin-settings           2377ms 
+1280  admin-homepage           3471ms 
+1280  admin-activity           2243ms 

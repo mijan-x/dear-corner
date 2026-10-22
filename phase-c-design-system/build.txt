@@ -1,0 +1,38 @@
+
+> dear-corner@0.1.0 build
+> tsc -b && vite build
+
+[36mvite v8.3.4 [32mbuilding client environment for production...[36m[39m
+transforming...
+✓ 2061 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/assets/dc-figures-400-Crc9bxru.woff                                    1.90 kB
+dist/assets/dc-figures-700-CZpy8wYQ.woff                                    1.90 kB
+dist/assets/dc-figures-600-3Hkm73zM.woff                                    1.91 kB
+dist/assets/dc-figures-500-CHNOu952.woff                                    1.92 kB
+dist/assets/dear-corner_monogram-simple_rosewood-00KLU9Wn.svg               2.29 kB │ gzip:   0.94 kB
+dist/index.html                                                             2.84 kB │ gzip:   1.00 kB
+dist/assets/dear-corner_monogram_cream-CD2A35Kc.svg                         3.51 kB │ gzip:   1.37 kB
+dist/assets/dear-corner_monogram_rosewood-DU8khOsL.svg                      3.51 kB │ gzip:   1.37 kB
+dist/assets/dear-corner_wordmark-compact_cream-BE6DICae.svg                 5.47 kB │ gzip:   2.30 kB
+dist/assets/dear-corner_wordmark-compact_rosewood-Bf5uODs_.svg              5.47 kB │ gzip:   2.30 kB
+dist/assets/dear-corner_primary-horizontal_rosewood-vwtRAChe.svg           12.93 kB │ gzip:   3.58 kB
+dist/assets/dear-corner_primary-stacked_rosewood-B58ibyhJ.svg              13.14 kB │ gzip:   3.61 kB
+dist/assets/dm-sans-latin-600-normal-Aqo67rzb.woff2                        14.14 kB
+dist/assets/dm-sans-latin-400-normal-CW0RaeGs.woff2                        14.20 kB
+dist/assets/dm-sans-latin-500-normal-B9HHJjqV.woff2                        14.30 kB
+dist/assets/dm-sans-latin-700-normal-DvUfVpUG.woff2                        14.34 kB
+dist/assets/fraunces-latin-600-normal-BFCDtZfi.woff2                       18.09 kB
+dist/assets/dear-corner_primary-horizontal-tagline_cream-BpMy8Gki.svg      18.26 kB │ gzip:   5.48 kB
+dist/assets/dear-corner_primary-horizontal-tagline_rosewood-BF7pCpZm.svg   18.27 kB │ gzip:   5.48 kB
+dist/assets/fraunces-latin-600-italic-O70d2LGK.woff2                       23.03 kB
+dist/assets/hind-siliguri-bengali-400-normal-rHQ7AW0H.woff2                71.07 kB
+dist/assets/hind-siliguri-bengali-600-normal-DLZF4s8q.woff2                74.78 kB
+dist/assets/index-CgqKFpcF.css                                             69.01 kB │ gzip:  14.53 kB
+dist/assets/NotFoundPage-Dx-qIORx.js                                        0.78 kB │ gzip:   0.43 kB
+dist/assets/StyleguidePage-D9aNZfxZ.js                                     70.72 kB │ gzip:  20.77 kB
+dist/assets/dist-DUv6x2D9.js                                              214.40 kB │ gzip:  55.16 kB
+dist/assets/index-q54sqo0B.js                                             372.40 kB │ gzip: 117.46 kB
+
+[32m✓ built in 448ms[39m

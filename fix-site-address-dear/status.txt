@@ -1,0 +1,10 @@
+branch=fix-site-address-dear
+sha=ba2116c10566ff8c6420687472e21c6239ea977e
+install=success
+format=failure
+lint=success
+build=success
+db_tests=success
+screenshots=success
+flow_checks=success
+finished=2026-10-21T18:56:24Z

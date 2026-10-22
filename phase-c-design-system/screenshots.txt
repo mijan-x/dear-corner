@@ -1,0 +1,19 @@
+ 360  home                     1911ms 
+ 360  styleguide               3465ms 
+ 360  not-found                1880ms 
+ 360  menu-open                2352ms 
+ 360  search-open              2316ms 
+ 360  header-scrolled          3585ms 
+ 360  cart-drawer              3288ms 
+ 768  home                     1901ms 
+ 768  styleguide               3576ms 
+ 768  not-found                1900ms 
+ 768  menu-open                2333ms 
+ 768  search-open              2329ms 
+1280  home                     1958ms 
+1280  styleguide               3770ms 
+1280  not-found                1929ms 
+1280  search-open              2355ms 
+1280  shop-panel               2464ms 
+1280  header-scrolled          3606ms 
+1280  cart-drawer              3325ms 

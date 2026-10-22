@@ -1,0 +1,1242 @@
+[
+  {
+    "route": "/",
+    "name": "home",
+    "viewport": "360",
+    "file": "home-360.png",
+    "ms": 2691,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/styleguide",
+    "name": "styleguide",
+    "viewport": "360",
+    "file": "styleguide-360.png",
+    "ms": 3508,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/this-page-does-not-exist",
+    "name": "not-found",
+    "viewport": "360",
+    "file": "not-found-360.png",
+    "ms": 2172,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/shop",
+    "name": "shop",
+    "viewport": "360",
+    "file": "shop-360.png",
+    "ms": 2684,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/shop/lighting",
+    "name": "category",
+    "viewport": "360",
+    "file": "category-360.png",
+    "ms": 2483,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/collections/new-arrivals",
+    "name": "collection",
+    "viewport": "360",
+    "file": "collection-360.png",
+    "ms": 2444,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/search?q=lamp",
+    "name": "search-results",
+    "viewport": "360",
+    "file": "search-results-360.png",
+    "ms": 2359,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/search?q=sofa",
+    "name": "search-none",
+    "viewport": "360",
+    "file": "search-none-360.png",
+    "ms": 2306,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/shop?color=Sage&sort=price_desc",
+    "name": "filtered",
+    "viewport": "360",
+    "file": "filtered-360.png",
+    "ms": 2411,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/products/sample-pleated-table-lamp",
+    "name": "product",
+    "viewport": "360",
+    "file": "product-360.png",
+    "ms": 2661,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/products/sample-linen-photo-frame",
+    "name": "product-sizes",
+    "viewport": "360",
+    "file": "product-sizes-360.png",
+    "ms": 2505,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/products/sample-mushroom-night-lamp",
+    "name": "product-sold-out",
+    "viewport": "360",
+    "file": "product-sold-out-360.png",
+    "ms": 2478,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/shop",
+    "name": "filter-sheet",
+    "viewport": "360",
+    "file": "filter-sheet-360.png",
+    "ms": 3002,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/shop",
+    "name": "sort-sheet",
+    "viewport": "360",
+    "file": "sort-sheet-360.png",
+    "ms": 2953,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/",
+    "name": "menu-open",
+    "viewport": "360",
+    "file": "menu-open-360.png",
+    "ms": 2631,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/",
+    "name": "search-open",
+    "viewport": "360",
+    "file": "search-open-360.png",
+    "ms": 2653,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/styleguide",
+    "name": "header-scrolled",
+    "viewport": "360",
+    "file": "header-scrolled-360.png",
+    "ms": 3610,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/styleguide",
+    "name": "cart-drawer",
+    "viewport": "360",
+    "file": "cart-drawer-360.png",
+    "ms": 3331,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/cart",
+    "name": "cart",
+    "viewport": "360",
+    "file": "cart-360.png",
+    "ms": 2315,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/cart",
+    "name": "cart-empty",
+    "viewport": "360",
+    "file": "cart-empty-360.png",
+    "ms": 1982,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/products/sample-bubble-candle-set-of-2",
+    "name": "cart-drawer-live",
+    "viewport": "360",
+    "file": "cart-drawer-live-360.png",
+    "ms": 3232,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/checkout",
+    "name": "checkout",
+    "viewport": "360",
+    "file": "checkout-360.png",
+    "ms": 2430,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/checkout",
+    "name": "checkout-filled",
+    "viewport": "360",
+    "file": "checkout-filled-360.png",
+    "ms": 5440,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/checkout",
+    "name": "checkout-errors",
+    "viewport": "360",
+    "file": "checkout-errors-360.png",
+    "ms": 2979,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/order-confirmed/{order}",
+    "name": "order-confirmed",
+    "viewport": "360",
+    "file": "order-confirmed-360.png",
+    "ms": 2341,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/track-order",
+    "name": "track-order",
+    "viewport": "360",
+    "file": "track-order-360.png",
+    "ms": 2015,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/track-order?order={order}",
+    "name": "track-result",
+    "viewport": "360",
+    "file": "track-result-360.png",
+    "ms": 3814,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/account/sign-in",
+    "name": "sign-in",
+    "viewport": "360",
+    "file": "sign-in-360.png",
+    "ms": 1980,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/account/sign-in",
+    "name": "sign-in-code",
+    "viewport": "360",
+    "file": "sign-in-code-360.png",
+    "ms": 3255,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/account",
+    "name": "account-orders",
+    "viewport": "360",
+    "file": "account-orders-360.png",
+    "ms": 2296,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/account/orders/{delivered}",
+    "name": "account-order",
+    "viewport": "360",
+    "file": "account-order-360.png",
+    "ms": 2402,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/account/orders/{delivered}",
+    "name": "review-dialog",
+    "viewport": "360",
+    "file": "review-dialog-360.png",
+    "ms": 2853,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/account/addresses",
+    "name": "addresses",
+    "viewport": "360",
+    "file": "addresses-360.png",
+    "ms": 2295,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/account/addresses",
+    "name": "address-dialog",
+    "viewport": "360",
+    "file": "address-dialog-360.png",
+    "ms": 2922,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/account/profile",
+    "name": "profile",
+    "viewport": "360",
+    "file": "profile-360.png",
+    "ms": 2241,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/account/wishlist",
+    "name": "wishlist",
+    "viewport": "360",
+    "file": "wishlist-360.png",
+    "ms": 2360,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin",
+    "name": "admin-two-step",
+    "viewport": "360",
+    "file": "admin-two-step-360.png",
+    "ms": 2420,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin",
+    "name": "admin-dashboard",
+    "viewport": "360",
+    "file": "admin-dashboard-360.png",
+    "ms": 2293,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin",
+    "name": "admin-menu",
+    "viewport": "360",
+    "file": "admin-menu-360.png",
+    "ms": 2742,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin/orders",
+    "name": "admin-orders",
+    "viewport": "360",
+    "file": "admin-orders-360.png",
+    "ms": 2295,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin/orders/{orderId}",
+    "name": "admin-order",
+    "viewport": "360",
+    "file": "admin-order-360.png",
+    "ms": 2365,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin/products",
+    "name": "admin-products",
+    "viewport": "360",
+    "file": "admin-products-360.png",
+    "ms": 2428,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin/products/{productId}",
+    "name": "admin-product",
+    "viewport": "360",
+    "file": "admin-product-360.png",
+    "ms": 2606,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin/products/categories",
+    "name": "admin-categories",
+    "viewport": "360",
+    "file": "admin-categories-360.png",
+    "ms": 2356,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin/inventory",
+    "name": "admin-inventory",
+    "viewport": "360",
+    "file": "admin-inventory-360.png",
+    "ms": 2677,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin/coupons",
+    "name": "admin-coupons",
+    "viewport": "360",
+    "file": "admin-coupons-360.png",
+    "ms": 2216,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin/coupons",
+    "name": "admin-coupon-dialog",
+    "viewport": "360",
+    "file": "admin-coupon-dialog-360.png",
+    "ms": 2825,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin/customers",
+    "name": "admin-customers",
+    "viewport": "360",
+    "file": "admin-customers-360.png",
+    "ms": 2285,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin/shipping",
+    "name": "admin-shipping",
+    "viewport": "360",
+    "file": "admin-shipping-360.png",
+    "ms": 2312,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin/messages",
+    "name": "admin-messages",
+    "viewport": "360",
+    "file": "admin-messages-360.png",
+    "ms": 2266,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin/settings",
+    "name": "admin-settings",
+    "viewport": "360",
+    "file": "admin-settings-360.png",
+    "ms": 2309,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/",
+    "name": "home",
+    "viewport": "768",
+    "file": "home-768.png",
+    "ms": 2724,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/styleguide",
+    "name": "styleguide",
+    "viewport": "768",
+    "file": "styleguide-768.png",
+    "ms": 3623,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/this-page-does-not-exist",
+    "name": "not-found",
+    "viewport": "768",
+    "file": "not-found-768.png",
+    "ms": 2190,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/shop",
+    "name": "shop",
+    "viewport": "768",
+    "file": "shop-768.png",
+    "ms": 2721,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/shop/lighting",
+    "name": "category",
+    "viewport": "768",
+    "file": "category-768.png",
+    "ms": 2496,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/collections/new-arrivals",
+    "name": "collection",
+    "viewport": "768",
+    "file": "collection-768.png",
+    "ms": 2519,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/search?q=lamp",
+    "name": "search-results",
+    "viewport": "768",
+    "file": "search-results-768.png",
+    "ms": 2389,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/products/sample-pleated-table-lamp",
+    "name": "product",
+    "viewport": "768",
+    "file": "product-768.png",
+    "ms": 2747,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/shop",
+    "name": "filter-sheet",
+    "viewport": "768",
+    "file": "filter-sheet-768.png",
+    "ms": 3045,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/",
+    "name": "menu-open",
+    "viewport": "768",
+    "file": "menu-open-768.png",
+    "ms": 2699,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/",
+    "name": "search-open",
+    "viewport": "768",
+    "file": "search-open-768.png",
+    "ms": 2663,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/cart",
+    "name": "cart",
+    "viewport": "768",
+    "file": "cart-768.png",
+    "ms": 2371,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/checkout",
+    "name": "checkout",
+    "viewport": "768",
+    "file": "checkout-768.png",
+    "ms": 2482,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/checkout",
+    "name": "checkout-signed-in",
+    "viewport": "768",
+    "file": "checkout-signed-in-768.png",
+    "ms": 2544,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/order-confirmed/{order}",
+    "name": "order-confirmed",
+    "viewport": "768",
+    "file": "order-confirmed-768.png",
+    "ms": 2321,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/track-order?order={order}",
+    "name": "track-result",
+    "viewport": "768",
+    "file": "track-result-768.png",
+    "ms": 3831,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/account",
+    "name": "account-orders",
+    "viewport": "768",
+    "file": "account-orders-768.png",
+    "ms": 2344,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/account/orders/{delivered}",
+    "name": "account-order",
+    "viewport": "768",
+    "file": "account-order-768.png",
+    "ms": 2402,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/account/wishlist",
+    "name": "wishlist",
+    "viewport": "768",
+    "file": "wishlist-768.png",
+    "ms": 2406,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin",
+    "name": "admin-dashboard",
+    "viewport": "768",
+    "file": "admin-dashboard-768.png",
+    "ms": 2328,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin/orders",
+    "name": "admin-orders",
+    "viewport": "768",
+    "file": "admin-orders-768.png",
+    "ms": 2305,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin/orders/{orderId}",
+    "name": "admin-order",
+    "viewport": "768",
+    "file": "admin-order-768.png",
+    "ms": 2400,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin/products/{productId}",
+    "name": "admin-product",
+    "viewport": "768",
+    "file": "admin-product-768.png",
+    "ms": 2657,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/",
+    "name": "home",
+    "viewport": "1280",
+    "file": "home-1280.png",
+    "ms": 2900,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/styleguide",
+    "name": "styleguide",
+    "viewport": "1280",
+    "file": "styleguide-1280.png",
+    "ms": 3766,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/this-page-does-not-exist",
+    "name": "not-found",
+    "viewport": "1280",
+    "file": "not-found-1280.png",
+    "ms": 2202,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/shop",
+    "name": "shop",
+    "viewport": "1280",
+    "file": "shop-1280.png",
+    "ms": 2929,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/shop/lighting",
+    "name": "category",
+    "viewport": "1280",
+    "file": "category-1280.png",
+    "ms": 2626,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/collections/new-arrivals",
+    "name": "collection",
+    "viewport": "1280",
+    "file": "collection-1280.png",
+    "ms": 2701,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/search?q=lamp",
+    "name": "search-results",
+    "viewport": "1280",
+    "file": "search-results-1280.png",
+    "ms": 2497,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/search?q=sofa",
+    "name": "search-none",
+    "viewport": "1280",
+    "file": "search-none-1280.png",
+    "ms": 2383,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/shop?color=Sage&sort=price_desc",
+    "name": "filtered",
+    "viewport": "1280",
+    "file": "filtered-1280.png",
+    "ms": 2618,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/products/sample-pleated-table-lamp",
+    "name": "product",
+    "viewport": "1280",
+    "file": "product-1280.png",
+    "ms": 2708,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/products/sample-linen-photo-frame",
+    "name": "product-sizes",
+    "viewport": "1280",
+    "file": "product-sizes-1280.png",
+    "ms": 2665,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/products/sample-ribbed-ceramic-bud-vase",
+    "name": "product-color",
+    "viewport": "1280",
+    "file": "product-color-1280.png",
+    "ms": 3110,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/",
+    "name": "search-open",
+    "viewport": "1280",
+    "file": "search-open-1280.png",
+    "ms": 2717,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/",
+    "name": "shop-panel",
+    "viewport": "1280",
+    "file": "shop-panel-1280.png",
+    "ms": 2878,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/styleguide",
+    "name": "header-scrolled",
+    "viewport": "1280",
+    "file": "header-scrolled-1280.png",
+    "ms": 3636,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/styleguide",
+    "name": "cart-drawer",
+    "viewport": "1280",
+    "file": "cart-drawer-1280.png",
+    "ms": 3355,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/cart",
+    "name": "cart",
+    "viewport": "1280",
+    "file": "cart-1280.png",
+    "ms": 2408,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/products/sample-bubble-candle-set-of-2",
+    "name": "cart-drawer-live",
+    "viewport": "1280",
+    "file": "cart-drawer-live-1280.png",
+    "ms": 3352,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/checkout",
+    "name": "checkout",
+    "viewport": "1280",
+    "file": "checkout-1280.png",
+    "ms": 2495,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/checkout",
+    "name": "checkout-filled",
+    "viewport": "1280",
+    "file": "checkout-filled-1280.png",
+    "ms": 5512,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/checkout",
+    "name": "checkout-signed-in",
+    "viewport": "1280",
+    "file": "checkout-signed-in-1280.png",
+    "ms": 2547,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/order-confirmed/{order}",
+    "name": "order-confirmed",
+    "viewport": "1280",
+    "file": "order-confirmed-1280.png",
+    "ms": 2366,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/track-order",
+    "name": "track-order",
+    "viewport": "1280",
+    "file": "track-order-1280.png",
+    "ms": 2095,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/track-order?order={order}",
+    "name": "track-result",
+    "viewport": "1280",
+    "file": "track-result-1280.png",
+    "ms": 3869,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/account/sign-in",
+    "name": "sign-in",
+    "viewport": "1280",
+    "file": "sign-in-1280.png",
+    "ms": 2087,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/account",
+    "name": "account-orders",
+    "viewport": "1280",
+    "file": "account-orders-1280.png",
+    "ms": 2364,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/account/orders/{delivered}",
+    "name": "account-order",
+    "viewport": "1280",
+    "file": "account-order-1280.png",
+    "ms": 2446,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/account/orders/{delivered}",
+    "name": "review-dialog",
+    "viewport": "1280",
+    "file": "review-dialog-1280.png",
+    "ms": 2855,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/account/addresses",
+    "name": "addresses",
+    "viewport": "1280",
+    "file": "addresses-1280.png",
+    "ms": 2327,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/account/profile",
+    "name": "profile",
+    "viewport": "1280",
+    "file": "profile-1280.png",
+    "ms": 2285,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/account/wishlist",
+    "name": "wishlist",
+    "viewport": "1280",
+    "file": "wishlist-1280.png",
+    "ms": 2442,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin",
+    "name": "admin-two-step",
+    "viewport": "1280",
+    "file": "admin-two-step-1280.png",
+    "ms": 2409,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin",
+    "name": "admin-dashboard",
+    "viewport": "1280",
+    "file": "admin-dashboard-1280.png",
+    "ms": 2333,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin/orders",
+    "name": "admin-orders",
+    "viewport": "1280",
+    "file": "admin-orders-1280.png",
+    "ms": 2336,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin/orders/{orderId}",
+    "name": "admin-order",
+    "viewport": "1280",
+    "file": "admin-order-1280.png",
+    "ms": 2388,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin/orders/{orderId}",
+    "name": "admin-status-dialog",
+    "viewport": "1280",
+    "file": "admin-status-dialog-1280.png",
+    "ms": 2788,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin/print/{orderId}?doc=invoice",
+    "name": "admin-invoice",
+    "viewport": "1280",
+    "file": "admin-invoice-1280.png",
+    "ms": 2282,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin/print/{orderId}?doc=label",
+    "name": "admin-label",
+    "viewport": "1280",
+    "file": "admin-label-1280.png",
+    "ms": 2197,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin/products",
+    "name": "admin-products",
+    "viewport": "1280",
+    "file": "admin-products-1280.png",
+    "ms": 2501,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin/products/{productId}",
+    "name": "admin-product",
+    "viewport": "1280",
+    "file": "admin-product-1280.png",
+    "ms": 2746,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin/products/categories",
+    "name": "admin-categories",
+    "viewport": "1280",
+    "file": "admin-categories-1280.png",
+    "ms": 2458,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin/inventory",
+    "name": "admin-inventory",
+    "viewport": "1280",
+    "file": "admin-inventory-1280.png",
+    "ms": 2823,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin/coupons",
+    "name": "admin-coupons",
+    "viewport": "1280",
+    "file": "admin-coupons-1280.png",
+    "ms": 2275,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin/customers",
+    "name": "admin-customers",
+    "viewport": "1280",
+    "file": "admin-customers-1280.png",
+    "ms": 2285,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin/shipping",
+    "name": "admin-shipping",
+    "viewport": "1280",
+    "file": "admin-shipping-1280.png",
+    "ms": 2314,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin/reviews",
+    "name": "admin-reviews",
+    "viewport": "1280",
+    "file": "admin-reviews-1280.png",
+    "ms": 2232,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin/messages",
+    "name": "admin-messages",
+    "viewport": "1280",
+    "file": "admin-messages-1280.png",
+    "ms": 2280,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin/settings",
+    "name": "admin-settings",
+    "viewport": "1280",
+    "file": "admin-settings-1280.png",
+    "ms": 2388,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin/settings",
+    "name": "admin-homepage",
+    "viewport": "1280",
+    "file": "admin-homepage-1280.png",
+    "ms": 3451,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/admin/activity",
+    "name": "admin-activity",
+    "viewport": "1280",
+    "file": "admin-activity-1280.png",
+    "ms": 2248,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  }
+]

@@ -1,0 +1,10 @@
+branch=main
+sha=4a639fdbc0258ffa7b344f823f00e93a73153afa
+install=success
+format=success
+lint=success
+build=success
+db_tests=success
+screenshots=success
+flow_checks=success
+finished=2026-10-22T17:53:06Z

@@ -1,0 +1,8 @@
+branch=phase-a-setup
+sha=a5bc0bbdb8df38cb6378a2fe4f31944f9b65eca8
+install=success
+format=success
+lint=success
+build=success
+screenshots=success
+finished=2026-10-20T16:51:44Z

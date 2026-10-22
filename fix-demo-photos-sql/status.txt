@@ -1,0 +1,9 @@
+branch=fix-demo-photos-sql
+sha=ae5954d14fb685673a9327d7366a4d594be4790a
+install=success
+format=success
+lint=success
+build=success
+db_tests=success
+screenshots=success
+finished=2026-10-21T05:24:58Z

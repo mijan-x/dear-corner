@@ -1,0 +1,10 @@
+branch=phase-g-perf
+sha=9e08001b19b1bb826c0d7d608e586b93554ca326
+install=success
+format=success
+lint=success
+build=success
+db_tests=success
+screenshots=success
+flow_checks=success
+finished=2026-10-22T07:27:54Z

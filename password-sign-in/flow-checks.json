@@ -1,0 +1,462 @@
+[
+  {
+    "name": "add to cart opens the cart drawer",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "drawer shows the item",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "drawer has Checkout",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "badge count is 1",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "cart page heading",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "quantity goes up",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "coupon applies",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "checkout heading",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "cash on delivery selected",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "empty form shows errors",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "focus moves to the first error",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "short phone is rejected",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "delivery zone shows",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "button shows the real total",
+    "ok": true,
+    "detail": "Place order · ৳3,402"
+  },
+  {
+    "name": "order number format",
+    "ok": true,
+    "detail": "DC-10001"
+  },
+  {
+    "name": "thank-you message",
+    "ok": true,
+    "detail": "Thank you, Rima!"
+  },
+  {
+    "name": "owner's message",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "cart is empty after ordering",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "coupon is cleared",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "server totals: 2 lamps, 10% off, free delivery",
+    "ok": true,
+    "detail": "{\"fee\": 0, \"total\": 3402, \"coupon\": \"HELLO10\", \"discount\": 378}"
+  },
+  {
+    "name": "no page errors (guest)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "order number prefilled",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "wrong phone: not found message",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "status timeline shows",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "street address is hidden",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "price change stops the order",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "price change message",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "total updates",
+    "ok": true,
+    "detail": "Place order · ৳580 → Place order · ৳630"
+  },
+  {
+    "name": "order goes through with the new total",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "short password refused",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "password saved",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "no page errors (set password)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "wrong password message",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "signed in with password",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "no page errors (password sign-in)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "account asks to sign in",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "code step",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "wrong code message",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "signed in to orders",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "empty orders",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "profile saved",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "name prefilled from profile",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "save address offered",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "signed-in order placed",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "order belongs to the account",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "order in the list with status",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "address was saved as default",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "saved address preselected",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "no details form with a saved address",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "second address added",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "heart is on",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "wishlist shows the lamp",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "delivered order shows Write a review",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "review needs a rating",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "review sent",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "review waits for approval",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "item says review sent",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "reorder fills the cart and opens it",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "signed out, cart cleared here",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "no page errors (account)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "saved cart comes back after signing in",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "customers can't open the admin",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "admin must turn on two-step login",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "QR code shown",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "wrong code refused",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "dashboard after two-step login",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "dashboard shows waiting orders",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "orders list shows the guest order",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "order search by name",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "order confirmed",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "handed to courier with tracking",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "details can't be edited after hand-over",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "team note saved",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "invoice prints",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "label shows cash to collect",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "CSV export has the orders",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "variants made for each color",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "product saved with 2 variants",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "photo uploaded (resized to WebP)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "product is active",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "stock corrected and logged",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "coupon created",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "delivery fee changed, areas kept",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "review published",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "message marked done",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "announcement saved",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "homepage hero saved",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "category created",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "customers list",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "activity log",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "phone admin menu",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "no page errors (admin)",
+    "ok": true,
+    "detail": ""
+  }
+]

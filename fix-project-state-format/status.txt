@@ -1,0 +1,10 @@
+branch=fix-project-state-format
+sha=dacb81991e78802689c1fe92cf67f8f1831ec4ee
+install=success
+format=success
+lint=success
+build=success
+db_tests=success
+screenshots=success
+flow_checks=success
+finished=2026-10-22T05:19:27Z

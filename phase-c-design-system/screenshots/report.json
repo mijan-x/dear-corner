@@ -1,0 +1,192 @@
+[
+  {
+    "route": "/",
+    "name": "home",
+    "viewport": "360",
+    "file": "home-360.png",
+    "ms": 1911,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/styleguide",
+    "name": "styleguide",
+    "viewport": "360",
+    "file": "styleguide-360.png",
+    "ms": 3465,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/this-page-does-not-exist",
+    "name": "not-found",
+    "viewport": "360",
+    "file": "not-found-360.png",
+    "ms": 1880,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/",
+    "name": "menu-open",
+    "viewport": "360",
+    "file": "menu-open-360.png",
+    "ms": 2352,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/",
+    "name": "search-open",
+    "viewport": "360",
+    "file": "search-open-360.png",
+    "ms": 2316,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/styleguide",
+    "name": "header-scrolled",
+    "viewport": "360",
+    "file": "header-scrolled-360.png",
+    "ms": 3585,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/styleguide",
+    "name": "cart-drawer",
+    "viewport": "360",
+    "file": "cart-drawer-360.png",
+    "ms": 3288,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/",
+    "name": "home",
+    "viewport": "768",
+    "file": "home-768.png",
+    "ms": 1901,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/styleguide",
+    "name": "styleguide",
+    "viewport": "768",
+    "file": "styleguide-768.png",
+    "ms": 3576,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/this-page-does-not-exist",
+    "name": "not-found",
+    "viewport": "768",
+    "file": "not-found-768.png",
+    "ms": 1900,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/",
+    "name": "menu-open",
+    "viewport": "768",
+    "file": "menu-open-768.png",
+    "ms": 2333,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/",
+    "name": "search-open",
+    "viewport": "768",
+    "file": "search-open-768.png",
+    "ms": 2329,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/",
+    "name": "home",
+    "viewport": "1280",
+    "file": "home-1280.png",
+    "ms": 1958,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/styleguide",
+    "name": "styleguide",
+    "viewport": "1280",
+    "file": "styleguide-1280.png",
+    "ms": 3770,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/this-page-does-not-exist",
+    "name": "not-found",
+    "viewport": "1280",
+    "file": "not-found-1280.png",
+    "ms": 1929,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/",
+    "name": "search-open",
+    "viewport": "1280",
+    "file": "search-open-1280.png",
+    "ms": 2355,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/",
+    "name": "shop-panel",
+    "viewport": "1280",
+    "file": "shop-panel-1280.png",
+    "ms": 2464,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/styleguide",
+    "name": "header-scrolled",
+    "viewport": "1280",
+    "file": "header-scrolled-1280.png",
+    "ms": 3606,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  },
+  {
+    "route": "/styleguide",
+    "name": "cart-drawer",
+    "viewport": "1280",
+    "file": "cart-drawer-1280.png",
+    "ms": 3325,
+    "horizontalOverflow": false,
+    "problems": [],
+    "violations": []
+  }
+]

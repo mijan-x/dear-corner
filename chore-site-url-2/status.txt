@@ -1,0 +1,10 @@
+branch=chore-site-url-2
+sha=6fb5fa75a3deeeca239daa608209f30c7925b00e
+install=success
+format=success
+lint=success
+build=success
+db_tests=success
+screenshots=success
+flow_checks=success
+finished=2026-10-21T16:14:00Z

@@ -1,0 +1,88 @@
+screenshots from dist-mock
+Shop data from the local test database (https://mock-project.supabase.co)
+ 360  home                     2679ms 
+ 360  styleguide               3476ms 
+ 360  not-found                2158ms 
+ 360  shop                     2699ms 
+ 360  category                 2516ms 
+ 360  collection               2476ms 
+ 360  search-results           2385ms 
+ 360  search-none              2391ms 
+ 360  filtered                 2533ms 
+ 360  product                  2715ms 
+ 360  product-sizes            2559ms 
+ 360  product-sold-out         2523ms 
+ 360  filter-sheet             3026ms 
+ 360  sort-sheet               2952ms 
+ 360  menu-open                2664ms 
+ 360  search-open              2668ms 
+ 360  header-scrolled          3656ms 
+ 360  cart-drawer              3338ms 
+ 360  cart                     2350ms 
+ 360  cart-empty               1980ms 
+ 360  cart-drawer-live         3265ms 
+ 360  checkout                 2454ms 
+ 360  checkout-filled          5444ms 
+ 360  checkout-errors          2985ms 
+ 360  order-confirmed          2371ms 
+ 360  track-order              2041ms 
+ 360  track-result             3891ms 
+ 360  sign-in                  2032ms 
+ 360  sign-in-code             3271ms 
+ 360  account-orders           2332ms 
+ 360  account-order            2445ms 
+ 360  review-dialog            2866ms 
+ 360  addresses                2312ms 
+ 360  address-dialog           2931ms 
+ 360  profile                  2259ms 
+ 360  wishlist                 2376ms 
+ 768  home                     2805ms 
+ 768  styleguide               3759ms 
+ 768  not-found                2189ms 
+ 768  shop                     2756ms 
+ 768  category                 2535ms 
+ 768  collection               2571ms 
+ 768  search-results           2415ms 
+ 768  product                  2797ms 
+ 768  filter-sheet             3066ms 
+ 768  menu-open                2746ms 
+ 768  search-open              2690ms 
+ 768  cart                     2403ms 
+ 768  checkout                 2514ms 
+ 768  checkout-signed-in       2561ms 
+ 768  order-confirmed          2375ms 
+ 768  track-result             3845ms 
+ 768  account-orders           2390ms 
+ 768  account-order            2449ms 
+ 768  wishlist                 2432ms 
+1280  home                     2971ms 
+1280  styleguide               3889ms 
+1280  not-found                2234ms 
+1280  shop                     2997ms 
+1280  category                 2700ms 
+1280  collection               2733ms 
+1280  search-results           2518ms 
+1280  search-none              2434ms 
+1280  filtered                 2642ms 
+1280  product                  2731ms 
+1280  product-sizes            2691ms 
+1280  product-color            3163ms 
+1280  search-open              2756ms 
+1280  shop-panel               2938ms 
+1280  header-scrolled          3748ms 
+1280  cart-drawer              3404ms 
+1280  cart                     2425ms 
+1280  cart-drawer-live         3345ms 
+1280  checkout                 2503ms 
+1280  checkout-filled          5541ms 
+1280  checkout-signed-in       2612ms 
+1280  order-confirmed          2390ms 
+1280  track-order              2121ms 
+1280  track-result             3904ms 
+1280  sign-in                  2103ms 
+1280  account-orders           2398ms 
+1280  account-order            2455ms 
+1280  review-dialog            2871ms 
+1280  addresses                2355ms 
+1280  profile                  2297ms 
+1280  wishlist                 2456ms 

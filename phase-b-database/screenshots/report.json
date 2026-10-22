@@ -1,0 +1,50 @@
+[
+  {
+    "route": "/",
+    "viewport": "360",
+    "file": "home-360.png",
+    "ms": 1566,
+    "horizontalOverflow": false,
+    "problems": []
+  },
+  {
+    "route": "/this-page-does-not-exist",
+    "viewport": "360",
+    "file": "not-found-360.png",
+    "ms": 1799,
+    "horizontalOverflow": false,
+    "problems": []
+  },
+  {
+    "route": "/",
+    "viewport": "768",
+    "file": "home-768.png",
+    "ms": 1942,
+    "horizontalOverflow": false,
+    "problems": []
+  },
+  {
+    "route": "/this-page-does-not-exist",
+    "viewport": "768",
+    "file": "not-found-768.png",
+    "ms": 1804,
+    "horizontalOverflow": false,
+    "problems": []
+  },
+  {
+    "route": "/",
+    "viewport": "1280",
+    "file": "home-1280.png",
+    "ms": 1685,
+    "horizontalOverflow": false,
+    "problems": []
+  },
+  {
+    "route": "/this-page-does-not-exist",
+    "viewport": "1280",
+    "file": "not-found-1280.png",
+    "ms": 1825,
+    "horizontalOverflow": false,
+    "problems": []
+  }
+]

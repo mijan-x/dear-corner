@@ -1,0 +1,47 @@
+screenshots from dist-mock
+Shop data from the local test database (https://mock-project.supabase.co)
+ 360  home                     2629ms 
+ 360  styleguide               3530ms 
+ 360  not-found                2162ms 
+ 360  shop                     2638ms 
+ 360  category                 2470ms 
+ 360  collection               2455ms 
+ 360  search-results           2366ms 
+ 360  search-none              2299ms 
+ 360  filtered                 2408ms 
+ 360  product                  2524ms 
+ 360  product-sizes            2493ms 
+ 360  product-sold-out         2462ms 
+ 360  filter-sheet             3005ms 
+ 360  sort-sheet               2931ms 
+ 360  menu-open                2646ms 
+ 360  search-open              2626ms 
+ 360  header-scrolled          3628ms 
+ 360  cart-drawer              3307ms 
+ 768  home                     2749ms 
+ 768  styleguide               3641ms 
+ 768  not-found                2175ms 
+ 768  shop                     2730ms 
+ 768  category                 2509ms 
+ 768  collection               2530ms 
+ 768  search-results           2419ms 
+ 768  product                  2761ms 
+ 768  filter-sheet             3037ms 
+ 768  menu-open                2682ms 
+ 768  search-open              2652ms 
+1280  home                     2882ms 
+1280  styleguide               3773ms 
+1280  not-found                2220ms 
+1280  shop                     2964ms 
+1280  category                 2675ms 
+1280  collection               2696ms 
+1280  search-results           2510ms 
+1280  search-none              2417ms 
+1280  filtered                 2606ms 
+1280  product                  2721ms 
+1280  product-sizes            2668ms 
+1280  product-color            3122ms 
+1280  search-open              2734ms 
+1280  shop-panel               2899ms 
+1280  header-scrolled          3661ms 
+1280  cart-drawer              3365ms 
