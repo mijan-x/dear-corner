@@ -23,11 +23,11 @@ Last updated: 2026-10-21 (end of Phase F).
 
 ## Environment variables
 
-| Name                     | Where                             | Notes                                                                            |
-| ------------------------ | --------------------------------- | -------------------------------------------------------------------------------- |
-| `VITE_SUPABASE_URL`      | Vercel (set, Production), CI vars | Project URL above                                                                |
-| `VITE_SUPABASE_ANON_KEY` | Vercel (set, Production), CI vars | Publishable key (`sb_publishable_…`). Public by design; RLS protects data        |
-| `VITE_SITE_URL`          | Vercel (set, Production)          | Absolute URL used in Open Graph tags. Default `https://dearcornerbd.vercel.app`  |
+| Name                     | Where                             | Notes                                                                           |
+| ------------------------ | --------------------------------- | ------------------------------------------------------------------------------- |
+| `VITE_SUPABASE_URL`      | Vercel (set, Production), CI vars | Project URL above                                                               |
+| `VITE_SUPABASE_ANON_KEY` | Vercel (set, Production), CI vars | Publishable key (`sb_publishable_…`). Public by design; RLS protects data       |
+| `VITE_SITE_URL`          | Vercel (set, Production)          | Absolute URL used in Open Graph tags. Default `https://dearcornerbd.vercel.app` |
 
 Never commit real values. `.env.example` lists them. Without the Supabase
 values the site still loads; data calls reject with `SupabaseNotConfiguredError` and the header,
