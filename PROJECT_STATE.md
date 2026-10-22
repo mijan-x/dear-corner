@@ -7,7 +7,7 @@ Stack: Vite 8 + React 19 + TypeScript 6 + Tailwind CSS 4 + React Router 7 +
 Supabase, deployed on Vercel from GitHub (`mijan-x/dear-corner`, branch `main`).
 Reference project (read-only, never changed): `mijan-x/blyver`.
 
-Last updated: 2026-10-22 (Phase G).
+Last updated: 2026-10-22 (end of Phase G).
 
 ## Environments
 
@@ -232,7 +232,7 @@ scripts/build-geo-data.py Builds src/data/bd-geo.json and the geo seed from nuhi
         (announcement, contact, limits, homepage hero / banners / Instagram, newsletter CSV, remove sample
         data), Activity log
   - [x] 86 end-to-end checks (31 for the admin), 124 screenshots (21 admin routes) with no overflow
-- [ ] **Phase G — Content and polish** (branch `phase-g-polish`)
+- [x] **Phase G — Content and polish** (PR #14 `phase-g-polish`, PR #15 `phase-g-perf`)
   - [x] Help and policy pages (`src/pages/info/`, shared layout `src/components/content/ContentPage.tsx`):
         About, Contact (form → `submit_contact_message`, admin → Messages; contact details from admin
         Settings when filled), FAQ (grouped, native details), Delivery (fees and times from the live
@@ -242,6 +242,12 @@ scripts/build-geo-data.py Builds src/data/bd-geo.json and the geo seed from nuhi
   - [x] `/sitemap.xml` (static pages + active categories, collections, products) and robots.txt with
         the Sitemap line; `/order-confirmed/` kept out of search (the old `/order/` rule matched nothing)
   - [x] 103 end-to-end checks (11 new: contact form + help pages); help pages added to the screenshots
+  - [x] Speed: the Supabase client chunk is preloaded with the entry code and the Supabase server is
+        preconnected (`preloadSupabase` in vite.config.ts), so the first data request no longer waits
+        for an extra download and handshake. Hero image and body font were already preloaded
+  - [x] Security header: a Content-Security-Policy that blocks framing, plugins, foreign form posts and
+        http requests (no script rules, so it can't break the shop). Vercel sends HSTS itself
+  - [x] Accessibility: axe finds 0 violations and no horizontal overflow on all 146 screenshots
   - [ ] Owner: review the policy wording (plain-language, not legal advice) and fill contact details in
         admin Settings
 
