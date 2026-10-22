@@ -1,4 +1,9 @@
-import { defineConfig, loadEnv, type Plugin } from "vite";
+import {
+  defineConfig,
+  loadEnv,
+  type HtmlTagDescriptor,
+  type Plugin,
+} from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 
@@ -49,6 +54,50 @@ function robotsTxt(url: string): Plugin {
 }
 
 /**
+ * Every page asks Supabase for data, but the client library is a separate
+ * chunk loaded on first use. Preload it with the entry code and open the
+ * connection to the Supabase server early, so data requests don't wait for
+ * an extra download and handshake.
+ */
+function preloadSupabase(supabaseUrl: string): Plugin {
+  return {
+    name: "dear-corner:preload-supabase",
+    apply: "build",
+    enforce: "post",
+    transformIndexHtml(_html, ctx) {
+      const tags: HtmlTagDescriptor[] = [];
+      const origin = /^https:\/\/[^/]+/.exec(supabaseUrl)?.[0];
+      if (origin) {
+        tags.push({
+          tag: "link",
+          attrs: { rel: "preconnect", href: origin, crossorigin: "" },
+          injectTo: "head-prepend",
+        });
+      }
+      const chunk = Object.values(ctx.bundle ?? {}).find(
+        (item) =>
+          item.type === "chunk" &&
+          item.moduleIds.some((id) =>
+            id.includes("/node_modules/@supabase/supabase-js/"),
+          ),
+      );
+      if (chunk) {
+        tags.push({
+          tag: "link",
+          attrs: {
+            rel: "modulepreload",
+            crossorigin: "",
+            href: `/${chunk.fileName}`,
+          },
+          injectTo: "head",
+        });
+      }
+      return tags;
+    },
+  };
+}
+
+/**
  * Preloads the DM Sans 400 (Latin) font file. Its file name is hashed at build
  * time, so the <link rel="preload"> is injected after bundling.
  */
@@ -89,6 +138,7 @@ export default defineConfig(({ mode }) => {
       siteUrl(env.VITE_SITE_URL || DEFAULT_SITE_URL),
       robotsTxt(env.VITE_SITE_URL || DEFAULT_SITE_URL),
       preloadBodyFont(),
+      preloadSupabase(env.VITE_SUPABASE_URL || ""),
     ],
     define: {
       // The /styleguide page ships everywhere except Vercel production builds.
