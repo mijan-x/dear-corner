@@ -7,7 +7,7 @@ Stack: Vite 8 + React 19 + TypeScript 6 + Tailwind CSS 4 + React Router 7 +
 Supabase, deployed on Vercel from GitHub (`mijan-x/dear-corner`, branch `main`).
 Reference project (read-only, never changed): `mijan-x/blyver`.
 
-Last updated: 2026-10-21 (end of Phase F).
+Last updated: 2026-10-22 (Phase G).
 
 ## Environments
 
@@ -39,8 +39,10 @@ menu and footer fall back to built-in defaults. Vercel's build-time `VERCEL_ENV`
 ```
 .github/workflows/ci.yml  CI: install, format check, lint, build, screenshots (see "CI" below)
 index.html                App shell: title, meta, Open Graph, favicons, manifest
-vercel.json               SPA rewrite to /index.html, cache + security headers
-public/                   favicon set, app icons, site.webmanifest, og-image.png, robots.txt
+vercel.json               /sitemap.xml → api/sitemap, SPA rewrite to /index.html, cache + security headers
+api/sitemap.js            Vercel function: sitemap from the live catalog (anon key), cached 1 hour
+public/                   favicon set, app icons, site.webmanifest, og-image.png (robots.txt is
+                          written at build time by vite.config.ts with the Sitemap line)
   samples/                Demo photos (WebP): products/, categories/, home/. Replace before launch
 scripts/
   screenshots.mjs         Playwright: screenshots at 360/768/1280 (pages and opened menus/dialogs),
@@ -230,7 +232,18 @@ scripts/build-geo-data.py Builds src/data/bd-geo.json and the geo seed from nuhi
         (announcement, contact, limits, homepage hero / banners / Instagram, newsletter CSV, remove sample
         data), Activity log
   - [x] 86 end-to-end checks (31 for the admin), 124 screenshots (21 admin routes) with no overflow
-- [ ] **Phase G — Content and polish**: About, Contact, FAQ, policies, performance and accessibility passes
+- [ ] **Phase G — Content and polish** (branch `phase-g-polish`)
+  - [x] Help and policy pages (`src/pages/info/`, shared layout `src/components/content/ContentPage.tsx`):
+        About, Contact (form → `submit_contact_message`, admin → Messages; contact details from admin
+        Settings when filled), FAQ (grouped, native details), Delivery (fees and times from the live
+        shipping zones and free-delivery threshold), Exchange and returns (owner's rules, 22 Oct), Privacy,
+        Terms. Footer Help links now all work; "About Dear Corner" added
+  - [x] 404: search box and category chips
+  - [x] `/sitemap.xml` (static pages + active categories, collections, products) and robots.txt with
+        the Sitemap line; `/order-confirmed/` kept out of search (the old `/order/` rule matched nothing)
+  - [x] 103 end-to-end checks (11 new: contact form + help pages); help pages added to the screenshots
+  - [ ] Owner: review the policy wording (plain-language, not legal advice) and fill contact details in
+        admin Settings
 
 ## Design tokens (summary — full list in `src/index.css`)
 
@@ -333,8 +346,8 @@ night-plum (use cream).
 
 ## Open decisions / [TO CONFIRM]
 
-- Fault found after delivery (for example a lamp that won't light): what happens?
-- Is the delivery charge waived when the item is wrong or damaged at the door?
+- Decided 22 Oct: faults found after delivery are reported within 24 hours with photos and replaced (or
+  refunded if out of stock); no delivery charge for wrong or damaged items.
 - Contact phone, email, address, opening hours, reply time, social links (owner will send).
 - Native Bangla speaker to approve every Bangla line before launch.
 - Vercel Hobby is non-commercial only; move to Pro before taking real orders.

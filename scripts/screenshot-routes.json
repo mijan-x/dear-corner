@@ -30,6 +30,76 @@
       "path": "/this-page-does-not-exist"
     },
     {
+      "name": "about",
+      "path": "/about"
+    },
+    {
+      "name": "contact",
+      "path": "/contact"
+    },
+    {
+      "name": "contact-errors",
+      "path": "/contact",
+      "viewports": ["360"],
+      "actions": [
+        {
+          "click": "main button:has-text('Send message')",
+          "wait": 600
+        }
+      ]
+    },
+    {
+      "name": "contact-sent",
+      "path": "/contact",
+      "viewports": ["360", "1280"],
+      "actions": [
+        {
+          "fill": "#contact-name",
+          "value": "Rima Akter"
+        },
+        {
+          "fill": "#contact-phone",
+          "value": "01712345678"
+        },
+        {
+          "fill": "#contact-message",
+          "value": "Is the pleated lamp available in sage?"
+        },
+        {
+          "click": "main button:has-text('Send message')",
+          "wait": 1200
+        }
+      ]
+    },
+    {
+      "name": "faq",
+      "path": "/faq",
+      "actions": [
+        {
+          "click": "main details summary",
+          "wait": 500
+        }
+      ]
+    },
+    {
+      "name": "delivery",
+      "path": "/delivery"
+    },
+    {
+      "name": "returns",
+      "path": "/exchange-and-returns"
+    },
+    {
+      "name": "privacy",
+      "path": "/privacy",
+      "viewports": ["360", "1280"]
+    },
+    {
+      "name": "terms",
+      "path": "/terms",
+      "viewports": ["360", "1280"]
+    },
+    {
       "name": "shop",
       "path": "/shop"
     },

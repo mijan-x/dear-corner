@@ -21,6 +21,13 @@ const OrderDetailPage = lazy(() => import("./pages/account/OrderDetailPage"));
 const AddressesPage = lazy(() => import("./pages/account/AddressesPage"));
 const ProfilePage = lazy(() => import("./pages/account/ProfilePage"));
 const WishlistPage = lazy(() => import("./pages/account/WishlistPage"));
+const AboutPage = lazy(() => import("./pages/info/AboutPage"));
+const ContactPage = lazy(() => import("./pages/info/ContactPage"));
+const FaqPage = lazy(() => import("./pages/info/FaqPage"));
+const DeliveryPage = lazy(() => import("./pages/info/DeliveryPage"));
+const ReturnsPage = lazy(() => import("./pages/info/ReturnsPage"));
+const PrivacyPage = lazy(() => import("./pages/info/PrivacyPage"));
+const TermsPage = lazy(() => import("./pages/info/TermsPage"));
 
 // Admin: its own chunks, loaded only by the shop team.
 const AdminLayout = lazy(() => import("./layouts/AdminLayout"));
@@ -167,6 +174,13 @@ const router = createBrowserRouter([
               { path: "wishlist", element: <WishlistPage /> },
             ],
           },
+          { path: "about", element: <AboutPage /> },
+          { path: "contact", element: <ContactPage /> },
+          { path: "faq", element: <FaqPage /> },
+          { path: "delivery", element: <DeliveryPage /> },
+          { path: "exchange-and-returns", element: <ReturnsPage /> },
+          { path: "privacy", element: <PrivacyPage /> },
+          { path: "terms", element: <TermsPage /> },
           ...styleguideRoutes,
           { path: "*", element: <NotFoundPage /> },
         ],
