@@ -8,7 +8,7 @@ import { fetchHomeReviews } from "../../services/home";
 
 /**
  * Latest approved reviews from buyers of delivered orders. Rendered only
- * once at least one review is approved (owner decision); nothing is ever
+ * once at least one review is approved; nothing is ever
  * made up to fill it.
  */
 function HomeReviews() {

@@ -114,7 +114,7 @@ function contactLines(settings: ShopSettings) {
  * Footer (brand doc section 6): Night Plum with Warm Linen text (16.9:1),
  * the cream logo with tagline, four columns on desktop (brand and social,
  * Shop, Help, contact and hours) and collapsible sections on phones. Contact
- * details appear once the owner fills them in under admin Settings.
+ * details appear once they are filled in under admin Settings.
  */
 function SiteFooter({ className }: { className?: string }) {
   const { settings } = useShopSettings();

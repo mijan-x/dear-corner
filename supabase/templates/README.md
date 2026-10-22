@@ -19,9 +19,9 @@ Both emails must keep `{{ .Token }}` (the code) and `{{ .ConfirmationURL }}`
 
 1. **Send from the shop's Gmail.** Authentication → Emails → SMTP settings →
    turn on custom SMTP:
-   - Sender email: `dearcorner.bd@gmail.com`, sender name: `Dear Corner`
+   - Sender email: `<admin-email>`, sender name: `Dear Corner`
    - Host `smtp.gmail.com`, port `465`
-   - Username `dearcorner.bd@gmail.com`
+   - Username `<admin-email>`
    - Password: a Google **app password**. To get one, turn on 2-Step
      Verification in the Google account, then go to Google Account →
      Security → App passwords. Don't use the normal Gmail password.

@@ -4,7 +4,7 @@ import { dayRange, useShippingZones } from "../../services/shipping";
 import { formatPrice } from "../../utils/formatPrice";
 
 /**
- * The shop's real promises only (owner decisions, 20 Oct 2026): Cash on
+ * The shop's real promises only: Cash on
  * Delivery, the free-delivery threshold and delivery times from the
  * Shipping settings, checking the parcel at the door, and the confirmation
  * call.

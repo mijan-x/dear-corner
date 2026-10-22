@@ -345,7 +345,7 @@ export function OverlayDemo() {
       >
         <div className="p-5 type-body text-soft-ink">
           A bottom sheet 90% high on phones, a 420px panel from 768px. Lines,
-          coupon and totals arrive in Phase E.
+          coupon and totals arrive with checkout.
         </div>
       </Dialog>
 
