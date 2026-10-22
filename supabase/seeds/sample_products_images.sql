@@ -1,8 +1,7 @@
 -- Dear Corner — demo images for the SAMPLE products, the categories and the
 -- homepage (run after sample_products.sql; safe to run again).
 --
--- The files ship with the website under /samples/ (public/samples/, built by
--- bundled demo photos). They are
+-- The files ship with the website under /samples/ (public/samples/). They are
 -- demo images: replace them with real photos before launch. Images the shop
 -- has uploaded are never overwritten: only empty fields and earlier /samples/
 -- paths are touched.
