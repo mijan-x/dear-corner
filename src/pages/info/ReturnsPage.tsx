@@ -9,7 +9,7 @@ import { usePageMeta } from "../../hooks/usePageMeta";
 import { routes } from "../../lib/routes";
 
 /**
- * Exchange and returns. Rules confirmed by the owner (22 Oct 2026): check at
+ * Exchange and returns. Shop rules: check at
  * the door; change of mind = hand it back and pay only delivery; faults found
  * later reported within 24 hours with photos; no delivery charge for wrong or
  * damaged items.

@@ -9,7 +9,7 @@ import { withEmphasis } from "../../utils/emphasis";
 import type { HomeHero } from "../../services/home";
 
 /**
- * Split hero (owner decision): text on the left, the photo on the right with
+ * Split hero: text on the left, the photo on the right with
  * the brand corner. Phones stack the text above a 4:5 crop.
  * Performance: one <picture> with a 2400×1000 desktop WebP and a 1080×1350
  * phone crop, fetched with high priority. The photo itself never animates,

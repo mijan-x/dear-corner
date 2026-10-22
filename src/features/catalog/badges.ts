@@ -12,7 +12,7 @@ export type BadgeKind =
 export type BadgeSpec = { kind: BadgeKind; label: string };
 
 /**
- * Which badges a product card shows (owner decision, 20 Oct 2026):
+ * Which badges a product card shows:
  * priority Sold out, Sale, New, Low stock, Bestseller, Gift; at most two;
  * never Sale and Bestseller together. No sale badge under 5% off.
  */

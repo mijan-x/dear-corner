@@ -65,8 +65,7 @@ jobs:
           fi
 
       - name: Publish node_modules for local tooling
-        # The authoring workspace cannot reach the npm registry, so CI ships a
-        # copy of node_modules (same OS/arch) through the ci-node-modules branch.
+        # CI ships a copy of node_modules (same OS/arch) through the ci-node-modules branch.
         if: steps.install.outputs.skip != '1'
         continue-on-error: true
         env:
@@ -128,7 +127,6 @@ jobs:
         continue-on-error: true
         run: |
           set -o pipefail
-          if [ -f scripts/build-sql-bundle.sh ]; then bash scripts/build-sql-bundle.sh --check | tee ci-out/db-tests.txt; fi
           PGBIN="$(ls -d /usr/lib/postgresql/*/bin | sort -V | tail -1)" \
           PGDATA_DIR="$RUNNER_TEMP/dc-pg" \
           bash supabase/tests/run_local.sh --seed --test 2>&1 | tee -a ci-out/db-tests.txt

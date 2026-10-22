@@ -1,9 +1,8 @@
 -- Dear Corner — demo images for the SAMPLE products, the categories and the
 -- homepage (run after sample_products.sql; safe to run again).
 --
--- The files ship with the website under /samples/ (public/samples/, built by
--- scripts/sample-photos/build.py from photos generated in Canva). They are
--- demo images: replace them with real photos before launch. Images the owner
+-- The files ship with the website under /samples/ (public/samples/). They are
+-- demo images: replace them with real photos before launch. Images the shop
 -- has uploaded are never overwritten: only empty fields and earlier /samples/
 -- paths are touched.
 
@@ -103,7 +102,7 @@ where c.slug = 'gifts-under-999';
 
 -- ---------------------------------------------------------------------------
 -- Homepage: hero photos and the two banners (shape in src/services/home.ts).
--- Text the owner has already set is kept.
+-- Text the shop has already set is kept.
 -- ---------------------------------------------------------------------------
 update public.store_settings s
 set homepage = s.homepage

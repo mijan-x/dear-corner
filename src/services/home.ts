@@ -10,7 +10,7 @@ import { useShopSettings } from "./settings";
 /**
  * Homepage content, stored in store_settings.homepage (admin edits it in
  * Settings). Every field is optional in the database; what's missing comes
- * from the defaults below, so the homepage is complete before the owner
+ * from the defaults below, so the homepage is complete before the shop
  * changes anything. An empty `banners` list hides the banners; the
  * Instagram grid shows only with at least six photos.
  *
@@ -151,7 +151,7 @@ export function toHomepageContent(value: unknown): HomepageContent {
           image_mobile: strOrNull(b.image_mobile, null),
           image_alt: str(b.image_alt, ""),
         }))
-        // Owner decision: a banner shows only when it has an image.
+        // a banner shows only when it has an image.
         .filter((b) => b.title && (b.image_desktop || b.image_mobile))
     : DEFAULT_HOMEPAGE.banners;
 

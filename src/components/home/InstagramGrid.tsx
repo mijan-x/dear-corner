@@ -5,7 +5,7 @@ import type { InstagramPhoto } from "../../services/home";
 
 /**
  * Six photos from the shop's Instagram. Shown only once six photos are set
- * in admin (owner decision); otherwise the section isn't rendered at all.
+ * in admin; otherwise the section isn't rendered at all.
  */
 function InstagramGrid({
   photos,

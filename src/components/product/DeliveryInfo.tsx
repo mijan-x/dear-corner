@@ -4,7 +4,7 @@ import { formatPrice } from "../../utils/formatPrice";
 
 /**
  * Delivery times and fees from the Shipping settings, Cash on Delivery and
- * the at-the-door check (owner decisions). No promises beyond those.
+ * the at-the-door check. No promises beyond those.
  */
 function DeliveryInfo({
   freeDeliveryThreshold,

@@ -1,6 +1,6 @@
 # Dear Corner — database
 
-Supabase project **Dear-Corner-SG** (ref `elyntthbaoczxgjeadft`, Singapore).
+Supabase project for the shop (Singapore region).
 Everything is in SQL migrations in `supabase/migrations/`, applied in file-name order.
 
 ## What's where
@@ -52,13 +52,13 @@ Errors raised for shoppers carry a friendly message and a code in `DETAIL` (`DC_
 ## Make an account an admin
 
 1. Create the account: Supabase dashboard → Authentication → Users → **Add user** → email
-   `dearcorner.bd@gmail.com`, a strong password, tick **Auto Confirm User**. (Or sign up on the site
+   `<admin-email>`, a strong password, tick **Auto Confirm User**. (Or sign up on the site
    once the sign-up page exists.)
 2. Run in the SQL editor:
 
    ```sql
    update public.user_roles set role = 'admin'
-   where user_id = (select id from auth.users where email = 'dearcorner.bd@gmail.com');
+   where user_id = (select id from auth.users where email = '<admin-email>');
    ```
 
 3. Sign in to the site's admin and set up the authenticator app (two-step login) when asked.
