@@ -1,6 +1,7 @@
 name: CI
 
-# Installs, lints, builds and screenshots every pushed branch.
+# Installs, lints, builds and tests every pushed branch. Screenshots and flow
+# checks are skipped when only docs changed.
 # Results (logs + screenshots) are published to the `ci-results` branch under
 # <branch-name>/ so they can be reviewed without downloading artifacts.
 
@@ -133,9 +134,34 @@ jobs:
           bash supabase/tests/run_local.sh --seed --test 2>&1 | tee -a ci-out/db-tests.txt
           ! grep -q "FAIL" ci-out/db-tests.txt
 
+      - name: Detect whether screenshots and flow checks are needed
+        # They take about 8 minutes, so docs-only changes skip them. Compare
+        # with the previous main commit on main, with main on other branches.
+        # Anything unclear (new branch, manual run, fetch error) runs them.
+        id: scope
+        run: |
+          slow=1
+          if [ "${{ github.event_name }}" = "push" ]; then
+            BASE=""
+            if [ "$GITHUB_REF_NAME" = "main" ]; then
+              BASE="${{ github.event.before }}"
+              case "$BASE" in *[!0]*) git fetch -q --depth=1 origin "$BASE" || BASE="" ;; *) BASE="" ;; esac
+            else
+              git fetch -q --depth=1 origin main && BASE="$(git rev-parse FETCH_HEAD)" || BASE=""
+            fi
+            if [ -n "$BASE" ] && FILES="$(git diff --name-only "$BASE" HEAD)"; then
+              echo "$FILES"
+              if ! echo "$FILES" | grep -Eq '^(src/|supabase/|scripts/|public/|index\.html$|package(-lock)?\.json$|vite\.config|tsconfig|tailwind|postcss|\.github/workflows/)'; then
+                slow=0
+              fi
+            fi
+          fi
+          echo "slow=$slow" >> "$GITHUB_OUTPUT"
+          echo "slow checks: $slow"
+
       - name: Screenshots
         id: shots
-        if: steps.install.outputs.skip != '1' && steps.build.outcome == 'success' && hashFiles('scripts/screenshots.mjs') != ''
+        if: steps.install.outputs.skip != '1' && steps.build.outcome == 'success' && steps.scope.outputs.slow == '1' && hashFiles('scripts/screenshots.mjs') != ''
         continue-on-error: true
         run: |
           set -o pipefail
